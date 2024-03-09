@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/JitCars.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
-    <header>
+    @* <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">JitCars</a>
@@ -29,8 +30,52 @@
                 </div>
             </div>
         </nav>
-    </header>
-    <div class="container">
+    </header> *@
+	<div class="container-fluid">
+		<div class="row flex-nowrap">
+			<div class="bg-dark col-auto col-md-2 min-vh-100">
+				<div class="bg-dark p-2">
+					<a class="d-flex text-decoration-none mt-1 align-items-center text-white">
+						<span class="fs-4 d-none d-sm-inline">JitCars</span>
+					</a>
+                    <ul class="nav nav-pills flex-column mt-4">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link text-white">
+                                <i class="bi bi-house-door"></i><span class="fs-4 ms-3 d-none d-sm-inline">Home</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link text-white">
+                                <i class="bi bi-cart2"></i><span class="fs-4 ms-3 d-none d-sm-inline">Vendas</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link text-white">
+                                <i class="bi bi-file-person"></i><span class="fs-4 ms-3 d-none d-sm-inline">Clientes</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link text-white">
+                                <i class="bi bi-box-seam"></i><span class="fs-4 ms-3 d-none d-sm-inline">Estoque</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link text-white">
+                                <i class="bi bi-cash"></i><span class="fs-4 ms-3 d-none d-sm-inline">Financeiro</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link text-white">
+                                <i class="bi bi-people-fill"></i><span class="fs-4 ms-3 d-none d-sm-inline">Funcionário</span>
+                            </a>
+                        </li>
+                    </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
