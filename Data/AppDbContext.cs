@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JitCars.Data
 {
-    public class AppDbContext : IdentityDbContext<IdentityUser>
+    public class AppDbContext : IdentityDbContext<Funcionario>
     {
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
@@ -17,6 +17,8 @@ namespace JitCars.Data
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Endereco> Enderecos { get; set;}
         public DbSet<Telefone> Telefones { get; set; }
+        public DbSet<Venda> Vendas { get; set; }
+        public DbSet<Cargo> Cargos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
