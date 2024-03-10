@@ -1,94 +1,106 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - JitCars</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/JitCars.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - JitCars</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/JitCars.styles.css" asp-append-version="true" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
-    @* <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">JitCars</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header> *@
+	@* <header>
+	<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+	<div class="container-fluid">
+	<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">JitCars</a>
+	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+	aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+	<ul class="navbar-nav flex-grow-1">
+	<li class="nav-item">
+	<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+	</li>
+	<li class="nav-item">
+	<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+	</li>
+	</ul>
+	</div>
+	</div>
+	</nav>
+	</header> *@
 	<div class="container-fluid">
 		<div class="row flex-nowrap">
-			<div class="bg-dark col-auto col-md-2 min-vh-100">
+			<div class="bg-dark col-auto col-md-4 col-lg-3 min-vh-100 d-flex flex-column justify-content-between">
 				<div class="bg-dark p-2">
 					<a class="d-flex text-decoration-none mt-1 align-items-center text-white">
 						<span class="fs-4 d-none d-sm-inline">JitCars</span>
 					</a>
-                    <ul class="nav nav-pills flex-column mt-4">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link text-white">
-                                <i class="bi bi-house-door"></i><span class="fs-4 ms-3 d-none d-sm-inline">Home</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link text-white">
-                                <i class="bi bi-cart2"></i><span class="fs-4 ms-3 d-none d-sm-inline">Vendas</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link text-white">
-                                <i class="bi bi-file-person"></i><span class="fs-4 ms-3 d-none d-sm-inline">Clientes</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link text-white">
-                                <i class="bi bi-box-seam"></i><span class="fs-4 ms-3 d-none d-sm-inline">Estoque</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link text-white">
-                                <i class="bi bi-cash"></i><span class="fs-4 ms-3 d-none d-sm-inline">Financeiro</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link text-white">
-                                <i class="bi bi-people-fill"></i><span class="fs-4 ms-3 d-none d-sm-inline">Funcionário</span>
-                            </a>
-                        </li>
-                    </ul>
+					<ul class="nav nav-pills flex-column mt-4">
+						<li class="nav-item py-2 py-sm-0">
+							<a href="#" class="nav-link text-white">
+								<i class="bi bi-house-door"></i><span class="fs-4 ms-3 d-none d-sm-inline">Home</span>
+							</a>
+						</li>
+						<li class="nav-item py-2 py-sm-0">
+							<a href="#" class="nav-link text-white">
+								<i class="bi bi-cart2"></i><span class="fs-4 ms-3 d-none d-sm-inline">Vendas</span>
+							</a>
+						</li>
+						<li class="nav-item py-2 py-sm-0">
+							<a href="#" class="nav-link text-white">
+								<i class="bi bi-file-person"></i><span class="fs-4 ms-3 d-none d-sm-inline">Clientes</span>
+							</a>
+						</li>
+						<li class="nav-item py-2 py-sm-0">
+							<a href="#" class="nav-link text-white">
+								<i class="bi bi-box-seam"></i><span class="fs-4 ms-3 d-none d-sm-inline">Estoque</span>
+							</a>
+						</li>
+						<li class="nav-item py-2 py-sm-0">
+							<a href="#" class="nav-link text-white">
+								<i class="bi bi-cash"></i><span class="fs-4 ms-3 d-none d-sm-inline">Financeiro</span>
+							</a>
+						</li>
+						<li class="nav-item py-2 py-sm-0">
+							<a href="#" class="nav-link text-white">
+								<i class="bi bi-people-fill"></i><span class="fs-4 ms-3 d-none d-sm-inline">Funcionário</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="dropdown open p-3">
+					<button class="btn border-none dropdown-toggle text-white" type="button" id="triggerId" data-bs-toggle="dropdown" aria-expanded="false">
+						<i class="bi bi-person-fill"></i><span>Usuário</span>
+					</button>
+					<div class="dropdown-menu" aria-labelledby="triggerId">
+						<button class="dropdown-item" href="#">Opções</button>
+						<button class="dropdown-item" href="#">Perfil</button>
+					</div>
 				</div>
 			</div>
+			<!--conteudo vai aqui-->
+			<div class="container">
+				<main role="main" class="pb-3">
+					@RenderBody()
+				</main>
+			</div>
+
 		</div>
 	</div>
 
-	<div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+	
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - JitCars - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+	<footer class="border-top footer text-muted">
+		<div class="container">
+			&copy; 2024 - JitCars - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+		</div>
+	</footer>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
