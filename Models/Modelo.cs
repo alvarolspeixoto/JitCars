@@ -18,10 +18,10 @@ namespace JitCars.Models
         public string? Nome { get; set; }
 
         [Required]
-        public DateTime DataFabricacao { get; set; }
+        public int AnoFabricacao { get; set; }
 
-        [Required(ErrorMessage = "Insira um tipo (Ex.: Hatch, Sedan)")]
+        [Required(ErrorMessage = "Insira um tipo de carroceria (Ex.: Hatch, Sedan)")]
         [StringLength(50)]
-        public string? Tipo { get; set; }
+        public string? Carroceria { get; set; }
     }
 }

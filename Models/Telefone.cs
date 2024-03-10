@@ -13,5 +13,7 @@ namespace JitCars.Models
         public int? ClienteId { get; set; }
         public virtual Cliente? Cliente { get; set; }
 
+        public int? FuncionarioId { get; set; }
+        public virtual Funcionario? Funcionario { get; set; }
     }
 }

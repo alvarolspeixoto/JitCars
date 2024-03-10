@@ -6,6 +6,8 @@ namespace JitCars.Models
     {
         [Key]
         public int Id { get; set; }
+        [Required(ErrorMessage = "Informe o CPF")]
+        public string? Cpf { get; set; }
 
         [Required(ErrorMessage = "Informe o primeiro nome")]
         [StringLength(50)]
@@ -14,6 +16,10 @@ namespace JitCars.Models
         [Required(ErrorMessage = "Informe o sobrenome")]
         [StringLength(50)]
         public string? Sobrenome { get; set; }
+
+        [Required(ErrorMessage = "Informe o e-mail")]
+        [StringLength(50)]
+        public string? Email { get; set; }
 
         [Required(ErrorMessage = "Informe o endereço")]
         public int EnderecoId { get; set; }

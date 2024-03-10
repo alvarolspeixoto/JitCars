@@ -9,7 +9,7 @@ namespace JitCars.Models
 
         [Required(ErrorMessage = "Insira um CEP")]
         [StringLength(8)]
-        public string? CEP { get; set; }
+        public string? Cep { get; set; }
 
         [Required(ErrorMessage = "Insira um estado")]
         [StringLength(20)]
