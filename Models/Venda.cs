@@ -18,7 +18,7 @@ namespace JitCars.Models
 
         [Required(ErrorMessage = "Informe o cliente")]
         public int ClienteId { get; set; }
-        public Cliente? Cliente { get; set; }
+        public virtual Cliente? Cliente { get; set; }
         
     }
 }
