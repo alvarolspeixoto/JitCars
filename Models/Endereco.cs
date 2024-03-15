@@ -13,7 +13,7 @@ namespace JitCars.Models
 
         [Required(ErrorMessage = "Insira um estado")]
         [StringLength(20)]
-        public int? Estado { get; set; }
+        public string? Estado { get; set; }
 
         [Required(ErrorMessage = "Insira uma cidade")]
         [StringLength(30)]
