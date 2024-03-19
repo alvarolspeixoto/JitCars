@@ -1,0 +1,59 @@
+@model IEnumerable<Carro>
+@{
+    ViewData["Title"] = "Carros - Estoque";
+}
+<head> 
+    <link rel="stylesheet" href="Index.cshtml.css">
+</head>
+
+<h1>@ViewData["Title"]</h1>
+
+<p>Veja aqui o estoque da concessionária</p>
+<div class="flex align-content-center justify-content-center">
+    <a class="btn btn-primary mb-3" asp-controller="Carro" asp-action="Create">
+        <i class="bi bi-plus"></i>&nbsp;Adicionar veículo ao estoque
+    </a>
+    @if (Model.Count() == 0)
+    {
+        <div class="d-flex align-items-center justify-content-center border" style="height:200px">
+            <h2 class="text-danger">Não há veículos no estoque.</h2>
+        </div>
+    }
+    else
+    {
+        <ul>
+            @foreach (var carro in Model)
+            {
+                <li>
+                    <div class="card shadow-lg" style="width: 18rem;">
+                        @* Mexer no banco para o modelo ter a url da foto do carro *@
+                        @{
+                            var temFoto = @carro.Modelo.ImagemUrl != null;
+                            var nomeVeiculo = @carro.Modelo.Marca + " " + @carro.Modelo.Nome;
+                            var alt = temFoto ? "Imagem do " + nomeVeiculo : "";
+                        }
+                        <img class="card-img-top" src="@carro.Modelo.ImagemUrl" alt="@alt">
+                        @if (!temFoto) {
+                            <p class="text-danger text-center">
+                                Esse modelo não possui imagem salva
+                            </p>
+                        }
+                        <div class="card-body justify-content-left">
+                            <h5 class="card-title">@nomeVeiculo</h5>
+                            <ul class="mb-2">
+                                <li><strong>Cor:</strong> @carro.Cor</li>
+                                <li><strong>Carroceria:</strong> @carro.Modelo.Carroceria</li>
+                                <span style="color: green; font-size: 2em"><strong> @carro.PrecoVenda.ToString("C")</strong></span>
+
+                            </ul>
+                            @* <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                                card's content.</p> *@
+                            <a asp-action="Details" asp-controller="Carro" asp-route-id="@carro.Id" class="btn btn-primary">Mais informações</a>
+                        </div>
+                    </div>
+                </li>
+            }
+
+        </ul>
+    }
+</div>
