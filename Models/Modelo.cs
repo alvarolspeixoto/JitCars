@@ -23,5 +23,8 @@ namespace JitCars.Models
         [Required(ErrorMessage = "Insira um tipo de carroceria (Ex.: Hatch, Sedan)")]
         [StringLength(50)]
         public string? Carroceria { get; set; }
+
+        [StringLength(255)]
+        public string? ImagemUrl { get; set; }
     }
 }
