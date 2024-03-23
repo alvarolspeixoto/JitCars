@@ -31,5 +31,8 @@ namespace JitCars.Models
         // depois dá pra mudar pra um enum de cores ou uma classe que cadastre as cores no banco
         public string? Cor {  get; set; }
 
+        public int? VendaId { get; set; }
+        public virtual Venda? Venda { get; set; }
+
     }
 }
