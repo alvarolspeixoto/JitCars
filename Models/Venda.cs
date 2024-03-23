@@ -22,6 +22,11 @@ namespace JitCars.Models
         [Required(ErrorMessage = "Informe o cliente")]
         public int ClienteId { get; set; }
         public virtual Cliente? Cliente { get; set; }
+
+        [Required(ErrorMessage = "Informe o funcionário responsável pela venda")]
+        [DisplayName("Funcionário")]
+        public int FuncionarioId { get; set; }
+        public virtual Funcionario? Funcionario { get; set; }
         
     }
 }
