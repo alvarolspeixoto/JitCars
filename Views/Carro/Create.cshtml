@@ -1,0 +1,70 @@
+@model JitCars.Models.Carro
+
+@{
+    ViewData["Title"] = "Adicionar Carro";
+}
+
+<h1>Adicionar carro ao estoque</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-2">
+                <label asp-for="NumeroChassi" class="control-label"></label>
+                <input asp-for="NumeroChassi" class="form-control mt-1" min="0" />
+                <span asp-validation-for="NumeroChassi" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="PrecoCusto" class="control-label"></label>
+                <input type="number" step="0.01" asp-for="PrecoCusto" class="form-control mt-1" min="0" />
+                <span asp-validation-for="PrecoCusto" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="PrecoVenda" class="control-label"></label>
+                <input type="number" step="0,01" asp-for="PrecoVenda" class="form-control mt-1" min="0" />
+                <span asp-validation-for="PrecoVenda" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-2">
+                <label asp-for="ModeloId" class="control-label"></label>
+                <div class="d-flex gap-2">
+                    <select name="ModeloId" class="form-select">
+                        <option value="@null" disabled selected>Selecione um modelo</option>
+                        @if (ViewBag.modelos != null)
+                        {
+                            @foreach (var modelo in ViewBag.modelos)
+                            {
+                                var nomeVeiculo = modelo.Marca + " " + modelo.Nome;
+                                <option value="@modelo.Id">@nomeVeiculo</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="ModeloId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group mb-2">
+                <label asp-for="Cor" class="control-label"></label>
+                <input asp-for="Cor" class="form-control mt-1" min="0" />
+                <span asp-validation-for="Cor" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="d-flex form-group gap-2">
+                <input type="submit" value="Adicionar" class="btn btn-primary" />
+                <div>
+                    <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
