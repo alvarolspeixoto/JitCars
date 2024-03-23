@@ -46,3 +46,7 @@ button.accept-policy {
   white-space: nowrap;
   line-height: 60px;
 }
+
+.side-bar {
+  height: calc(100vh - 60px);
+}
