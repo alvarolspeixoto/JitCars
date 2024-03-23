@@ -21,18 +21,17 @@
     }
     else
     {
-        <ul>
+        <ul class="d-flex gap-2">
             @foreach (var carro in Model)
             {
                 <li>
                     <div class="card shadow-lg" style="width: 18rem;">
-                        @* Mexer no banco para o modelo ter a url da foto do carro *@
                         @{
                             var temFoto = @carro.Modelo.ImagemUrl != null;
                             var nomeVeiculo = @carro.Modelo.Marca + " " + @carro.Modelo.Nome;
                             var alt = temFoto ? "Imagem do " + nomeVeiculo : "";
                         }
-                        <img class="card-img-top" src="@carro.Modelo.ImagemUrl" alt="@alt">
+                        <img style="height: 180px; object-fit: cover;" class="card-img-top" src="@carro.Modelo.ImagemUrl" alt="@alt">
                         @if (!temFoto) {
                             <p class="text-danger text-center">
                                 Esse modelo não possui imagem salva
