@@ -49,13 +49,10 @@ button.accept-policy {
 }
 
 .side-bar {
-  height: calc(100vh - 60px);
   position: fixed;
   top: 0;
   left: 0;
   width: 250px;
-  /* Ajuste a largura conforme necessário */
   height: 100vh;
-  /* Altura total da janela de visualização */
   overflow-y: auto; 
 }
