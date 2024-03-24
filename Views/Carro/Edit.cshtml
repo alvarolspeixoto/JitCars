@@ -2,7 +2,7 @@
 
 @{
     var nomeVeiculo = Model.Modelo.Marca + " " + Model.Modelo.Nome;
-    ViewData["title"] = "Visualizando " + nomeVeiculo + " - " + Model.NumeroChassi;
+    ViewData["title"] = nomeVeiculo + " - " + Model.NumeroChassi;
 }
 
 <h1>@ViewData["title"]</h1>
