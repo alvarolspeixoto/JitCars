@@ -1,0 +1,46 @@
+@model JitCars.Models.Carro
+
+@{
+    var nomeVeiculo = Model.Modelo.Marca + " " + Model.Modelo.Nome;
+    ViewData["Title"] = "Excluir";
+}
+
+<h3 class="text-danger">Tem certeza de que deseja excluir esse carro do estoque?</h3>
+<div>
+    <form asp-action="Delete">
+        <div class="border p-3 mt-4">
+            <div class="pb-2 d-flex justify-content-between">
+                <h2>Dados</h2>
+            </div>
+            <hr />
+            <input hidden asp-for="Id" />
+            <div class="mb-3">
+                <label asp-for="NumeroChassi" class="mb-2"></label>
+                <input disabled asp-for="NumeroChassi" class="form-control" />
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="PrecoCusto" class="control-label"></label>
+                <input disabled type="number" step="0.01" asp-for="PrecoCusto" class="form-control mt-1" min="0" />
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="PrecoVenda" class="control-label"></label>
+                <input disabled type="number" step="0,01" asp-for="PrecoVenda" class="form-control mt-1" min="0" />
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="ModeloId" class="control-label"></label>
+                <div class="d-flex flex-column gap-1">
+                    <input disabled value="@nomeVeiculo" class="form-control mt-1">
+                </div>
+            </div>
+
+            <div class="form-group mb-2">
+                <label asp-for="Cor" class="control-label"></label>
+                <input disabled asp-for="Cor" class="form-control mt-1" />
+            </div>
+            <div class="d-flex flex-row gap-2">
+                <input type="submit" class="btn btn-danger" value="Excluir">
+                <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@Model.Id">Voltar</a>
+            </div>
+        </div>
+    </form>
+</div>

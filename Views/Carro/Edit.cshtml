@@ -56,6 +56,7 @@
         </div>
         <div class="d-flex flex-row gap-2">
             <input disabled type="submit" value="Editar" class="btn btn-primary" />
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Excluir</a>
             <a class="btn btn-secondary" asp-action="Index">Voltar</a>
         </div>
     </div>

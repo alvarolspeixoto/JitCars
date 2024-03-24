@@ -60,7 +60,8 @@ namespace JitCars.Controllers
             return View(carro);
         }
 
-        public async Task<IActionResult> Edit(int? id) {
+        public async Task<IActionResult> Edit(int? id)
+        {
 
             if (id == 0 || id == null)
             {
@@ -69,9 +70,10 @@ namespace JitCars.Controllers
 
             var carro = await _context.Carros
             .Include(e => e.Modelo)
-            .FirstOrDefaultAsync(e=> e.Id == id);
+            .FirstOrDefaultAsync(e => e.Id == id);
 
-            if (carro == null) {
+            if (carro == null)
+            {
                 return NotFound();
             }
 
@@ -94,7 +96,8 @@ namespace JitCars.Controllers
                 ModelState.AddModelError("ModeloId", "Selecione o modelo do carro");
             }
 
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 _context.Carros.Update(carro);
                 await _context.SaveChangesAsync();
 
@@ -103,6 +106,48 @@ namespace JitCars.Controllers
 
             return View(carro);
 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == 0 || id == null)
+            {
+                return NotFound();
+            }
+
+            var carro = await _context.Carros
+                .Include(e => e.Modelo)
+                .SingleOrDefaultAsync(e => e.Id == id);
+
+            if (carro == null)
+            {
+                return NotFound();
+            }
+
+            return View(carro);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeletePOST(int? id)
+        {
+            if (id == 0 || id == null)
+            {
+                return NotFound();
+            }
+
+            var carro = await _context.Carros.FindAsync(id);
+
+            if (carro == null)
+            {
+                return NotFound();
+            }
+
+            _context.Remove(carro);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
 
     }
