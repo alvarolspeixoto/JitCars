@@ -40,7 +40,9 @@ namespace JitCars.Controllers
         public async Task<IActionResult> Create(Carro carro)
         {
 
-            if (carro.ModeloId == 0)
+            var modelo = await _context.Modelos.FindAsync(carro.ModeloId);
+
+            if (modelo == null)
             {
                 ModelState.AddModelError("ModeloId", "Selecione o modelo do carro");
             }
@@ -58,6 +60,50 @@ namespace JitCars.Controllers
             return View(carro);
         }
 
+        public async Task<IActionResult> Edit(int? id) {
+
+            if (id == 0 || id == null)
+            {
+                return NotFound();
+            }
+
+            var carro = await _context.Carros
+            .Include(e => e.Modelo)
+            .FirstOrDefaultAsync(e=> e.Id == id);
+
+            if (carro == null) {
+                return NotFound();
+            }
+
+            var modelos = _context.Modelos.ToList();
+            ViewBag.modelos = modelos;
+
+            return View(carro);
+
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Carro carro)
+        {
+            var modelo = await _context.Modelos.FindAsync(carro.ModeloId);
+
+            if (modelo == null)
+            {
+                ModelState.AddModelError("ModeloId", "Selecione o modelo do carro");
+            }
+
+            if (ModelState.IsValid) {
+                _context.Carros.Update(carro);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+            }
+
+            return View(carro);
+
+        }
 
     }
 

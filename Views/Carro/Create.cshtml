@@ -29,7 +29,7 @@
             <div class="form-group mb-2">
                 <label asp-for="ModeloId" class="control-label"></label>
                 <div class="d-flex flex-column gap-1">
-                    <select name="ModeloId" class="form-select">
+                    <select asp-for="ModeloId" class="form-select">
                         <option value="" selected disabled>Selecione um modelo</option>
                         @if (ViewBag.modelos != null)
                         {
