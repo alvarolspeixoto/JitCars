@@ -1,0 +1,228 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<head>
+    <link rel="stylesheet" href="financeiro.css" />
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <style>
+
+        section > header{
+            font-size: 40px;
+            display:flex;
+            justify-content: center;
+            background-color: #003366;
+            color: #FFFFFF;
+            max-width: 100%;
+            margin: 0;
+        }
+
+        body {
+            background-color: #aaaaaa;
+        }
+
+        table{
+           table-layout:fixed;
+        }
+
+        section {
+            font-family: 'Lato', sans-serif;
+        }
+
+        .secaoBranca{
+            margin-top: 100px;
+        }
+
+        .tabelas{
+            font-size: 20px;
+            background: #003366;
+            padding: 1em;
+            padding-left: 10px;
+            padding-right: 10px;
+            justify-content: center;
+            color: #FFFFFF;
+        }
+
+        .espaco{
+            padding-left: 50px;
+        }
+
+        .conteudo {
+            color: #FFFFFF;
+            background: #003366;
+            padding-left: 10px;
+            padding-right: 10px;
+            justify-content: center;
+        }
+
+        .linha{
+            background-color: black;
+            padding-bottom: 1px;
+        }
+
+        .botao {
+            background: transparent;
+            color: lawngreen;
+            border: 0;
+            font-size: 15px;
+            justify-self: center;    
+        }
+
+        .titulo_tabela {
+            font-size: 25px;
+            display: 1;
+            justify-content: center;
+            background-color: #003366;
+            color: #FFFFFF;
+            width: 100%;
+        }
+
+
+
+    </style>
+</head>
+
+<section>
+    <header >
+            <span>Financeiro</span>
+    </header>
+
+    <div class="secaoBranca"></div>
+
+
+        <table class="table table-dark">
+            <header class="titulo_tabela">
+                <span>Vendas</span>
+            </header>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Carro</th>
+                    <th scope="col">Marca</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Detalhamento</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.Carros == null)
+                {
+                    <div class="d-flex align-items-center justify-content-center border" style="height:200px">
+                        <h2 class="text-danger">Sem carros registrados</h2>
+                    </div>
+                }
+                else
+                {
+                  @foreach(var obj in ViewBag.Carros){
+
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>@obj.Modelo.Nome</td>
+                        <td>@obj.Modelo.Marca</td>
+                        <td style="color:lawngreen">R$@obj.PrecoVenda</td>
+                        <td><button class="botao"><i class="bi bi-plus-circle"></i></button></td>
+                    </tr>
+                }
+           
+                }
+            </tbody>
+            
+        </table>
+
+        <table class="table table-dark">
+            <header class="titulo_tabela">
+                <span>Lucro</span>
+            </header>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Carro</th>
+                    <th scope="col">Custo</th>
+                    <th scope="col">Valor da Venda</th>
+                    <th scope="col">Lucro</th>
+                    <th scope="col">Detalhamento</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in ViewBag.Carros)
+                {
+                    var lucro = obj.PrecoVenda - @obj.PrecoCusto;
+                    <tr>
+                      <th scope="row">1</th>
+                          <td>a</td>
+                          <td>R$@obj.PrecoCusto</td>
+                          <td>R$@obj.PrecoVenda</td>
+                          <td style="color:lawngreen">R$@lucro</td>
+                          <td><button class="botao"><i class="bi bi-plus-circle"></i></button></td>
+                    </tr>
+                }
+                
+            </tbody>
+
+        </table>
+
+        <table class="table table-dark">
+            <header class="titulo_tabela">
+                <span>Lucro Semestral</span>
+            </header>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Carro</th>
+                    <th scope="col">Custo</th>
+                    <th scope="col">Valor da Venda</th>
+                    <th scope="col">Data</th>
+                    <th scope="col">Detalhamento</th>
+                </tr>
+            </thead>
+            <tbody>
+            @for (var i = 0; i < ViewBag.Vendas.Count; i++)
+            {
+               <tr>
+                    <th scope="row">1</th>
+                    <td>@ViewBag.Carros[i].Modelo.Nome</td>
+                    <td>@ViewBag.Carros[i].PrecoCusto</td>
+                    <td>@ViewBag.Carros[i].PrecoVenda</td>
+                    <td>@ViewBag.Vendas[i].Data</td>
+                    <td><button class="botao"><i class="bi bi-plus-circle"></i></button></td>
+               </tr> 
+            }
+            
+            </tbody>
+
+        </table>
+
+        <table class="table table-dark">
+            <header class="titulo_tabela">
+                <span>Venda Funcionários</span>
+            </header>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Total_Venda</th>
+                    <th scope="col">Total_Faturado</th>
+                    <th scope="col">Detalhamento</th>
+                </tr>
+            </thead>
+            <tbody>
+                @* @foreach (var obj in ViewBag.Funcionarios)
+                {
+                    var nomeCompleto = obj.PrimeiroNome + obj.Sobrenome;
+                   <tr>
+                    <th scope="row">1</th>
+                    <td>@nomeCompleto</td>
+                    <td>20</td>
+                    <td>200000</td>
+                    <td><button class="botao"><i class="bi bi-plus-circle"></i></button></td>
+                </tr> 
+                } *@
+            
+            </tbody>
+
+        </table>
+
+</section>
+  
+
+
