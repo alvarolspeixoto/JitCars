@@ -35,6 +35,29 @@ namespace JitCars.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Carro carro)
+        {
+
+            if (carro.ModeloId == 0)
+            {
+                ModelState.AddModelError("ModeloId", "Selecione o modelo do carro");
+            }
+
+            if (ModelState.IsValid)
+            {
+                _context.Add(carro);
+                await _context.SaveChangesAsync();
+
+
+                return RedirectToAction("Index", "Carro");
+            }
+
+            ViewBag.modelos = await _context.Modelos.ToListAsync();
+            return View(carro);
+        }
+
 
     }
 

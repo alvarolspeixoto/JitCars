@@ -28,9 +28,9 @@
 
             <div class="form-group mb-2">
                 <label asp-for="ModeloId" class="control-label"></label>
-                <div class="d-flex gap-2">
+                <div class="d-flex flex-column gap-1">
                     <select name="ModeloId" class="form-select">
-                        <option value="@null" disabled selected>Selecione um modelo</option>
+                        <option value="" selected disabled>Selecione um modelo</option>
                         @if (ViewBag.modelos != null)
                         {
                             @foreach (var modelo in ViewBag.modelos)
@@ -46,11 +46,9 @@
 
             <div class="form-group mb-2">
                 <label asp-for="Cor" class="control-label"></label>
-                <input asp-for="Cor" class="form-control mt-1" min="0" />
+                <input asp-for="Cor" class="form-control mt-1"/>
                 <span asp-validation-for="Cor" class="text-danger"></span>
             </div>
-
-
 
             <div class="d-flex form-group gap-2">
                 <input type="submit" value="Adicionar" class="btn btn-primary" />
