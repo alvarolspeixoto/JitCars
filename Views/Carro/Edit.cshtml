@@ -1,0 +1,66 @@
+@model JitCars.Models.Carro
+
+@{
+    var nomeVeiculo = Model.Modelo.Marca + " " + Model.Modelo.Nome;
+    ViewData["title"] = "Visualizando " + nomeVeiculo + " - " + Model.NumeroChassi;
+}
+
+<h1>@ViewData["title"]</h1>
+<form asp-action="Edit">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Dados</h2>
+            <hr />
+        </div>
+        <input hidden asp-for="Id" />
+        @* <div asp-validation-summary="All"></div> *@
+        <div class="mb-3">
+            <label asp-for="NumeroChassi" class="mb-2"></label>
+            <input asp-for="NumeroChassi" class="form-control" />
+            <span asp-validation-for="NumeroChassi" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-2">
+            <label asp-for="PrecoCusto" class="control-label"></label>
+            <input type="number" step="0.01" asp-for="PrecoCusto" class="form-control mt-1" min="0" />
+            <span asp-validation-for="PrecoCusto" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-2">
+            <label asp-for="PrecoVenda" class="control-label"></label>
+            <input type="number" step="0,01" asp-for="PrecoVenda" class="form-control mt-1" min="0" />
+            <span asp-validation-for="PrecoVenda" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-2">
+            <label asp-for="ModeloId" class="control-label"></label>
+            <div class="d-flex flex-column gap-1">
+                <select asp-for="ModeloId" class="form-select">
+                    <option value="" selected>Selecione um modelo</option>
+                    @if (ViewBag.modelos != null)
+                    {
+                        @foreach (var modelo in ViewBag.modelos)
+                        {
+                            var nomeVeiculo = modelo.Marca + " " + modelo.Nome;
+                            <option value="@modelo.Id">@nomeVeiculo</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="ModeloId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group mb-2">
+            <label asp-for="Cor" class="control-label"></label>
+            <input asp-for="Cor" class="form-control mt-1" />
+            <span asp-validation-for="Cor" class="text-danger"></span>
+        </div>
+        <div class="d-flex flex-row gap-2">
+            <input type="submit" value="Editar" class="btn btn-primary" />
+            <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
