@@ -17,7 +17,7 @@ a {
   border-color: #1861ac;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
@@ -26,6 +26,7 @@ a {
 .border-top {
   border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
   border-bottom: 1px solid #e5e5e5;
 }
@@ -49,4 +50,12 @@ button.accept-policy {
 
 .side-bar {
   height: calc(100vh - 60px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  /* Ajuste a largura conforme necessário */
+  height: 100vh;
+  /* Altura total da janela de visualização */
+  overflow-y: auto; 
 }

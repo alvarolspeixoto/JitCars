@@ -31,8 +31,7 @@
 	</div>
 	</nav>
 	</header> *@
-	<div class="container-fluid">
-		<div class="row flex-nowrap side-bar">
+	<div class="container-fluid d-flex flex-row">
 			<div class="bg-dark col-md-4 col-lg-3 d-flex flex-column justify-content-between side-bar">
 				<div class="bg-dark p-2">
 					<a class="d-flex text-decoration-none mt-1 align-items-center text-white">
@@ -82,22 +81,20 @@
 				</div>
 			</div>
 			<!--conteudo vai aqui-->
-			<div class="container col-md-8">
+			<div class="container col-md-14" style="padding-left: 200px">
 				<main role="main" class="pb-3">
 					@RenderBody()
 				</main>
 			</div>
-
-		</div>
 	</div>
 
 	
 
-	<footer class="border-top footer text-muted">
+	@* <footer class="border-top footer text-muted">
 		<div class="container">
 			&copy; 2024 - JitCars - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
 		</div>
-	</footer>
+	</footer> *@
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>
