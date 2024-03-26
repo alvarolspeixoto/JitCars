@@ -17,5 +17,25 @@ namespace JitCars.Controllers
 			IEnumerable<Cliente> clientes = _db.Clientes;
 			return View(clientes);
 		}
+
+		public IActionResult Cadastrar()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public IActionResult Cadastrar(Cliente cliente)
+		{
+			if(ModelState.IsValid) 
+			{
+				_db.Clientes.Add(cliente);
+				_db.SaveChanges();
+
+				return RedirectToAction("Index");
+			}
+
+			return View();	
+		}
+
 	}
 }

@@ -1,0 +1,95 @@
+﻿@model Cliente
+
+@{
+    ViewData["Title"] = "Cadastrar Clientes";
+}
+
+<div class="container bg-dark p-5 rounded-5">
+
+    <div class="mb-5 text-center">
+        <h1 class="text-light">Cadastro de Clientes</h1>
+    </div>
+
+
+    <form method="post" asp-controller="Cliente" asp-action="Cadastrar">
+
+        <div class="mb-3 text-white">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" class="form-control" asp-for="PrimeiroNome" id="nomeInput">
+            <span class="text-danger" asp-validation-for="PrimeiroNome"></span>
+        </div>
+
+        <div class="mb-3 text-white">
+            <label for="sobrenome" class="form-label">Sobrenome</label>
+            <input type="text" class="form-control" asp-for="Sobrenome" id="sobrenomeInput">
+            <span class="text-danger" asp-validation-for="Sobrenome"></span>
+        </div>
+
+        <div class="mb-3 text-white">
+            <label for="cpf" class="form-label">CPF</label>
+            <input type="text" class="form-control" asp-for="Cpf" id="cpfInput">
+            <span class="text-danger" asp-validation-for="Cpf"></span>
+        </div>
+
+        <div class="mb-3 text-white">
+            <label for="email" class="form-label">Endereço de E-mail</label>
+            <input type="email" class="form-control" asp-for="Email" id="emailInput" placeholder="nome@exemplo.com">
+            <span class="text-danger" asp-validation-for="Email"></span>
+        </div>
+
+        <div class="mb-3 text-white">
+            <label for="telefone" class="form-label">Telefone</label>
+            <input type="tel" class="form-control" id="telefoneInput">
+            <!--<span class="text-danger" asp-validation-for=""></span>Telefone.Numero???????? não sei como é -->
+        </div>
+
+        <div class="mb-3 text-white">
+            <label for="cep" class="form-label">CEP</label>
+            <input type="number" class="form-control" id="cepInput">
+            <!--<span class="text-danger" asp-validation-for="PrimeiroNome"></span>-->
+        </div>
+
+
+        <div class="mb-3 text-white">
+            <label for="estado" class="form-label">Estado</label>
+            <input type="text" class="form-control" id="estadoInput">
+            <!--<span class="text-danger" asp-validation-for="PrimeiroNome"></span>-->
+        </div>
+
+
+        <div class="mb-3 text-white">
+            <label for="cidade" class="form-label">Cidade</label>
+            <input type="text" class="form-control" id="cidadeInput">
+            <!--<span class="text-danger" asp-validation-for="PrimeiroNome"></span>-->
+        </div>
+
+
+        <div class="mb-3 text-white">
+            <label for="bairro" class="form-label">Bairro</label>
+            <input type="text" class="form-control" id="bairroInput">
+            <!--<span class="text-danger" asp-validation-for="PrimeiroNome"></span>-->
+        </div>
+
+        <div class="mb-3 text-white">
+            <label for="rua" class="form-label">Rua</label>
+            <input type="text" class="form-control" id="ruaInput">
+            <!--<span class="text-danger" asp-validation-for="PrimeiroNome"></span>-->
+        </div>
+
+
+        <div class="mb-3 text-white">
+            <label for="numero" class="form-label">Número</label>
+            <input type="number" class="form-control" id="numeroInput">
+                    <!--<span class="text-danger" asp-validation-for=""></span>-->
+        </div>
+
+        <div class="d-flex gap-5 mt-5">
+            <button type="submit" class="btn btn-success w-50">Adicionar</button>
+            <a class="btn btn-primary w-50" asp-controller="Cliente" asp-action="Index">Voltar</a>
+        </div>
+
+
+
+
+    </form>
+ </div>
