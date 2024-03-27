@@ -29,7 +29,7 @@ namespace JitCars.Controllers
 			if(ModelState.IsValid) 
 			{
 				_db.Clientes.Add(cliente);
-				_db.SaveChanges();
+                _db.SaveChanges();
 
 				return RedirectToAction("Index");
 			}

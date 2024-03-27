@@ -1,4 +1,6 @@
 ﻿@model Cliente
+<!--model ClienteEnderecoTelViewModel-->
+
 
 @{
     ViewData["Title"] = "Cadastrar Clientes";
@@ -37,58 +39,72 @@
             <span class="text-danger" asp-validation-for="Email"></span>
         </div>
 
+
+
+        <!--
+        <input type="hidden" asp-for="ClienteId" />
+
+        
         <div class="mb-3 text-white">
             <label for="telefone" class="form-label">Telefone</label>
-            <input type="tel" class="form-control" id="telefoneInput">
-            <!--<span class="text-danger" asp-validation-for=""></span>Telefone.Numero???????? não sei como é -->
+            <input type="tel" class="form-control" asp-for="Telefone.Numero" id="telefoneInput">
+            <span class="text-danger" asp-validation-for="Telefone.Numero"></span>
         </div>
+
+        <input type="hidden" asp-for="Cliente.EnderecoId" />
+
 
         <div class="mb-3 text-white">
             <label for="cep" class="form-label">CEP</label>
-            <input type="number" class="form-control" id="cepInput">
-            <!--<span class="text-danger" asp-validation-for="PrimeiroNome"></span>-->
+            <input type="number" class="form-control" asp-for="Endereco.Cep" id="cepInput">
+            <span class="text-danger" asp-validation-for="Endereco.Cep"></span>
         </div>
 
 
         <div class="mb-3 text-white">
             <label for="estado" class="form-label">Estado</label>
-            <input type="text" class="form-control" id="estadoInput">
-            <!--<span class="text-danger" asp-validation-for="PrimeiroNome"></span>-->
+            <input type="text" class="form-control" asp-for="Endereco.Estado" id="estadoInput">
+            <span class="text-danger" asp-validation-for="Endereco.Estado"></span>
         </div>
 
 
         <div class="mb-3 text-white">
             <label for="cidade" class="form-label">Cidade</label>
-            <input type="text" class="form-control" id="cidadeInput">
-            <!--<span class="text-danger" asp-validation-for="PrimeiroNome"></span>-->
+            <input type="text" class="form-control" asp-for="Endereco.Cidade" id="cidadeInput">
+            <span class="text-danger" asp-validation-for="Endereco.Cidade"></span>
         </div>
 
 
         <div class="mb-3 text-white">
             <label for="bairro" class="form-label">Bairro</label>
-            <input type="text" class="form-control" id="bairroInput">
-            <!--<span class="text-danger" asp-validation-for="PrimeiroNome"></span>-->
+            <input type="text" class="form-control" asp-for="Endereco.Bairro" id="bairroInput">
+            <span class="text-danger" asp-validation-for="Endereco.Bairro"></span>
         </div>
 
         <div class="mb-3 text-white">
             <label for="rua" class="form-label">Rua</label>
-            <input type="text" class="form-control" id="ruaInput">
-            <!--<span class="text-danger" asp-validation-for="PrimeiroNome"></span>-->
+            <input type="text" class="form-control" asp-for="Endereco.Rua" id="ruaInput">
+            <span class="text-danger" asp-validation-for="Endereco.Rua"></span>
         </div>
 
 
         <div class="mb-3 text-white">
             <label for="numero" class="form-label">Número</label>
-            <input type="number" class="form-control" id="numeroInput">
-                    <!--<span class="text-danger" asp-validation-for=""></span>-->
+            <input type="number" class="form-control" asp-for="Endereco.Numero" id="numeroInput">
+            <span class="text-danger" asp-validation-for="Endereco.Numero"></span>
         </div>
+
+        -->
+
+
+
 
         <div class="d-flex gap-5 mt-5">
             <button type="submit" class="btn btn-success w-50">Adicionar</button>
             <a class="btn btn-primary w-50" asp-controller="Cliente" asp-action="Index">Voltar</a>
         </div>
 
-
+        
 
 
     </form>
