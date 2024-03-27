@@ -24,11 +24,17 @@ namespace JitCars.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Cadastrar(Cliente cliente)
+		public IActionResult Cadastrar(ClienteEnderecoTelViewModel viewModel)
 		{
 			if(ModelState.IsValid) 
 			{
-				_db.Clientes.Add(cliente);
+                Cliente cliente = viewModel.Cliente;
+                Endereco endereco = viewModel.Endereco;
+				Telefone telefone = viewModel.Telefone;
+
+                _db.Clientes.Add(cliente);
+                _db.Enderecos.Add(endereco);
+                _db.Telefones.Add(telefone);
                 _db.SaveChanges();
 
 				return RedirectToAction("Index");

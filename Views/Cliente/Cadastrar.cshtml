@@ -1,5 +1,4 @@
-﻿@model Cliente
-<!--model ClienteEnderecoTelViewModel-->
+﻿@model ClienteEnderecoTelViewModel
 
 
 @{
@@ -17,32 +16,32 @@
 
         <div class="mb-3 text-white">
             <label for="nome" class="form-label">Nome</label>
-            <input type="text" class="form-control" asp-for="PrimeiroNome" id="nomeInput">
-            <span class="text-danger" asp-validation-for="PrimeiroNome"></span>
+            <input type="text" class="form-control" asp-for="Cliente.PrimeiroNome" id="nomeInput">
+            <span class="text-danger" asp-validation-for="Cliente.PrimeiroNome"></span>
         </div>
 
         <div class="mb-3 text-white">
             <label for="sobrenome" class="form-label">Sobrenome</label>
-            <input type="text" class="form-control" asp-for="Sobrenome" id="sobrenomeInput">
-            <span class="text-danger" asp-validation-for="Sobrenome"></span>
+            <input type="text" class="form-control" asp-for="Cliente.Sobrenome" id="sobrenomeInput">
+            <span class="text-danger" asp-validation-for="Cliente.Sobrenome"></span>
         </div>
 
         <div class="mb-3 text-white">
             <label for="cpf" class="form-label">CPF</label>
-            <input type="text" class="form-control" asp-for="Cpf" id="cpfInput">
-            <span class="text-danger" asp-validation-for="Cpf"></span>
+            <input type="text" class="form-control" asp-for="Cliente.Cpf" id="cpfInput">
+            <span class="text-danger" asp-validation-for="Cliente.Cpf"></span>
         </div>
 
         <div class="mb-3 text-white">
             <label for="email" class="form-label">Endereço de E-mail</label>
-            <input type="email" class="form-control" asp-for="Email" id="emailInput" placeholder="nome@exemplo.com">
-            <span class="text-danger" asp-validation-for="Email"></span>
+            <input type="email" class="form-control" asp-for="Cliente.Email" id="emailInput" placeholder="nome@exemplo.com">
+            <span class="text-danger" asp-validation-for="Cliente.Email"></span>
         </div>
 
 
 
-        <!--
-        <input type="hidden" asp-for="ClienteId" />
+        
+        <input type="hidden" asp-for="Telefone.ClienteId" />
 
         
         <div class="mb-3 text-white">
@@ -56,7 +55,7 @@
 
         <div class="mb-3 text-white">
             <label for="cep" class="form-label">CEP</label>
-            <input type="number" class="form-control" asp-for="Endereco.Cep" id="cepInput">
+            <input type="text" class="form-control" asp-for="Endereco.Cep" id="cepInput">
             <span class="text-danger" asp-validation-for="Endereco.Cep"></span>
         </div>
 
@@ -93,9 +92,6 @@
             <input type="number" class="form-control" asp-for="Endereco.Numero" id="numeroInput">
             <span class="text-danger" asp-validation-for="Endereco.Numero"></span>
         </div>
-
-        -->
-
 
 
 
