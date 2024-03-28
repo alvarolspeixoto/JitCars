@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using JitCars.Data;
 using JitCars.Models;
 
@@ -32,7 +32,7 @@ namespace JitCars.Controllers
 				return NotFound	();
 			}
 
-			Cliente cliente = _db.Clientes.FirstOrDefault(x => x.Id == id);
+			Cliente? cliente = _db.Clientes.FirstOrDefault(x => x.Id == id);
 
             if (cliente == null)
             {
@@ -51,7 +51,7 @@ namespace JitCars.Controllers
                 return NotFound();
             }
 
-			Cliente cliente = _db.Clientes.FirstOrDefault(x => x.Id == id);
+			Cliente? cliente = _db.Clientes.FirstOrDefault(x => x.Id == id);
 
 			if (cliente == null)
 			{
