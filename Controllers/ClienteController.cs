@@ -32,7 +32,7 @@ namespace JitCars.Controllers
 				return NotFound	();
 			}
 
-			Cliente cliente = _db.Clientes.FirstOrDefault(x => x.Id == id);
+			Cliente? cliente = _db.Clientes.FirstOrDefault(x => x.Id == id);
 
             if (cliente == null)
             {
@@ -51,7 +51,7 @@ namespace JitCars.Controllers
                 return NotFound();
             }
 
-			Cliente cliente = _db.Clientes.FirstOrDefault(x => x.Id == id);
+			Cliente? cliente = _db.Clientes.FirstOrDefault(x => x.Id == id);
 
 			if (cliente == null)
 			{
@@ -74,10 +74,16 @@ namespace JitCars.Controllers
                 Endereco endereco = viewModel.Endereco;
 				Telefone telefone = viewModel.Telefone;
 
-                _db.Clientes.Add(cliente);
                 _db.Enderecos.Add(endereco);
-                _db.Telefones.Add(telefone);
-                _db.SaveChanges();
+				_db.SaveChanges();
+
+				cliente.EnderecoId = endereco.Id;
+				_db.Clientes.Add(cliente);
+				_db.SaveChanges();
+
+				telefone.ClienteId = cliente.Id;
+				_db.Telefones.Add(telefone);
+				_db.SaveChanges();
 
 				return RedirectToAction("Index");
 			}
