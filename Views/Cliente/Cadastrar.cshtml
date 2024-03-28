@@ -14,10 +14,6 @@
 
     <form method="post" asp-controller="Cliente" asp-action="Cadastrar">
 
-        <input type="hidden" asp-for="Telefone.ClienteId" />
-        <input type="hidden" asp-for="Cliente.EnderecoId" />
-
-
         <div class="mb-3 text-white">
             <label for="nome" class="form-label">Nome</label>
             <input type="text" class="form-control" asp-for="Cliente.PrimeiroNome" id="nomeInput">
