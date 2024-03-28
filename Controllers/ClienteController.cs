@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using JitCars.Data;
 using JitCars.Models;
 
@@ -74,10 +74,16 @@ namespace JitCars.Controllers
                 Endereco endereco = viewModel.Endereco;
 				Telefone telefone = viewModel.Telefone;
 
-                _db.Clientes.Add(cliente);
                 _db.Enderecos.Add(endereco);
-                _db.Telefones.Add(telefone);
-                _db.SaveChanges();
+				_db.SaveChanges();
+
+				cliente.EnderecoId = endereco.Id;
+				_db.Clientes.Add(cliente);
+				_db.SaveChanges();
+
+				telefone.ClienteId = cliente.Id;
+				_db.Telefones.Add(telefone);
+				_db.SaveChanges();
 
 				return RedirectToAction("Index");
 			}
