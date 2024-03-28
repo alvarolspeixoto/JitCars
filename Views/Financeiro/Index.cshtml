@@ -18,6 +18,8 @@
             margin: 0;
         }
 
+
+
         body {
             background-color: #aaaaaa;
         }
@@ -28,6 +30,7 @@
 
         section {
             font-family: 'Lato', sans-serif;
+            width: 1600px;
         }
 
         .secaoBranca{
@@ -63,7 +66,7 @@
 
         .botao {
             background: transparent;
-            color: lawngreen;
+            color: #ffa500;
             border: 0;
             font-size: 15px;
             justify-self: center;    
@@ -72,7 +75,7 @@
         .titulo_tabela {
             font-size: 25px;
             display: 1;
-            justify-content: center;
+            justify-self:center;
             background-color: #003366;
             color: #FFFFFF;
             width: 100%;
@@ -100,33 +103,50 @@
                     <th scope="col">#</th>
                     <th scope="col">Carro</th>
                     <th scope="col">Marca</th>
+                    <th scope="col">Cliente</th>
                     <th scope="col">Valor</th>
-                    <th scope="col">Detalhamento</th>
+                    <th scope="col">
+                    @using (Html.BeginForm("Index", "Financeiro", FormMethod.Get))
+                    {
+                        @Html.DropDownList("dataSelecionada", ViewData["data"] as SelectList, "Selecione uma data", new {@class = "form-control", onchange = "this.form.submit();"})
+                    }
+
+                          
+                    </th>
                 </tr>
             </thead>
-            <tbody>
-                @if (ViewBag.Carros == null)
+        <tbody>
+            @{
+                var i = 0;
+                if (ViewBag.Carros != null)
                 {
-                    <div class="d-flex align-items-center justify-content-center border" style="height:200px">
-                        <h2 class="text-danger">Sem carros registrados</h2>
-                    </div>
+                    @foreach(var obj in ViewBag.Carros){
+                             @if (obj.VendaId != null){
+                        i++;
+
+                             var nomeCliente = obj.Venda.Cliente.PrimeiroNome + " " + obj.Venda.Cliente.Sobrenome ;                                             
+                        <tr>
+                                      <th scope="row" >@i</th>                         
+                                      <td>@obj.Modelo.Nome</td>
+                                      <td>@obj.Modelo.Marca</td>
+                                      <td>@nomeCliente</td>                           
+                                      <td style="color:lawngreen">R$@obj.PrecoVenda</td>
+                                      <td>@obj.Venda.Data</td>
+                                <!--<td><button class="botao"><i class="bi bi-plus-circle"></i></button></td>-->
+                                  </tr>
+                      
+                                  }                          
+                    }
                 }
                 else
                 {
-                  @foreach(var obj in ViewBag.Carros){
+                    <tr>Nenhum carro foi vendido</tr>
+                }
 
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>@obj.Modelo.Nome</td>
-                        <td>@obj.Modelo.Marca</td>
-                        <td style="color:lawngreen">R$@obj.PrecoVenda</td>
-                        <td><button class="botao"><i class="bi bi-plus-circle"></i></button></td>
-                    </tr>
-                }
-           
-                }
-            </tbody>
+                    }
+                  
             
+            </tbody>            
         </table>
 
         <table class="table table-dark">
@@ -136,26 +156,40 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Carro</th>
                     <th scope="col">Custo</th>
                     <th scope="col">Valor da Venda</th>
                     <th scope="col">Lucro</th>
-                    <th scope="col">Detalhamento</th>
                 </tr>
             </thead>
-            <tbody>
-                @foreach (var obj in ViewBag.Carros)
+        <tbody>
+            @{
+                i = 0;
+                if (ViewBag.Carros != null)
                 {
-                    var lucro = obj.PrecoVenda - @obj.PrecoCusto;
-                    <tr>
-                      <th scope="row">1</th>
-                          <td>a</td>
-                          <td>R$@obj.PrecoCusto</td>
-                          <td>R$@obj.PrecoVenda</td>
-                          <td style="color:lawngreen">R$@lucro</td>
-                          <td><button class="botao"><i class="bi bi-plus-circle"></i></button></td>
-                    </tr>
+                    @foreach (var obj in ViewBag.Carros)
+                    {
+                        @if (obj.VendaId != null)
+                        {
+                      
+                          i++;
+                        var lucro = obj.PrecoVenda - @obj.PrecoCusto;
+                            <tr>
+                              <th scope="row">@i</th>
+                                  <td>R$@obj.PrecoCusto</td>
+                                  <td>R$@obj.PrecoVenda</td>
+                                  <td style="color:lawngreen">R$@lucro</td>
+                            </tr>
+                        
+                        }                    
+                    }
                 }
+                else
+                {
+                    <tr>Nenhum carro foi vendido</tr>
+                }
+                
+                }
+                
                 
             </tbody>
 
@@ -163,30 +197,42 @@
 
         <table class="table table-dark">
             <header class="titulo_tabela">
-                <span>Lucro Semestral</span>
+                <span>Lucro Total</span>
             </header>
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Carro</th>
-                    <th scope="col">Custo</th>
-                    <th scope="col">Valor da Venda</th>
-                    <th scope="col">Data</th>
-                    <th scope="col">Detalhamento</th>
+                    <th scope="col">Lucro</th>
                 </tr>
             </thead>
             <tbody>
-            @for (var i = 0; i < ViewBag.Vendas.Count; i++)
-            {
-               <tr>
-                    <th scope="row">1</th>
-                    <td>@ViewBag.Carros[i].Modelo.Nome</td>
-                    <td>@ViewBag.Carros[i].PrecoCusto</td>
-                    <td>@ViewBag.Carros[i].PrecoVenda</td>
-                    <td>@ViewBag.Vendas[i].Data</td>
-                    <td><button class="botao"><i class="bi bi-plus-circle"></i></button></td>
-               </tr> 
+            @{
+                i = 0;
+                decimal lucroSemestral = 0;
+                if (ViewBag.Carros != null)
+                {
+                    @foreach (var obj in ViewBag.Carros)
+                {
+                    @if (obj.VendaId != null)
+                    {
+                       var lucro = obj.PrecoVenda - @obj.PrecoCusto;
+                        lucroSemestral = lucroSemestral + lucro;                 
+                        if (ViewBag.Carros.IndexOf(obj) == ViewBag.Carros.Count - 1)
+                        {
+                          i++;
+                          <tr style="justify-content: center">
+                            <td style="color:lawngreen">R$@lucroSemestral</td>
+                          </tr>   
+                        }
+                        }              
+                    }
+                }
+                else
+                {
+                    <tr>Nenhum carro foi vendido</tr>
+                }
+                
             }
+            
             
             </tbody>
 
@@ -202,7 +248,6 @@
                     <th scope="col">Nome</th>
                     <th scope="col">Total_Venda</th>
                     <th scope="col">Total_Faturado</th>
-                    <th scope="col">Detalhamento</th>
                 </tr>
             </thead>
             <tbody>
@@ -214,7 +259,6 @@
                     <td>@nomeCompleto</td>
                     <td>20</td>
                     <td>200000</td>
-                    <td><button class="botao"><i class="bi bi-plus-circle"></i></button></td>
                 </tr> 
                 } *@
             
