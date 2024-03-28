@@ -1,21 +1,21 @@
 ﻿@model ClienteEnderecoTelViewModel
 
-
 @{
-    ViewData["Title"] = "Cadastrar Cliente";
+    ViewData["Title"] = "Editar Cliente";
 }
 
 <div class="container bg-dark p-5 rounded-5">
 
     <div class="mb-5 text-center">
-        <h1 class="text-light">Cadastro de Cliente</h1>
+        <h1 class="text-light">Edição de Cliente</h1>
     </div>
 
 
-    <form method="post" asp-controller="Cliente" asp-action="Cadastrar">
+    <form method="post" asp-controller="Cliente" asp-action="Editar">
 
         <input type="hidden" asp-for="Telefone.ClienteId" />
         <input type="hidden" asp-for="Cliente.EnderecoId" />
+
 
 
         <div class="mb-3 text-white">
@@ -24,13 +24,11 @@
             <span class="text-danger" asp-validation-for="Cliente.PrimeiroNome"></span>
         </div>
 
-
         <div class="mb-3 text-white">
             <label for="sobrenome" class="form-label">Sobrenome</label>
             <input type="text" class="form-control" asp-for="Cliente.Sobrenome" id="sobrenomeInput">
             <span class="text-danger" asp-validation-for="Cliente.Sobrenome"></span>
         </div>
-
 
         <div class="mb-3 text-white">
             <label for="cpf" class="form-label">CPF</label>
@@ -38,19 +36,19 @@
             <span class="text-danger" asp-validation-for="Cliente.Cpf"></span>
         </div>
 
-
         <div class="mb-3 text-white">
             <label for="email" class="form-label">Endereço de E-mail</label>
             <input type="email" class="form-control" asp-for="Cliente.Email" id="emailInput" placeholder="nome@exemplo.com">
             <span class="text-danger" asp-validation-for="Cliente.Email"></span>
         </div>
 
-        
         <div class="mb-3 text-white">
             <label for="telefone" class="form-label">Telefone</label>
             <input type="tel" class="form-control" asp-for="Telefone.Numero" id="telefoneInput">
             <span class="text-danger" asp-validation-for="Telefone.Numero"></span>
         </div>
+
+        
 
 
         <div class="mb-3 text-white">
@@ -100,8 +98,8 @@
             <a class="btn btn-primary w-50" asp-controller="Cliente" asp-action="Index">Voltar</a>
         </div>
 
-        
+
 
 
     </form>
- </div>
+</div>

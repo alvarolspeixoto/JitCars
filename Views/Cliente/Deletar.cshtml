@@ -1,107 +1,106 @@
 ﻿@model ClienteEnderecoTelViewModel
 
-
 @{
-    ViewData["Title"] = "Cadastrar Cliente";
+    ViewData["Title"] = "Deletar Cliente";
 }
 
 <div class="container bg-dark p-5 rounded-5">
 
     <div class="mb-5 text-center">
-        <h1 class="text-light">Cadastro de Cliente</h1>
+        <h1 class="text-light">Deletar Cliente</h1>
     </div>
 
+    <h2 class="text-light">Tem certeza de que deseja deletar o cliente abaixo?</h2>
 
-    <form method="post" asp-controller="Cliente" asp-action="Cadastrar">
+    <form method="post" asp-controller="Cliente" asp-action="Deletar">
 
         <input type="hidden" asp-for="Telefone.ClienteId" />
         <input type="hidden" asp-for="Cliente.EnderecoId" />
 
 
+
         <div class="mb-3 text-white">
             <label for="nome" class="form-label">Nome</label>
-            <input type="text" class="form-control" asp-for="Cliente.PrimeiroNome" id="nomeInput">
+            <input type="text" class="form-control" asp-for="Cliente.PrimeiroNome" id="nomeInput" disabled>
             <span class="text-danger" asp-validation-for="Cliente.PrimeiroNome"></span>
         </div>
 
-
         <div class="mb-3 text-white">
             <label for="sobrenome" class="form-label">Sobrenome</label>
-            <input type="text" class="form-control" asp-for="Cliente.Sobrenome" id="sobrenomeInput">
+            <input type="text" class="form-control" asp-for="Cliente.Sobrenome" id="sobrenomeInput" disabled>
             <span class="text-danger" asp-validation-for="Cliente.Sobrenome"></span>
         </div>
 
-
         <div class="mb-3 text-white">
             <label for="cpf" class="form-label">CPF</label>
-            <input type="text" class="form-control" asp-for="Cliente.Cpf" id="cpfInput">
+            <input type="text" class="form-control" asp-for="Cliente.Cpf" id="cpfInput" disabled>
             <span class="text-danger" asp-validation-for="Cliente.Cpf"></span>
         </div>
 
-
         <div class="mb-3 text-white">
             <label for="email" class="form-label">Endereço de E-mail</label>
-            <input type="email" class="form-control" asp-for="Cliente.Email" id="emailInput" placeholder="nome@exemplo.com">
+            <input type="email" class="form-control" asp-for="Cliente.Email" id="emailInput" placeholder="nome@exemplo.com" disabled>
             <span class="text-danger" asp-validation-for="Cliente.Email"></span>
         </div>
 
-        
         <div class="mb-3 text-white">
             <label for="telefone" class="form-label">Telefone</label>
-            <input type="tel" class="form-control" asp-for="Telefone.Numero" id="telefoneInput">
+            <input type="tel" class="form-control" asp-for="Telefone.Numero" id="telefoneInput" disabled>
             <span class="text-danger" asp-validation-for="Telefone.Numero"></span>
         </div>
 
 
+
+
         <div class="mb-3 text-white">
             <label for="cep" class="form-label">CEP</label>
-            <input type="text" class="form-control" asp-for="Endereco.Cep" id="cepInput">
+            <input type="text" class="form-control" asp-for="Endereco.Cep" id="cepInput" disabled>
             <span class="text-danger" asp-validation-for="Endereco.Cep"></span>
         </div>
 
 
         <div class="mb-3 text-white">
             <label for="estado" class="form-label">Estado</label>
-            <input type="text" class="form-control" asp-for="Endereco.Estado" id="estadoInput">
+            <input type="text" class="form-control" asp-for="Endereco.Estado" id="estadoInput" disabled>
             <span class="text-danger" asp-validation-for="Endereco.Estado"></span>
         </div>
 
 
         <div class="mb-3 text-white">
             <label for="cidade" class="form-label">Cidade</label>
-            <input type="text" class="form-control" asp-for="Endereco.Cidade" id="cidadeInput">
+            <input type="text" class="form-control" asp-for="Endereco.Cidade" id="cidadeInput" disabled>
             <span class="text-danger" asp-validation-for="Endereco.Cidade"></span>
         </div>
 
 
         <div class="mb-3 text-white">
             <label for="bairro" class="form-label">Bairro</label>
-            <input type="text" class="form-control" asp-for="Endereco.Bairro" id="bairroInput">
+            <input type="text" class="form-control" asp-for="Endereco.Bairro" id="bairroInput" disabled>
             <span class="text-danger" asp-validation-for="Endereco.Bairro"></span>
         </div>
 
         <div class="mb-3 text-white">
             <label for="rua" class="form-label">Rua</label>
-            <input type="text" class="form-control" asp-for="Endereco.Rua" id="ruaInput">
+            <input type="text" class="form-control" asp-for="Endereco.Rua" id="ruaInput" disabled>
             <span class="text-danger" asp-validation-for="Endereco.Rua"></span>
         </div>
 
 
         <div class="mb-3 text-white">
             <label for="numero" class="form-label">Número</label>
-            <input type="number" class="form-control" asp-for="Endereco.Numero" id="numeroInput">
+            <input type="number" class="form-control" asp-for="Endereco.Numero" id="numeroInput" disabled>
             <span class="text-danger" asp-validation-for="Endereco.Numero"></span>
         </div>
 
 
 
         <div class="d-flex gap-5 mt-5">
-            <button type="submit" class="btn btn-success w-50">Adicionar</button>
+            <button type="submit" class="btn btn-danger w-50">Deletar</button>
             <a class="btn btn-primary w-50" asp-controller="Cliente" asp-action="Index">Voltar</a>
         </div>
 
-        
+
 
 
     </form>
- </div>
+</div>
