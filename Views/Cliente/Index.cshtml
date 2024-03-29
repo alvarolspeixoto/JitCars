@@ -12,7 +12,7 @@
     </div>
 
 
-<table class="table table-dark table-hover">
+<table id="Clientes" class="table table-dark table-hover mt-5">
     <thead>
         <tr>
             <th></th>
@@ -32,13 +32,14 @@
 
             @foreach(var cliente in Model)
             {
-                <tr>
+                    <tr>
+                    <td>@cliente.Id</td>
                     <th scope="row">@cliente.PrimeiroNome</th>
                     <td>@cliente.Sobrenome</td>
                     <td>@cliente.Email</td>
                     <td>
-                        <a class="btn btn-warning mx-2" asp-controller="Cliente" asp-action="Editar" asp-route-id="cliente.Id"><i class="bi bi-pencil-square"></i>Editar</a>
-                        <a class="btn btn-danger mx-2" asp-controller="Cliente" asp-action="Deletar" asp-route-id="cliente.Id"><i class="bi bi-trash3-fill"></i>Excluir</a>
+                        <a class="btn btn-warning mx-2" asp-controller="Cliente" asp-action="Editar" asp-route-id="@cliente.Id"><i class="bi bi-pencil-square"></i>Editar</a>
+                        <a class="btn btn-danger mx-2" asp-controller="Cliente" asp-action="Deletar" asp-route-id="@cliente.Id"><i class="bi bi-trash3-fill"></i>Excluir</a>
 
                     </td>
                 </tr>

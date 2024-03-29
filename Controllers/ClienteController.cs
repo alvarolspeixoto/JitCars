@@ -25,22 +25,49 @@ namespace JitCars.Controllers
 
 
 		[HttpGet]
-		public IActionResult Editar(int? id) 
-		{
-			if (id == null || id==0)
+		public IActionResult Editar(int? id)
+			{
+
+            if (id == null || id==0)
 			{
 				return NotFound	();
 			}
 
-			Cliente? cliente = _db.Clientes.FirstOrDefault(x => x.Id == id);
+            
+            Cliente cliente = _db.Clientes.FirstOrDefault(x => x.Id == id);
 
             if (cliente == null)
             {
                 return NotFound();
             }
 
-            return View(cliente);
-		}
+            Endereco endereco = _db.Enderecos.FirstOrDefault(x => x.Id == cliente.EnderecoId);
+
+            if (endereco == null)
+            {
+                return NotFound();
+            }
+
+            cliente.EnderecoId = endereco.Id;
+
+            Telefone telefone = _db.Telefones.FirstOrDefault(x => x.ClienteId == cliente.Id);
+
+			if (telefone == null)
+			{
+				return NotFound();
+			}
+
+            telefone.ClienteId = cliente.Id; 
+
+            ClienteEnderecoTelViewModel viewModel = new ClienteEnderecoTelViewModel
+            {
+                Cliente = cliente,
+                Telefone = telefone,
+                Endereco = endereco
+            };
+
+            return View(viewModel);
+        }
 
 
 		[HttpGet]
@@ -100,16 +127,22 @@ namespace JitCars.Controllers
                 Cliente cliente = viewModel.Cliente;
                 Endereco endereco = viewModel.Endereco;
                 Telefone telefone = viewModel.Telefone;
+                cliente.EnderecoId = endereco.Id;
+                telefone.ClienteId = cliente.Id;
 
+                _db.Enderecos.Update(endereco);
+                _db.SaveChanges();
+                
                 _db.Clientes.Update(cliente);
-				_db.Enderecos.Update(endereco);
+                _db.SaveChanges();
+                
 				_db.Telefones.Update(telefone);
 				_db.SaveChanges();
 
 				return RedirectToAction("Index");
 			}
 
-			return View(viewModel);
+			return View();
 		}
 
 
