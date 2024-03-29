@@ -5,62 +5,65 @@
     ViewData["title"] = nomeVeiculo + " - " + Model.NumeroChassi;
 }
 
-<h1>@ViewData["title"]</h1>
-<form asp-action="Edit">
-    <div class="border p-3 mt-4">
-        <div class="pb-2 d-flex justify-content-between">
-            <h2>Dados</h2>
-            <a data-habilitado="false" onclick="habilitarEdicao()" id="btn-hab-edicao" class="btn btn-primary">Habilitar
-                edição</a>
-        </div>
-        <hr />
-        <input hidden asp-for="Id" />
-        @* <div asp-validation-summary="All"></div> *@
-        <div class="mb-3">
-            <label asp-for="NumeroChassi" class="mb-2"></label>
-            <input disabled asp-for="NumeroChassi" class="form-control" />
-            <span asp-validation-for="NumeroChassi" class="text-danger"></span>
-        </div>
-        <div class="form-group mb-2">
-            <label asp-for="PrecoCusto" class="control-label"></label>
-            <input disabled type="number" step="0.01" asp-for="PrecoCusto" class="form-control mt-1" min="0" />
-            <span asp-validation-for="PrecoCusto" class="text-danger"></span>
-        </div>
-        <div class="form-group mb-2">
-            <label asp-for="PrecoVenda" class="control-label"></label>
-            <input disabled type="number" step="0,01" asp-for="PrecoVenda" class="form-control mt-1" min="0" />
-            <span asp-validation-for="PrecoVenda" class="text-danger"></span>
-        </div>
-        <div class="form-group mb-2">
-            <label asp-for="ModeloId" class="control-label"></label>
-            <div class="d-flex flex-column gap-1">
-                <select id="select-modelo" disabled asp-for="ModeloId" class="form-select">
-                    <option value="" selected>Selecione um modelo</option>
-                    @if (ViewBag.modelos != null)
-                    {
-                        @foreach (var modelo in ViewBag.modelos)
+<div class="p-4 pt-2">
+    <h1>@ViewData["title"]</h1>
+    <form asp-action="Edit">
+        <div class="border p-3 mt-4">
+            <div class="pb-2 d-flex justify-content-between">
+                <h2>Dados</h2>
+                <a data-habilitado="false" onclick="habilitarEdicao()" id="btn-hab-edicao"
+                    class="btn btn-primary"><i class="bi bi-gear"></i>&nbsp;Habilitar
+                    edição</a>
+            </div>
+            <hr />
+            <input hidden asp-for="Id" />
+            @* <div asp-validation-summary="All"></div> *@
+            <div class="mb-3">
+                <label asp-for="NumeroChassi" class="mb-2"></label>
+                <input disabled asp-for="NumeroChassi" class="form-control" />
+                <span asp-validation-for="NumeroChassi" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="PrecoCusto" class="control-label"></label>
+                <input disabled type="number" step="0.01" asp-for="PrecoCusto" class="form-control mt-1" min="0" />
+                <span asp-validation-for="PrecoCusto" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="PrecoVenda" class="control-label"></label>
+                <input disabled type="number" step="0,01" asp-for="PrecoVenda" class="form-control mt-1" min="0" />
+                <span asp-validation-for="PrecoVenda" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="ModeloId" class="control-label"></label>
+                <div class="d-flex flex-column gap-1">
+                    <select id="select-modelo" disabled asp-for="ModeloId" class="form-select">
+                        <option value="" selected>Selecione um modelo</option>
+                        @if (ViewBag.modelos != null)
                         {
-                            var nomeVeiculo = modelo.Marca + " " + modelo.Nome;
-                            <option value="@modelo.Id">@nomeVeiculo</option>
+                            @foreach (var modelo in ViewBag.modelos)
+                            {
+                                var nomeVeiculo = modelo.Marca + " " + modelo.Nome;
+                                <option value="@modelo.Id">@nomeVeiculo</option>
+                            }
                         }
-                    }
-                </select>
-                <span asp-validation-for="ModeloId" class="text-danger"></span>
+                    </select>
+                    <span asp-validation-for="ModeloId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group mb-2">
+                <label asp-for="Cor" class="control-label"></label>
+                <input disabled asp-for="Cor" class="form-control mt-1" />
+                <span asp-validation-for="Cor" class="text-danger"></span>
+            </div>
+            <div class="d-flex flex-row gap-2">
+                <input disabled type="submit" value="Salvar" class="btn btn-primary" />
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Excluir</a>
+                <a class="btn btn-secondary" asp-action="Index">Voltar</a>
             </div>
         </div>
-
-        <div class="form-group mb-2">
-            <label asp-for="Cor" class="control-label"></label>
-            <input disabled asp-for="Cor" class="form-control mt-1" />
-            <span asp-validation-for="Cor" class="text-danger"></span>
-        </div>
-        <div class="d-flex flex-row gap-2">
-            <input disabled type="submit" value="Editar" class="btn btn-primary" />
-            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Excluir</a>
-            <a class="btn btn-secondary" asp-action="Index">Voltar</a>
-        </div>
-    </div>
-</form>
+    </form>
+</div>
 
 @section Scripts {
     @{
@@ -80,14 +83,14 @@
             if (habilitado === "false") {
                 inputs.forEach((input) => input.disabled = false);
                 select.disabled = false;
-                btn.innerText = "Desabilitar edição";
+                btn.innerHTML = "<i class=\"bi bi-gear\"></i>&nbsp; Desabilitar edição";
                 btn.dataset.habilitado = "true";
                 return
             }
 
             inputs.forEach((input) => input.disabled = true);
             select.disabled = true;
-            btn.innerText = "Habilitar edição";
+            btn.innerHTML = "<i class=\"bi bi-gear\"></i>&nbsp; Habilitar edição";
             btn.dataset.habilitado = "false";
 
         }
