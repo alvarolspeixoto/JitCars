@@ -1,4 +1,5 @@
 @model JitCars.Models.Carro
+@using JitCars.Enums
 
 @{
     ViewData["Title"] = "Adicionar Carro";
@@ -47,7 +48,14 @@
 
                 <div class="form-group mb-2">
                     <label asp-for="Cor" class="control-label"></label>
-                    <input asp-for="Cor" class="form-control mt-1"/>
+                    @* <input asp-for="Cor" class="form-control mt-1"/> *@
+                    <select asp-for="Cor" class="form-select">
+                        <option value="" selected disabled>Selecione uma cor</option>
+                        @foreach (var cor in ViewBag.cores)
+                        {
+                            <option value="@cor">@Enum.GetName(typeof(Cor), cor)</option>
+                        }
+                    </select>
                     <span asp-validation-for="Cor" class="text-danger"></span>
                 </div>
 

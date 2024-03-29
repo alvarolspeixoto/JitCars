@@ -1,4 +1,5 @@
 @model JitCars.Models.Carro
+@using JitCars.Enums
 
 @{
     var nomeVeiculo = Model.Modelo.Marca + " " + Model.Modelo.Nome;
@@ -11,8 +12,8 @@
         <div class="border p-3 mt-4">
             <div class="pb-2 d-flex justify-content-between">
                 <h2>Dados</h2>
-                <a data-habilitado="false" onclick="habilitarEdicao()" id="btn-hab-edicao"
-                    class="btn btn-primary"><i class="bi bi-gear"></i>&nbsp;Habilitar
+                <a data-habilitado="false" onclick="habilitarEdicao()" id="btn-hab-edicao" class="btn btn-primary"><i
+                        class="bi bi-gear"></i>&nbsp;Habilitar
                     edição</a>
             </div>
             <hr />
@@ -53,7 +54,13 @@
 
             <div class="form-group mb-2">
                 <label asp-for="Cor" class="control-label"></label>
-                <input disabled asp-for="Cor" class="form-control mt-1" />
+                <select disabled asp-for="Cor" class="form-select">
+                    <option value="" selected disabled>Selecione uma cor</option>
+                    @foreach (var cor in ViewBag.cores)
+                    {
+                        <option value="@cor">@Enum.GetName(typeof(Cor), cor)</option>
+                    }
+                </select>
                 <span asp-validation-for="Cor" class="text-danger"></span>
             </div>
             <div class="d-flex flex-row gap-2">
@@ -76,20 +83,20 @@
 
             let inputs = document.querySelectorAll("input");
             let btn = document.querySelector("#btn-hab-edicao");
-            let select = document.querySelector("#select-modelo")
+            let selects = document.querySelectorAll("select")
 
             let habilitado = btn.dataset.habilitado;
 
             if (habilitado === "false") {
                 inputs.forEach((input) => input.disabled = false);
-                select.disabled = false;
+                selects.forEach((select) => select.disabled = false);
                 btn.innerHTML = "<i class=\"bi bi-gear\"></i>&nbsp; Desabilitar edição";
                 btn.dataset.habilitado = "true";
                 return
             }
 
             inputs.forEach((input) => input.disabled = true);
-            select.disabled = true;
+            selects.forEach((select) => select.disabled = true);
             btn.innerHTML = "<i class=\"bi bi-gear\"></i>&nbsp; Habilitar edição";
             btn.dataset.habilitado = "false";
 

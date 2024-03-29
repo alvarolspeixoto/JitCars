@@ -1,4 +1,5 @@
 @model JitCars.Models.Carro
+@using JitCars.Enums
 
 @{
     var nomeVeiculo = Model.Modelo.Marca + " " + Model.Modelo.Nome;
@@ -35,7 +36,7 @@
 
             <div class="form-group mb-2">
                 <label asp-for="Cor" class="control-label"></label>
-                <input disabled asp-for="Cor" class="form-control mt-1" />
+                <input disabled class="form-control mt-1" value="@Enum.GetName(typeof(Cor), @Model.Cor)"/>
             </div>
             <div class="d-flex flex-row gap-2">
                 <input type="submit" class="btn btn-danger" value="Excluir">

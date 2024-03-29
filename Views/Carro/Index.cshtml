@@ -12,7 +12,7 @@
 </style>
 
 <div class="d-flex justify-content-center p-4 flex-row w-100">
-    <div class="flex align-content-center justify-content-center">
+    <div class="flex align-content-center justify-content-center" style="min-width: 90%;">
         <h1>@ViewData["Title"]</h1>
 
         <p>Veja aqui o estoque da concessionária</p>
@@ -46,7 +46,7 @@
                             <div class="card-body justify-content-left">
                                 <h5 class="card-title">@nomeVeiculo</h5>
                                 <ul class="mb-2">
-                                    <li><strong>Cor:</strong> @carro.Cor</li>
+                                    <li><strong>Cor: </strong>@Enum.GetName(typeof(JitCars.Enums.Cor), @carro.Cor)</li>
                                     <li><strong>Carroceria:</strong> @carro.Modelo.Carroceria</li>
                                     <span style="color: green; font-size: 2em"><strong> @carro.PrecoVenda.ToString("C")</strong></span>
 
