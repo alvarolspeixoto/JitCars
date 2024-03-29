@@ -1,4 +1,5 @@
 using JitCars.Data;
+using JitCars.Enums;
 using JitCars.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +32,7 @@ namespace JitCars.Controllers
             var modelos = _context.Modelos.ToList();
 
             ViewBag.modelos = modelos;
+            ViewBag.cores = Enum.GetValues(typeof(Cor));
 
             return View();
         }
@@ -79,6 +81,7 @@ namespace JitCars.Controllers
 
             var modelos = _context.Modelos.ToList();
             ViewBag.modelos = modelos;
+            ViewBag.cores = Enum.GetValues(typeof(Cor));
 
             return View(carro);
 
