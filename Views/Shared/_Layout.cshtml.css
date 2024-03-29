@@ -62,7 +62,12 @@ body {
 }
 
 .main-container {
-  position: fixed;
+  position: absolute;
   right: 0;
   width: 80%;
+  height: 100vh;
+}
+
+main {
+  height: 100vh;
 }
