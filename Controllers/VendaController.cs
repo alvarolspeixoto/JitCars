@@ -1,6 +1,7 @@
 ﻿using JitCars.Data;
 using JitCars.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace JitCars.Controllers
 {
@@ -13,10 +14,10 @@ namespace JitCars.Controllers
 			_db = db;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
 		{
-			IEnumerable<Venda> objVendaList = _db.Vendas.ToList();
-			return View(objVendaList);
+            var vendas = await _db.Vendas.Include(e => e.Cliente).ToListAsync();
+			return View(vendas);
 		}
 
         //GET
