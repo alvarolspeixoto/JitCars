@@ -8,6 +8,7 @@ namespace JitCars.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Insira um CEP")]
+        [Display(Name = "CEP")]
         [StringLength(8)]
         public string? Cep { get; set; }
 
@@ -28,6 +29,7 @@ namespace JitCars.Models
         public string? Rua { get; set; }
 
         [Required(ErrorMessage = "Insira um número")]
+        [Display(Name = "Número")]
         public int Numero { get; set; }
 
 

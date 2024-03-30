@@ -1,0 +1,45 @@
+@model LoginViewModel;
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="d-flex justify-content-center pt-4 pb-4" style="margin-top: 100px;">
+    <div class="col-md-3 card p-3" style="max-height: 300px;">
+        <h2 class="text-center">Login</h2>
+        <form asp-action="Login" method="post">
+            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+            <div class="mb-1">
+                <label asp-for="NomeUsuario"></label>
+                <input asp-for="NomeUsuario" class="form-control" />
+                <span asp-validation-for="NomeUsuario" class="text-danger"></span>
+            </div>
+            <div class="mb-1">
+                <label asp-for="Senha"></label>
+                <input asp-for="Senha" class="form-control" />
+                <span asp-validation-for="Senha" class="text-danger"></span>
+            </div>  
+            <div class="mb-1 form-check p-0">
+                <input type="checkbox" asp-for="ManterLogado">
+                <label asp-for="ManterLogado"></label>
+            </div>
+            <span class="text-danger text-sm-center mt-2">
+            @Html.ValidationMessage("LoginFailure")
+            </span>
+            
+            <div class="row">
+                <div class="col-8">
+                    <a class="text-decoration-none float-start mt-2" asp-action="Registrar">Não tem uma conta?</a>
+                </div>
+                <div class="col-4">
+                    <input type="submit" value="Logar" class="btn btn-primary btn-sm float-end" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
