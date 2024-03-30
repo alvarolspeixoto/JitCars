@@ -28,20 +28,20 @@ namespace JitCars.Controllers
 		public IActionResult Editar(int? id)
 			{
 
-            if (id == null || id==0)
+            if (id==null)
 			{
 				return NotFound	();
 			}
 
             
-            Cliente cliente = _db.Clientes.FirstOrDefault(x => x.Id == id);
+            Cliente cliente = _db.Clientes.First(x => x.Id == id);
 
             if (cliente == null)
             {
                 return NotFound();
             }
 
-            Endereco endereco = _db.Enderecos.FirstOrDefault(x => x.Id == cliente.EnderecoId);
+            Endereco endereco = _db.Enderecos.First(x => x.Id == cliente.EnderecoId);
 
             if (endereco == null)
             {
@@ -50,7 +50,7 @@ namespace JitCars.Controllers
 
             cliente.EnderecoId = endereco.Id;
 
-            Telefone telefone = _db.Telefones.FirstOrDefault(x => x.ClienteId == cliente.Id);
+            Telefone telefone = _db.Telefones.First(x => x.ClienteId == cliente.Id);
 
 			if (telefone == null)
 			{
@@ -98,7 +98,8 @@ namespace JitCars.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Editar(ClienteEnderecoTelViewModel viewModel) 
+        [ValidateAntiForgeryToken]
+        public IActionResult Editar(ClienteEnderecoTelViewModel viewModel) 
 		{
 
 			if (ModelState.IsValid)
@@ -106,17 +107,20 @@ namespace JitCars.Controllers
                 Cliente cliente = viewModel.Cliente;
                 Endereco endereco = viewModel.Endereco;
                 Telefone telefone = viewModel.Telefone;
-                cliente.EnderecoId = endereco.Id;
-                telefone.ClienteId = cliente.Id;
+                
+                
 
                 _db.Enderecos.Update(endereco);
                 _db.SaveChanges();
-                
+
+                cliente.EnderecoId = endereco.Id;
                 _db.Clientes.Update(cliente);
                 _db.SaveChanges();
-                
-				_db.Telefones.Update(telefone);
-				_db.SaveChanges();
+
+                telefone.ClienteId = cliente.Id;
+                _db.Telefones.Update(telefone);
+                _db.SaveChanges();
+      
 
 				return RedirectToAction("Index");
 			}
