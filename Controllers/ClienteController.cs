@@ -70,27 +70,6 @@ namespace JitCars.Controllers
         }
 
 
-		[HttpGet]
-		public IActionResult Deletar(int? id) 
-		{
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-
-			Cliente? cliente = _db.Clientes.FirstOrDefault(x => x.Id == id);
-
-			if (cliente == null)
-			{
-				return NotFound();
-			}
-
-			return RedirectToAction("Index");
-
-        }
-
-
-
 
 		[HttpPost]
 		public IActionResult Cadastrar(ClienteEnderecoTelViewModel viewModel)
@@ -145,23 +124,5 @@ namespace JitCars.Controllers
 			return View();
 		}
 
-
-		[HttpPost]
-		public IActionResult Deletar(ClienteEnderecoTelViewModel viewModel)
-		{
-			Cliente cliente = viewModel.Cliente;
-			Endereco endereco = viewModel.Endereco;
-			Telefone telefone = viewModel.Telefone;
-
-            if (cliente== null)
-			{
-				return NotFound();
-			}
-
-			_db.Clientes.Remove(cliente);
-			_db.SaveChanges();
-
-			return RedirectToAction("Index");
-        }
     }
 }
