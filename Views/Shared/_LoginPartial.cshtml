@@ -1,0 +1,17 @@
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<Funcionario> signInManager
+
+<div class="dropdown open p-3">
+    @if (signInManager.IsSignedIn(User))
+    {
+        <button class="btn border-none dropdown-toggle text-white" type="button" id="triggerId" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <i class="bi bi-person-fill"></i>&nbsp;<span>@User.Identity!.Name</span>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="triggerId">
+            <button class="dropdown-item" href="#">Opções</button>
+            <button class="dropdown-item" href="#">Perfil</button>
+            <a class="dropdown-item" asp-action="Deslogar" asp-controller="Funcionario">Sair</a>
+        </div>
+    }
+</div>
