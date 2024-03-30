@@ -1,10 +1,12 @@
 ﻿using JitCars.Data;
 using JitCars.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace JitCars.Controllers
 {
+    [Authorize]
 	public class VendaController : Controller
 	{
 		private readonly AppDbContext _db;

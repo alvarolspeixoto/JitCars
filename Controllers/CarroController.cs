@@ -1,12 +1,13 @@
 using JitCars.Data;
 using JitCars.Enums;
 using JitCars.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace JitCars.Controllers
 {
-
+    [Authorize]
     public class CarroController : Controller
     {
 

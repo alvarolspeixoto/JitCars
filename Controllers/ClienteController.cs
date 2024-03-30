@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using JitCars.Data;
 using JitCars.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JitCars.Controllers
 {
+	[Authorize]
 	public class ClienteController : Controller
 	{
 
