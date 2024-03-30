@@ -9,7 +9,7 @@ namespace JitCars.Models
 
         [Required(ErrorMessage = "Insira um CEP")]
         [Display(Name = "CEP")]
-        [StringLength(8)]
+        [StringLength(8, MinimumLength = 8, ErrorMessage = "O CEP deve conter 8 dígitos")]
         public string? Cep { get; set; }
 
         [Required(ErrorMessage = "Insira um estado")]
