@@ -12,18 +12,18 @@
     </div>
 
 
-<table id="Clientes" class="table table-dark table-hover mt-5">
-    <thead>
-        <tr>
-            <th></th>
-            <th scope="col">ID</th>
-            <th scope="col">Nome</th>
-            <th scope="col">Sobrenome</th>
-            <th scope="col">E-mail</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+    <table id="Clientes" class="table table-dark table-hover mt-5">
+        <thead>
+            <tr>
+                <th></th>
+                <th scope="col">ID</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Sobrenome</th>
+                <th scope="col">E-mail</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
 
 
 
@@ -33,14 +33,13 @@
             @foreach(var cliente in Model)
             {
                     <tr>
+                    <td></td>
                     <td>@cliente.Id</td>
-                    <th scope="row">@cliente.PrimeiroNome</th>
+                    <td>@cliente.PrimeiroNome</td>
                     <td>@cliente.Sobrenome</td>
                     <td>@cliente.Email</td>
                     <td>
                         <a class="btn btn-warning mx-2" asp-controller="Cliente" asp-action="Editar" asp-route-id="@cliente.Id"><i class="bi bi-pencil-square"></i>Editar</a>
-                        <a class="btn btn-danger mx-2" asp-controller="Cliente" asp-action="Deletar" asp-route-id="@cliente.Id"><i class="bi bi-trash3-fill"></i>Excluir</a>
-
                     </td>
                 </tr>
             }
