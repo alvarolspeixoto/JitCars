@@ -3,7 +3,7 @@
     ViewData["Title"] = "Registre-se";
 }
 
-<div class="d-flex align-items-center justify-content-center pt-4 pb-4 vh-75">
+<div class="d-flex align-items-center justify-content-center pt-4 pb-4 vh-75 mt-2">
     <div class="col-md-3 card p-3">
         <h2 class="text-center">Registre-se</h2>
         <form asp-action="Registrar" method="post">
@@ -83,9 +83,6 @@
                 <input type="password" asp-for="SenhaConfirmacao" class="form-control" />
                 <span asp-validation-for="SenhaConfirmacao" class="text-danger"></span>
             </div>
-            @* <span class="text-danger text-sm-center mt-2">
-            @Html.ValidationMessage("LoginFailure")
-            </span> *@
             
             <div class="row">
                 <div class="col-8">
