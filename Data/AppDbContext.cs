@@ -28,6 +28,10 @@ namespace JitCars.Data
                 .HasIndex(e => e.Numero)
                 .IsUnique();
 
+            builder.Entity<Funcionario>()
+                .HasIndex(e => e.Cpf)
+                .IsUnique();
+
         }
 
 
