@@ -25,12 +25,12 @@
             </div>
             <div class="mb-1">
                 <label asp-for="Cpf"></label>
-                <input asp-for="Cpf" class="form-control" />
+                <input asp-for="Cpf" class="form-control" type="number" step="1" min="0"/>
                 <span asp-validation-for="Cpf" class="text-danger"></span>
             </div>
             <div class="mb-1">
                 <label asp-for="Endereco.Cep"></label>
-                <input asp-for="Endereco.Cep" class="form-control" />
+                <input asp-for="Endereco.Cep" class="form-control" type="number" step="1" min="0" />
                 <span asp-validation-for="Endereco.Cep" class="text-danger"></span>
             </div>
             <div class="mb-1">
