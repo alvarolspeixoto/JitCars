@@ -46,6 +46,25 @@ namespace JitCars.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Registrar(RegistrarViewModel model)
         {
+
+            var usuarioCpfExistente = await _context.Users
+                                            .OfType<Funcionario>()
+                                            .SingleOrDefaultAsync(e => e.Cpf == model.Cpf);
+
+            if (usuarioCpfExistente != null)
+            {
+                ModelState.AddModelError("Cpf", "Este CPF já está em uso");
+            }
+
+            var usuarioUserExistente = await _context.Users
+                                            .OfType<Funcionario>()
+                                            .SingleOrDefaultAsync(e => e.UserName == model.NomeUsuario);
+
+            if (usuarioUserExistente != null)
+            {
+                ModelState.AddModelError("NomeUsuario", "Este nome de usuário já está em uso");
+            }
+
             if (ModelState.IsValid)
             {
 
@@ -76,9 +95,9 @@ namespace JitCars.Controllers
                 {
                     ModelState.AddModelError("", erro.Description);
                 }
-
-                ViewBag.cargos = await _context.Cargos.ToListAsync();
             }
+
+            ViewBag.cargos = await _context.Cargos.ToListAsync();
 
             return View(model);
         }
