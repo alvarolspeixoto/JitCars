@@ -1,0 +1,32 @@
+﻿@model JitCars.Models.Cargo
+@{
+    ViewData["title"] = "Atualizar Cargo";
+}
+
+<div class="container bg-dark p-5 rounded-5">
+    <div class="mb-5 text-center">
+        <h1 class="text-light">Atualizar Cargo</h1>
+    </div>
+    <form method="post" asp-controller="Cargo" asp-action="Atualizar">
+        <input type="hidden" asp-for="Id" />
+        <div class="mb-3">
+            <label for="Titulo" class="text-light form-label">Título:</label>
+            <input type="text" asp-for="Titulo" class="shadow-none form-control" id="Titulo" placeholder="Informe o título do cargo">
+            <span class="text-danger" asp-validation-for="Titulo"></span>
+        </div>
+        <div class="mb-3">
+            <label for="Date" class="text-light form-label">Data de Contratação:</label>
+            <input type="date" asp-for="Date" class="form-control shadow-none" id="Date">
+            <span class="text-danger" asp-validation-for="Date"></span>
+        </div>
+        <div class="mb-3">
+            <label for="Salario" class="text-light form-label">Salário:</label>
+            <input type="number" asp-for="Salario" class="form-control shadow-none" id="Salario" placeholder="Informe o salário do cargo">
+            <span class="text-danger" asp-validation-for="Salario"></span>
+        </div>
+        <div class="d-flex gap-5 mt-5">
+            <button type="submit" class="btn btn-success w-50">Atualizar</button>
+            <a class="btn btn-primary w-50" asp-controller="Cargo" asp-action="Index">Voltar</a>
+        </div>
+    </form>
+</div>

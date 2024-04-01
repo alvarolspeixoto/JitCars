@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Cargo>
+@{
+    ViewData["Title"] = "Cargos";
+}
+
+<div class="container">
+
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <h1>Cargos</h1>
+        <a class="btn btn-success mx-2" asp-controller="Cargo" asp-action="Cadastrar">Cadastrar novo cargo</a>
+    </div>
+
+    <table id="Cargos" class="table table-dark table-hover mt-5" style="width:75%">
+        <thead>
+            <tr>
+                <th></th>
+                <th scope="col">Título</th>
+                <th scope="col">Data</th>
+                <th scope="col">Salário</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (var cargo in Model)
+                {
+                    <tr>
+                        <td></td>
+                        <td>@cargo.Titulo</td>
+                        <td>@cargo.Date</td>
+                        <td>@cargo.Salario.ToString("C")</td>
+                        <td>
+                            <a class="btn btn-warning mx-2" asp-controller="Cargo" asp-action="Editar" asp-route-id="@cargo.Id"><i class="bi bi-pencil-square"></i> Editar</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

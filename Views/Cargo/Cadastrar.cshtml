@@ -1,0 +1,41 @@
+﻿@model JitCars.Models.Cargo
+@{
+    ViewData["Title"] = "Cadastrar Cargo";
+}
+
+<div class="container bg-dark p-5 rounded-5">
+    <div class="mb-5 text-center">
+        <h1 class="text-light">Cadastro de Cargo</h1>
+    </div>
+
+    <form method="post" asp-controller="Cargo" asp-action="Cadastrar">
+        <div class="mb-3 text-white">
+            <label for="Titulo" class="form-label">Título</label>
+            <input type="text" class="form-control" asp-for="Titulo" id="tituloInput" autocomplete="off" placeholder="Título do cargo">
+            <span class="text-danger" asp-validation-for="Titulo"></span>
+        </div>
+
+        <div class="mb-3 text-white">
+            <label for="Date" class="form-label">Data de Contratação</label>
+            <input type="date" class="form-control" asp-for="Date" id="dateInput">
+            <span class="text-danger" asp-validation-for="Date"></span>
+        </div>
+
+        <div class="mb-3 text-white">
+            <label for="Salario" class="form-label">Salário</label>
+            <input type="number" class="form-control" asp-for="Salario" id="salarioInput" autocomplete="off" placeholder="Salário do cargo">
+            <span class="text-danger" asp-validation-for="Salario"></span>
+        </div>
+
+        <div class="d-flex gap-5 mt-5">
+            <button type="submit" class="btn btn-success w-50">Adicionar</button>
+            <a class="btn btn-primary w-50" asp-controller="Cargo" asp-action="Index">Voltar</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
