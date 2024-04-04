@@ -8,7 +8,13 @@
 		</div>
 		<div class="mb-3">
 			<label asp-for="ClienteId"></label>
-			<input asp-for="ClienteId" class="form-control" />
+			<input asp-for="ClienteId" class="form-control" list="clientes"/>
+			<datalist id="clientes">
+			@foreach (var cliente in ViewBag.clientes)
+			{
+				<option value="@cliente.Id">@cliente.Cpf</option>
+			}
+			</datalist>
 			<span asp-validation-for="ClienteId" class="text-danger"></span>
 		</div>
 		<div class="mb-3">
