@@ -20,6 +20,7 @@ namespace JitCars.Models
         public string? FormaPagamento { get; set; }
 
         [Required(ErrorMessage = "Informe o cliente")]
+        [DisplayName("Digite o CPF do cliente para filtrar")]
         public int ClienteId { get; set; }
         public virtual Cliente? Cliente { get; set; }
 

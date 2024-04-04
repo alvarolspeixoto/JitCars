@@ -81,6 +81,9 @@ namespace JitCars.Controllers
                 return NotFound();
             }
 
+            var clientes = _db.Clientes.ToList();
+            ViewBag.Clientes = clientes;
+
             return View(vendaFromDb);
         }
 
