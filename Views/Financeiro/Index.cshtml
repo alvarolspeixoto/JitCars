@@ -7,96 +7,35 @@
     <link rel="stylesheet" href="financeiro.css" />
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <style>
-
-        section > header{
-            font-size: 40px;
-            display:flex;
-            justify-content: center;
-            background-color: #003366;
-            color: #FFFFFF;
-            max-width: 100%;
-            margin: 0;
-        }
-
-
-
-        body {
-            background-color: #aaaaaa;
-        }
-
-        table{
-           table-layout:fixed;
-        }
-
-        section {
-            font-family: 'Lato', sans-serif;
-            width: 1600px;
-        }
-
-        .secaoBranca{
-            margin-top: 100px;
-        }
-
-        .tabelas{
-            font-size: 20px;
-            background: #003366;
-            padding: 1em;
-            padding-left: 10px;
-            padding-right: 10px;
-            justify-content: center;
-            color: #FFFFFF;
-        }
-
-        .espaco{
-            padding-left: 50px;
-        }
-
-        .conteudo {
-            color: #FFFFFF;
-            background: #003366;
-            padding-left: 10px;
-            padding-right: 10px;
-            justify-content: center;
-        }
-
-        .linha{
-            background-color: black;
-            padding-bottom: 1px;
-        }
-
-        .botao {
-            background: transparent;
-            color: #ffa500;
-            border: 0;
-            font-size: 15px;
-            justify-self: center;    
-        }
-
         .titulo_tabela {
             font-size: 25px;
-            display: 1;
-            justify-self:center;
-            background-color: #003366;
+            text-align: center;
+            background-color: #212529;
             color: #FFFFFF;
-            width: 100%;
+            width: 75%;
+            border-botton: 2px solid #FFFFFF;
         }
 
-
-
+        hr {
+            border: none; /* Remove a borda padrão */
+            border-bottom: 2px solid white; /* Adiciona uma linha preta */
+            margin: 0; /* Remove margem para evitar espaço extra */
+        }
     </style>
 </head>
 
-<section>
-    <header >
-            <span>Financeiro</span>
-    </header>
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Financeiro</h1>
+    </div>
 
-    <div class="secaoBranca"></div>
+    <div style="margin-top:5%"></div>
 
 
-        <table class="table table-dark">
+    <table class="table table-dark table-hover mb-5" style="width:75%">
             <header class="titulo_tabela">
                 <span>Vendas</span>
+                <hr />
             </header>
             <thead>
                 <tr>
@@ -125,22 +64,21 @@
                         i++;
 
                              var nomeCliente = obj.Venda.Cliente.PrimeiroNome + " " + obj.Venda.Cliente.Sobrenome ;                                             
-                        <tr>
+                            <tr>
                                       <th scope="row" >@i</th>                         
                                       <td>@obj.Modelo.Nome</td>
                                       <td>@obj.Modelo.Marca</td>
                                       <td>@nomeCliente</td>                           
                                       <td style="color:lawngreen">R$@obj.PrecoVenda</td>
                                       <td>@obj.Venda.Data</td>
-                                <!--<td><button class="botao"><i class="bi bi-plus-circle"></i></button></td>-->
-                                  </tr>
+                            </tr>
                       
                                   }                          
                     }
                 }
                 else
                 {
-                    <tr>Nenhum carro foi vendido</tr>
+                    <td style="width:100%">Nenhum carro foi vendido</td>
                 }
 
                     }
@@ -149,9 +87,10 @@
             </tbody>            
         </table>
 
-        <table class="table table-dark">
-            <header class="titulo_tabela">
+    <table class="table table-dark table-hover mb-5" style="width:75%">
+        <header class="titulo_tabela">
                 <span>Lucro</span>
+                <hr />
             </header>
             <thead>
                 <tr>
@@ -159,114 +98,121 @@
                     <th scope="col">Custo</th>
                     <th scope="col">Valor da Venda</th>
                     <th scope="col">Lucro</th>
+                    <th scope="col">Data</th>
+
                 </tr>
             </thead>
         <tbody>
             @{
                 i = 0;
+                decimal lucro_total = 0;
                 if (ViewBag.Carros != null)
                 {
-                    @foreach (var obj in ViewBag.Carros)
+                    @foreach (var carro in ViewBag.Carros)
                     {
-                        @if (obj.VendaId != null)
+                        @if (carro.VendaId != null)
                         {
                       
                           i++;
-                        var lucro = obj.PrecoVenda - @obj.PrecoCusto;
+                        var lucro = carro.PrecoVenda - carro.PrecoCusto;
+                        lucro_total = lucro_total + lucro;
+
                             <tr>
                               <th scope="row">@i</th>
-                                  <td>R$@obj.PrecoCusto</td>
-                                  <td>R$@obj.PrecoVenda</td>
+                                  <td>R$@carro.PrecoCusto</td>
+                                  <td>R$@carro.PrecoVenda</td>
                                   <td style="color:lawngreen">R$@lucro</td>
+                                  <td>@carro.Venda.Data</td>
                             </tr>
                         
                         }                    
                     }
+                    <tr>
+                        <th scope="col" style="text-align: center"> Lucro Total</th> 
+                    </tr>
+                    <tr style="text-align:center">
+                        <td style="color:lawngreen">R$@lucro_total</td>
+                    </tr>
                 }
                 else
                 {
                     <tr>Nenhum carro foi vendido</tr>
                 }
-                
-                }
-                
-                
-            </tbody>
 
-        </table>
+            }
 
-        <table class="table table-dark">
-            <header class="titulo_tabela">
-                <span>Lucro Total</span>
-            </header>
-            <thead>
-                <tr>
-                    <th scope="col">Lucro</th>
-                </tr>
-            </thead>
-            <tbody>
+        </tbody>
+
+    </table>
+
+    <table class="table table-dark table-hover pb-5" style="width:75%">
+        <header class="titulo_tabela">
+            <span>Venda Funcionários</span>
+            <hr />
+        </header>
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Total de Vendas</th>
+                <th scope="col">Total Faturado</th>
+            </tr>
+        </thead>
+        <tbody>
             @{
-                i = 0;
-                decimal lucroSemestral = 0;
-                if (ViewBag.Carros != null)
+                var listaFuncionarios = new List<List<string>>();
+                
+                i = 1;
+                var j = 0;
+                if (ViewBag.Vendas != null){
+
+                @foreach (var venda in ViewBag.Vendas)
                 {
-                    @foreach (var obj in ViewBag.Carros)
-                {
-                    @if (obj.VendaId != null)
-                    {
-                       var lucro = obj.PrecoVenda - @obj.PrecoCusto;
-                        lucroSemestral = lucroSemestral + lucro;                 
-                        if (ViewBag.Carros.IndexOf(obj) == ViewBag.Carros.Count - 1)
+                    var funcionario = new List<string>();
+                        for (var k = 0; k < 3; k++)
                         {
-                          i++;
-                          <tr style="justify-content: center">
-                            <td style="color:lawngreen">R$@lucroSemestral</td>
-                          </tr>   
+                            funcionario.Add("");
                         }
-                        }              
+                    listaFuncionarios.Add(funcionario);
+                    var nomeCompleto = venda.Funcionario.PrimeiroNome + " " + venda.Funcionario.Sobrenome;
+                    decimal total_faturado = 0;
+                    funcionario[0] = nomeCompleto;
+                    funcionario[1] = (funcionario[1] + 1).ToString();
+                        foreach(var carro in ViewBag.Carros)
+                        {
+                            if(carro.VendaId == venda.Id)
+                            {
+                                total_faturado = total_faturado + (carro.PrecoVenda - carro.PrecoCusto);
+                            }
+                        }
+                    funcionario[2] = (funcionario[2] + total_faturado).ToString();
+                    listaFuncionarios[venda.FuncionarioId-1] = funcionario;
+                    
+                    
+                    }
+                    @foreach(var funcionario in listaFuncionarios)
+                    {
+                        i++;
+                        <tr>
+                            <th scope="row">@i</th>
+                            <td>@funcionario[0]</td>
+                            <td>@funcionario[1]</td>
+                            <td style ="color:lawngreen">R$@funcionario[2]</td>
+                        </tr>
+                        j++;
                     }
                 }
                 else
                 {
-                    <tr>Nenhum carro foi vendido</tr>
+                    <tr>Nenhuma venda foi realizada</tr>
                 }
-                
             }
             
-            
             </tbody>
 
         </table>
 
-        <table class="table table-dark">
-            <header class="titulo_tabela">
-                <span>Venda Funcionários</span>
-            </header>
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Total_Venda</th>
-                    <th scope="col">Total_Faturado</th>
-                </tr>
-            </thead>
-            <tbody>
-                @* @foreach (var obj in ViewBag.Funcionarios)
-                {
-                    var nomeCompleto = obj.PrimeiroNome + obj.Sobrenome;
-                   <tr>
-                    <th scope="row">1</th>
-                    <td>@nomeCompleto</td>
-                    <td>20</td>
-                    <td>200000</td>
-                </tr> 
-                } *@
-            
-            </tbody>
 
-        </table>
-
-</section>
-  
+</div>
 
 
