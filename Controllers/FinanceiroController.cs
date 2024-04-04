@@ -48,8 +48,12 @@ namespace JitCars.Controllers
                 ViewBag.Carros = await dbase.Carros.Include(e => e.Modelo).ToListAsync();
             }
 
-            ViewBag.Vendas = await dbase.Vendas.Include(c => c.Cliente).ToListAsync();
-
+            
+            ViewBag.Funcionarios = await dbase.Set<Funcionario>()
+                .Include(f => f.Endereco)
+                .Include(f => f.Cargo)
+                .ToListAsync();
+            ViewBag.Vendas = await dbase.Vendas.Include(c => c.Cliente).Include(f => f.Funcionario).ToListAsync();
             return View();
 
 
