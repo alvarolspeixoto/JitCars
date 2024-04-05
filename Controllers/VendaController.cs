@@ -1,5 +1,6 @@
 ﻿using JitCars.Data;
 using JitCars.Models;
+using JitCars.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +28,8 @@ namespace JitCars.Controllers
         {
             var clientes = _db.Clientes.ToList();
 
-            ViewBag.Clientes = clientes;
+            ViewBag.clientes = clientes;
+            ViewBag.pagamentos = Enum.GetValues(typeof(FormaPagamento));
             
             return View();
         }

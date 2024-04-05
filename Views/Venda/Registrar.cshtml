@@ -1,4 +1,6 @@
 ﻿@model Venda
+@using JitCars.Enums
+@using System.ComponentModel.DataAnnotations
 
 <form method="post">
 	<div class="border p-3 mt-4">
@@ -21,11 +23,20 @@
 			</select>
 			<span asp-validation-for="ClienteId" class="text-danger"></span>
 		</div>
-		@* <div class="mb-3">
-		<label asp-for="FormaPagamento"></label>
-		<input asp-for="FormaPagamento" class="form-control" />
+		<div class="mb-3">
+		<label asp-for="FormaPagamento" class="control-label"></label>
+			@*<input asp-for="FormaPagamento" class="form-control" />*@
+		<select asp-for="FormaPagamento" class="form-select">
+			<option value="" selected disabled>Selecione uma forma de pagamento</option>
+			@if (ViewBag.pagamentos != null) {
+				@foreach (var pagamento in ViewBag.pagamentos)
+				{
+					<option value="@pagamento">@GetEnumDisplayName((FormaPagamento)pagamento)</option>
+				}
+			}
+			</select>
 		<span asp-validation-for="FormaPagamento" class="text-danger"></span>
-		</div> *@
+		</div> 
 		<div class="mb-3">
 			<label asp-for="NotaFiscal"></label>
 			<input asp-for="NotaFiscal" class="form-control" />
@@ -42,6 +53,18 @@
 	@{
 		await Html.RenderPartialAsync("_ValidationScriptsPartial");
 	}
+
+
+@functions {
+	public static string GetEnumDisplayName(FormaPagamento forma)
+	{
+		var display = typeof(FormaPagamento).GetField(forma.ToString())
+		.GetCustomAttributes(typeof(DisplayAttribute), false).SingleOrDefault() as DisplayAttribute;
+
+
+		return display != null ? display.Name : forma.ToString();
+	}
+}
 
 	<script>
 		function exibeClientes() {
