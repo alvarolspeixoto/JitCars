@@ -21,5 +21,7 @@ namespace JitCars.Models
         [Required]
         public int CargoId { get; set; }
         public virtual Cargo? Cargo { get; set; }
+
+        public string? Telefone { get; set; }
     }
 }

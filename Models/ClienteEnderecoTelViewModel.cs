@@ -2,8 +2,8 @@
 {
     public class ClienteEnderecoTelViewModel
     {
-        public Cliente Cliente { get; set; }
-        public Endereco Endereco { get; set; }
-        public Telefone Telefone { get; set; }
+        public Cliente? Cliente { get; set; }
+        public Endereco? Endereco { get; set; }
+        public string? Telefone { get; set; }
     }
 }

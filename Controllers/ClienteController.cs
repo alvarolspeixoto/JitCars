@@ -28,7 +28,7 @@ namespace JitCars.Controllers
 
 
         [HttpGet]
-        public IActionResult Editar(int? id)
+        /* public IActionResult Editar(int? id)
         {
             if (id == null)
             {
@@ -68,7 +68,7 @@ namespace JitCars.Controllers
             };
             // Retorna a View com o cliente e seus dados relacionados
             return View(viewModel);
-        }
+        } */
 
         /*
 		public IActionResult Editar(int? id)
@@ -124,7 +124,7 @@ namespace JitCars.Controllers
             {
                 Cliente cliente = viewModel.Cliente;
                 Endereco endereco = viewModel.Endereco;
-                Telefone telefone = viewModel.Telefone;
+                // Telefone telefone = viewModel.Telefone;
 
                 _db.Enderecos.Add(endereco);
                 _db.SaveChanges();
@@ -133,8 +133,8 @@ namespace JitCars.Controllers
                 _db.Clientes.Add(cliente);
                 _db.SaveChanges();
 
-                telefone.ClienteId = cliente.Id;
-                _db.Telefones.Add(telefone);
+                // telefone.ClienteId = cliente.Id;
+                // _db.Telefones.Add(telefone);
                 _db.SaveChanges();
 
                 return RedirectToAction("Index");
@@ -151,16 +151,16 @@ namespace JitCars.Controllers
             {
                 Cliente cliente = viewModel.Cliente;
                 Endereco endereco = viewModel.Endereco;
-                Telefone telefone = viewModel.Telefone;
+                // Telefone telefone = viewModel.Telefone;
 
                 // Verifica se o telefone foi modificado
-                Telefone telefoneNoBanco = _db.Telefones.First(t => t.Id == telefone.Id);
+                /* Telefone telefoneNoBanco = _db.Telefones.First(t => t.Id == telefone.Id);
                 if (telefoneNoBanco != null &&
                     (telefoneNoBanco.Numero != telefone.Numero || telefoneNoBanco.ClienteId != telefone.ClienteId))
                 {
                     // Se o telefone foi modificado, atualiza-o
                     _db.Telefones.Update(telefone);
-                }
+                } */
 
                 // Verifica se o ID do endereço é válido
                 if (cliente.Endereco != null && cliente.Endereco.Id > 0)
@@ -178,13 +178,13 @@ namespace JitCars.Controllers
                         _db.Enderecos.Update(endereco);
                     }
 
-                    
+
 
                     // Atualiza o cliente
                     _db.Clientes.Update(cliente);
 
                     // Atualiza o telefone associado ao cliente (se existir)
-                    _db.Telefones.Update(telefone);
+                    // _db.Telefones.Update(telefone);
 
 
                     // Salva as alterações no banco de dados
@@ -194,8 +194,8 @@ namespace JitCars.Controllers
                 }
 
                 // Se o modelo não for válido, retorna a View com o modelo para exibir os erros de validação
-                return View(viewModel);
             }
+            return View(viewModel);
 
             /*
             public IActionResult Editar(ClienteEnderecoTelViewModel viewModel) 
