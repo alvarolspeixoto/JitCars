@@ -6,21 +6,25 @@
 			<h2 class="text-primary">Registrar Venda</h2>
 			<hr />
 		</div>
+		<div class="text-danger" asp-validation-summary="All"></div>
 		<div class="mb-3">
 			<label asp-for="ClienteId"></label>
-			<input onkeyup="exibeClientes()" id="input-cliente" type="text" class="form-control mb-2" style="width: 30%;"  />
+			<input onkeyup="exibeClientes()" id="input-cliente" type="text" class="form-control mb-2"
+				style="width: 30%;" />
 			<select asp-for="ClienteId" class="form-select">
 				<option value="" selected disabled>Selecione um cliente</option>
-				@foreach (var cliente in ViewBag.clientes) {
-					<option data-cpf="@cliente.Cpf" class="cliente-opcao" value="@cliente.Id">@cliente.PrimeiroNome @cliente.Sobrenome - @cliente.Cpf</option>
+				@foreach (var cliente in ViewBag.clientes)
+				{
+					<option data-cpf="@cliente.Cpf" class="cliente-opcao" value="@cliente.Id">@cliente.PrimeiroNome
+						@cliente.Sobrenome - @cliente.Cpf</option>
 				}
 			</select>
 			<span asp-validation-for="ClienteId" class="text-danger"></span>
 		</div>
 		@* <div class="mb-3">
-			<label asp-for="FormaPagamento"></label>
-			<input asp-for="FormaPagamento" class="form-control" />
-			<span asp-validation-for="FormaPagamento" class="text-danger"></span>
+		<label asp-for="FormaPagamento"></label>
+		<input asp-for="FormaPagamento" class="form-control" />
+		<span asp-validation-for="FormaPagamento" class="text-danger"></span>
 		</div> *@
 		<div class="mb-3">
 			<label asp-for="NotaFiscal"></label>
@@ -35,9 +39,9 @@
 </form>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
 
 	<script>
 		function exibeClientes() {

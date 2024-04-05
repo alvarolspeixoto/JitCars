@@ -3,6 +3,7 @@ using System;
 using JitCars.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JitCars.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240405204101_migracao-13-adiciona-coluna-funcionario")]
+    partial class migracao13adicionacolunafuncionario
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -306,8 +309,10 @@ namespace JitCars.Migrations
                     b.Property<int>("FormaPagamento")
                         .HasColumnType("integer");
 
-                    b.Property<string>("FuncionarioId")
-                        .IsRequired()
+                    b.Property<Guid>("FuncionarioId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("FuncionarioId1")
                         .HasColumnType("text");
 
                     b.Property<string>("NotaFiscal")
@@ -318,7 +323,7 @@ namespace JitCars.Migrations
 
                     b.HasIndex("ClienteId");
 
-                    b.HasIndex("FuncionarioId");
+                    b.HasIndex("FuncionarioId1");
 
                     b.ToTable("Vendas");
                 });
@@ -512,9 +517,7 @@ namespace JitCars.Migrations
 
                     b.HasOne("JitCars.Models.Funcionario", "Funcionario")
                         .WithMany()
-                        .HasForeignKey("FuncionarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FuncionarioId1");
 
                     b.Navigation("Cliente");
 

@@ -27,7 +27,7 @@ namespace JitCars.Models
 
         [Required(ErrorMessage = "Informe o funcionário responsável pela venda")]
         [DisplayName("Funcionário")]
-        public int FuncionarioId { get; set; }
+        public string? FuncionarioId { get; set; }
         public virtual Funcionario? Funcionario { get; set; }
         
     }

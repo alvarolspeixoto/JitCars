@@ -3,6 +3,7 @@ using System;
 using JitCars.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JitCars.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240405203849_migracao-12-remove-funcionarioid")]
+    partial class migracao12removefuncionarioid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -306,10 +309,6 @@ namespace JitCars.Migrations
                     b.Property<int>("FormaPagamento")
                         .HasColumnType("integer");
 
-                    b.Property<string>("FuncionarioId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("NotaFiscal")
                         .HasMaxLength(44)
                         .HasColumnType("character varying(44)");
@@ -317,8 +316,6 @@ namespace JitCars.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
-
-                    b.HasIndex("FuncionarioId");
 
                     b.ToTable("Vendas");
                 });
@@ -510,15 +507,7 @@ namespace JitCars.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("JitCars.Models.Funcionario", "Funcionario")
-                        .WithMany()
-                        .HasForeignKey("FuncionarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Cliente");
-
-                    b.Navigation("Funcionario");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
