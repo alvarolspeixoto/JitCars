@@ -82,13 +82,13 @@ namespace JitCars.Controllers
                     CargoId = model.CargoId
                 };
 
-                var resultado = await _userManager.CreateAsync(funcionario, model.Senha!);
+                var senhaPadrao = "Senha@" + funcionario.Cpf;
+                var resultado = await _userManager.CreateAsync(funcionario, senhaPadrao);
 
                 if (resultado.Succeeded)
                 {
-                    await _signInManager.SignInAsync(funcionario, isPersistent: false);
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Funcionario");
                 }
 
                 foreach (var erro in resultado.Errors)

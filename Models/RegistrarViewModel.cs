@@ -30,14 +30,14 @@ namespace JitCars.Models {
         [Display(Name = "Cargo")]
         public int CargoId { get; set; }
 
-        [Required(ErrorMessage = "Insira uma senha")]
+        /* [Required(ErrorMessage = "Insira uma senha")]
         [Display(Name = "Senha")]
         [DataType(DataType.Password)]
         public string? Senha { get; set; }
 
         [Display(Name = "Confirmação de senha")]
         [Compare("Senha", ErrorMessage = "As senhas não batem")]
-        public string? SenhaConfirmacao { get; set; }
+        public string? SenhaConfirmacao { get; set; } */
 
 
     }
