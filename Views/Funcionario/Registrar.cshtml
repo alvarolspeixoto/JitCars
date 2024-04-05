@@ -1,97 +1,109 @@
 @model RegistrarViewModel;
 @{
-    ViewData["Title"] = "Registre-se";
+    ViewData["Title"] = "Cadastrar Funcionário";
 }
 
+<style>
+    input,
+    .form-control,
+    .form-select {
+        width: 100%;
+    }
+
+    .inputs-container div {
+        width: 30%;
+    }
+</style>
+
 <div class="d-flex align-items-center justify-content-center pt-4 pb-4 vh-75 mt-2">
-    <div class="col-md-3 card p-3">
-        <h2 class="text-center">Registre-se</h2>
+    <div class="card p-3 m-2">
+        <h2 class="text-center">@ViewData["Title"]</h2>
+        <hr>
+        @* <div class="text-danger" asp-validation-summary="All"></div> *@
         <form asp-action="Registrar" method="post">
-            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
-            <div class="mb-1">
-                <label asp-for="PrimeiroNome"></label>
-                <input asp-for="PrimeiroNome" class="form-control" />
-                <span asp-validation-for="PrimeiroNome" class="text-danger"></span>
-            </div>
-            <div class="mb-1">
-                <label asp-for="Sobrenome"></label>
-                <input asp-for="Sobrenome" class="form-control" />
-                <span asp-validation-for="Sobrenome" class="text-danger"></span>
-            </div>
-            <div class="mb-1">
-                <label asp-for="NomeUsuario"></label>
-                <input asp-for="NomeUsuario" class="form-control" />
-                <span asp-validation-for="NomeUsuario" class="text-danger"></span>
-            </div>
-            <div class="mb-1">
-                <label asp-for="Cpf"></label>
-                <input asp-for="Cpf" class="form-control" type="number" step="1" min="0"/>
-                <span asp-validation-for="Cpf" class="text-danger"></span>
-            </div>
-            <div class="mb-1">
-                <label asp-for="Endereco.Cep"></label>
-                <input asp-for="Endereco.Cep" class="form-control" type="number" step="1" min="0" />
-                <span asp-validation-for="Endereco.Cep" class="text-danger"></span>
-            </div>
-            <div class="mb-1">
-                <label asp-for="Endereco.Estado"></label>
-                <input asp-for="Endereco.Estado" class="form-control" />
-                <span asp-validation-for="Endereco.Estado" class="text-danger"></span>
-            </div>
-            <div class="mb-1">
-                <label asp-for="Endereco.Cidade"></label>
-                <input asp-for="Endereco.Cidade" class="form-control" />
-                <span asp-validation-for="Endereco.Cidade" class="text-danger"></span>
-            </div>
-            <div class="mb-1">
-                <label asp-for="Endereco.Bairro"></label>
-                <input asp-for="Endereco.Bairro" class="form-control" />
-                <span asp-validation-for="Endereco.Bairro" class="text-danger"></span>
-            </div>
-            <div class="mb-1">
-                <label asp-for="Endereco.Rua"></label>
-                <input asp-for="Endereco.Rua" class="form-control" />
-                <span asp-validation-for="Endereco.Rua" class="text-danger"></span>
-            </div>
-            <div class="mb-1">
-                <label asp-for="Endereco.Numero"></label>
-                <input asp-for="Endereco.Numero" class="form-control" min="1"/>
-                <span asp-validation-for="Endereco.Numero" class="text-danger"></span>
-            </div>
-            <div class="mb-1">
-                <label asp-for="CargoId"></label>
-                <select asp-for="CargoId" class="form-select">
-                    <option value="" selected disabled>Selecione um cargo</option>
-                    @if (ViewBag.cargos != null)
-                    {
-                        @foreach (var cargo in ViewBag.cargos)
+            <div class="inputs-container d-flex flex-row flex-wrap gap-2 mb-2">
+                <div class="mb-1">
+                    <label asp-for="PrimeiroNome"></label>
+                    <input asp-for="PrimeiroNome" class="form-control" />
+                    <span asp-validation-for="PrimeiroNome" class="text-danger"></span>
+                </div>
+                <div class="mb-1">
+                    <label asp-for="Sobrenome"></label>
+                    <input asp-for="Sobrenome" class="form-control" />
+                    <span asp-validation-for="Sobrenome" class="text-danger"></span>
+                </div>
+                <div class="mb-1">
+                    <label asp-for="NomeUsuario"></label>
+                    <input asp-for="NomeUsuario" class="form-control" />
+                    <span asp-validation-for="NomeUsuario" class="text-danger"></span>
+                </div>
+                <div class="mb-1">
+                    <label asp-for="Cpf"></label>
+                    <input asp-for="Cpf" class="form-control" type="number" step="1" min="0" />
+                    <span asp-validation-for="Cpf" class="text-danger"></span>
+                </div>
+                <div class="mb-1">
+                    <label asp-for="Endereco.Cep"></label>
+                    <input asp-for="Endereco.Cep" class="form-control" type="number" step="1" min="0" />
+                    <span asp-validation-for="Endereco.Cep" class="text-danger"></span>
+                </div>
+                <div class="mb-1">
+                    <label asp-for="Endereco.Estado"></label>
+                    <input asp-for="Endereco.Estado" class="form-control" />
+                    <span asp-validation-for="Endereco.Estado" class="text-danger"></span>
+                </div>
+                <div class="mb-1">
+                    <label asp-for="Endereco.Cidade"></label>
+                    <input asp-for="Endereco.Cidade" class="form-control" />
+                    <span asp-validation-for="Endereco.Cidade" class="text-danger"></span>
+                </div>
+                <div class="mb-1">
+                    <label asp-for="Endereco.Bairro"></label>
+                    <input asp-for="Endereco.Bairro" class="form-control" />
+                    <span asp-validation-for="Endereco.Bairro" class="text-danger"></span>
+                </div>
+                <div class="mb-1">
+                    <label asp-for="Endereco.Rua"></label>
+                    <input asp-for="Endereco.Rua" class="form-control" />
+                    <span asp-validation-for="Endereco.Rua" class="text-danger"></span>
+                </div>
+                <div class="mb-1">
+                    <label asp-for="Endereco.Numero"></label>
+                    <input asp-for="Endereco.Numero" class="form-control" min="1" />
+                    <span asp-validation-for="Endereco.Numero" class="text-danger"></span>
+                </div>
+                
+                <div class="mb-1">
+                    <label asp-for="CargoId"></label>
+                    <select asp-for="CargoId" class="form-select">
+                        <option value="" selected disabled>Selecione um cargo</option>
+                        @if (ViewBag.cargos != null)
                         {
-                            <option value="@cargo.Id">@cargo.Titulo - @cargo.Salario.ToString("C")</option>
+                            @foreach (var cargo in ViewBag.cargos)
+                            {
+                                <option value="@cargo.Id">@cargo.Titulo - @cargo.Salario.ToString("C")</option>
+                            }
                         }
-                    }
-                </select>
-                <span asp-validation-for="CargoId" class="text-danger"></span>
+                    </select>
+                    <span asp-validation-for="CargoId" class="text-danger"></span>
+                </div>
             </div>
 
-            <div class="mb-1">
-                <label asp-for="Senha"></label>
-                <input asp-for="Senha" class="form-control" />
-                <span asp-validation-for="Senha" class="text-danger"></span>
+            <div class="col-2">
+                <input type="submit" value="Registrar" class="btn btn-primary btn-sm float-end" />
+            </div>
+            @* <div class="mb-1">
+            <label asp-for="Senha"></label>
+            <input asp-for="Senha" class="form-control" />
+            <span asp-validation-for="Senha" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="SenhaConfirmacao"></label>
-                <input type="password" asp-for="SenhaConfirmacao" class="form-control" />
-                <span asp-validation-for="SenhaConfirmacao" class="text-danger"></span>
-            </div>
-            
-            <div class="row">
-                <div class="col-8">
-                    <a class="text-decoration-none float-start mt-2" asp-action="Login">Já possui uma conta?</a>
-                </div>
-                <div class="col-4">
-                    <input type="submit" value="Registrar" class="btn btn-primary btn-sm float-end" />
-                </div>
-            </div>
+            <label asp-for="SenhaConfirmacao"></label>
+            <input type="password" asp-for="SenhaConfirmacao" class="form-control" />
+            <span asp-validation-for="SenhaConfirmacao" class="text-danger"></span>
+            </div> *@
+
+
         </form>
     </div>
 </div>
