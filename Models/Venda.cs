@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using JitCars.Enums;
 
 namespace JitCars.Models
 {
@@ -16,8 +17,8 @@ namespace JitCars.Models
         public string? NotaFiscal { get; set; }
 
         [Required(ErrorMessage = "Informe o método de pagamento")]
-        [DisplayName("Forma de pagamento")] 
-        public string? FormaPagamento { get; set; }
+        [DisplayName("Forma de pagamento")]
+        public FormaPagamento FormaPagamento { get; set; }
 
         [Required(ErrorMessage = "Informe o cliente")]
         [DisplayName("Digite o CPF do cliente para filtrar")]
