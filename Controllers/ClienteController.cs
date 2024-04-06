@@ -118,7 +118,7 @@ namespace JitCars.Controllers
 
 
         [HttpPost]
-        public IActionResult Cadastrar(ClienteEnderecoTelViewModel viewModel)
+        public IActionResult Cadastrar(ClienteEnderecoViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -145,7 +145,7 @@ namespace JitCars.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Editar(ClienteEnderecoTelViewModel viewModel)
+        public IActionResult Editar(ClienteEnderecoViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
