@@ -1,0 +1,86 @@
+﻿@model JitCars.Models.Funcionario
+
+@{
+    ViewData["Title"] = "Atualizar Funcionário";
+}
+
+<div class="container bg-dark p-5 rounded-5">
+    <div class="mb-5 text-center">
+        <h1 class="text-light">Atualizar Funcionário</h1>
+    </div>
+    <form method="post" asp-action="Atualizar" class="row g-3">
+        <input type="hidden" asp-for="Id" />
+        <div class="col-md-12">
+            <label asp-for="PrimeiroNome" class="form-label text-light">Primeiro Nome:</label>
+            <input asp-for="PrimeiroNome" class="form-control" />
+            <span asp-validation-for="PrimeiroNome" class="text-danger"></span>
+        </div>
+        <div class="col-md-12">
+            <label asp-for="Sobrenome" class="form-label text-light">Sobrenome:</label>
+            <input asp-for="Sobrenome" class="form-control" />
+            <span asp-validation-for="Sobrenome" class="text-danger"></span>
+        </div>
+        <div class="col-md-12">
+            <label asp-for="Cpf" class="form-label text-light">CPF:</label>
+            <input asp-for="Cpf" class="form-control" type="number" step="1" min="0" />
+            <span asp-validation-for="Cpf" class="text-danger"></span>
+        </div>
+        <div class="col-md-12">
+            <label asp-for="Endereco.Cep" class="form-label text-light">CEP:</label>
+            <input asp-for="Endereco.Cep" class="form-control" />
+            <span asp-validation-for="Endereco.Cep" class="text-danger"></span>
+        </div>
+        <div class="col-md-12">
+            <label asp-for="Endereco.Rua" class="form-label text-light">Rua:</label>
+            <input asp-for="Endereco.Rua" class="form-control" />
+            <span asp-validation-for="Endereco.Rua" class="text-danger"></span>
+        </div>
+        <div class="col-md-12">
+            <label asp-for="Endereco.Numero" class="form-label text-light">Número:</label>
+            <input asp-for="Endereco.Numero" class="form-control" />
+            <span asp-validation-for="Endereco.Numero" class="text-danger"></span>
+        </div>
+        <div class="col-md-12">
+            <label asp-for="Endereco.Bairro" class="form-label text-light">Bairro:</label>
+            <input asp-for="Endereco.Bairro" class="form-control" />
+            <span asp-validation-for="Endereco.Bairro" class="text-danger"></span>
+        </div>
+        <div class="col-md-12">
+            <label asp-for="Endereco.Cidade" class="form-label text-light">Cidade:</label>
+            <input asp-for="Endereco.Cidade" class="form-control" />
+            <span asp-validation-for="Endereco.Cidade" class="text-danger"></span>
+        </div>
+        <div class="col-md-12">
+            <label asp-for="Endereco.Estado" class="form-label text-light">Estado:</label>
+            <input asp-for="Endereco.Estado" class="form-control" />
+            <span asp-validation-for="Endereco.Estado" class="text-danger"></span>
+        </div>
+        <div class="col-md-12">
+            <label asp-for="CargoId" class="form-label text-light">Cargo:</label>
+            <select asp-for="CargoId" class="form-select">
+                <option value="" selected disabled>Selecione um cargo</option>
+                @if (ViewBag.Cargos != null)
+                {
+                    @foreach (var cargo in ViewBag.Cargos)
+                    {
+                        <option value="@cargo.Id" selected="@{
+                    if(cargo.Id == Model.CargoId) {
+                    <text>selected</text>
+ }
+ }">@cargo.Titulo - @cargo.Salario.ToString("C")</option>
+                    }
+                }
+            </select>
+            <span asp-validation-for="CargoId" class="text-danger"></span>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Atualizar</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

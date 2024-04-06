@@ -1,1 +1,38 @@
-﻿
+﻿@model JitCars.Models.Cargo
+@{
+    ViewData["Title"] = "Atualizar Cargo";
+}
+
+<div class="container bg-dark p-5 rounded-5">
+    <div class="mb-5 text-center">
+        <h1 class="text-light">@ViewData["Title"]</h1>
+    </div>
+    <form asp-action="Atualizar" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label for="Titulo" class="form-label text-light">Título:</label>
+            <input asp-for="Titulo" class="shadow-none form-control" />
+            <span asp-validation-for="Titulo" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="Salario" class="form-label text-light">Salário:</label>
+            <input asp-for="Salario" class="shadow-none form-control" />
+            <span asp-validation-for="Salario" class="text-danger"></span>
+        </div>
+
+        <div class="d-flex gap-5 mt-5">
+            <button type="submit" class="w-50 btn btn-success">Salvar</button>
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="w-50 btn btn-danger">Excluir</a>
+            <a class="w-50 btn btn-primary" asp-action="Index">Voltar</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -166,28 +166,43 @@ namespace JitCars.Controllers
                 return NotFound();
             }
 
-            var funcionario = await _context.Set<Funcionario>().FindAsync(id);
+
+            var funcionario = await _context.Users
+               .OfType<Funcionario>()
+               .Include(f => f.Endereco)
+               .Include(f => f.Cargo)
+               .FirstOrDefaultAsync(f => f.Id == id);
             if (funcionario == null)
             {
                 return NotFound();
             }
+            ViewBag.Cargos = await _context.Cargos.ToListAsync();
 
             return View(funcionario);
         }
 
-        //POST
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Atualizar(Funcionario obj)
+        public async Task<IActionResult> Atualizar(Funcionario obj)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Set<Funcionario>().Update(obj);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                var funcionarioDoBanco = await _context.Users.FindAsync(obj.Id);
+
+                
+                funcionarioDoBanco.PrimeiroNome = obj.PrimeiroNome;
+                funcionarioDoBanco.Sobrenome = obj.Sobrenome;
+                
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            return View(obj);
+            catch (DbUpdateConcurrencyException)
+            {
+                // Trate a exceção de concorrência aqui
+                ModelState.AddModelError("", "Os dados foram modificados por outro usuário. Por favor, tente novamente.");
+                return View(obj);
+            }
         }
+
 
 
 
