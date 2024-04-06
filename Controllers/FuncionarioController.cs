@@ -85,6 +85,8 @@ namespace JitCars.Controllers
                 var senhaPadrao = "Senha@" + funcionario.Cpf;
                 var resultado = await _userManager.CreateAsync(funcionario, senhaPadrao);
 
+                if (model.Gerente) await _userManager.AddToRoleAsync(funcionario, "Gerente");
+
                 if (resultado.Succeeded)
                 {
 
