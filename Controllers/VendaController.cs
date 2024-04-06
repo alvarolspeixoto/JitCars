@@ -19,16 +19,19 @@ namespace JitCars.Controllers
 
         public async Task<IActionResult> Index()
 		{
-            var vendas = await _db.Vendas.Include(e => e.Cliente).ToListAsync();
+            var vendas = await _db.Vendas.Include(e => e.Cliente)
+                                         .Include(e => e.Funcionario).ToListAsync();
 			return View(vendas);
 		}
 
         //GET
-        public IActionResult Registrar()
+        public async Task<IActionResult> Registrar()
         {
             var clientes = _db.Clientes.ToList();
+            var funcionarios = await _db.Set<Funcionario>().ToListAsync();    
 
             ViewBag.clientes = clientes;
+            ViewBag.funcionarios = funcionarios;
             ViewBag.pagamentos = Enum.GetValues(typeof(FormaPagamento));
             
             return View();
@@ -84,16 +87,25 @@ namespace JitCars.Controllers
             }
 
             var clientes = _db.Clientes.ToList();
-            ViewBag.Clientes = clientes;
+            var funcionarios = _db.Set<Funcionario>().ToList();
+            ViewBag.clientes = clientes;
+            ViewBag.funcionarios = funcionarios;
+            ViewBag.pagamentos = Enum.GetValues(typeof(FormaPagamento));
 
-            return View(vendaFromDb);
+			return View(vendaFromDb);
         }
 
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Editar(Venda obj)
+        public async Task<IActionResult> Editar(Venda obj)
         {
+            var cliente = await _db.Clientes.FindAsync(obj.ClienteId);
+            if (cliente == null)
+            {
+                ModelState.AddModelError("ClienteId", "Selecione o cliente");
+            }
+
             if (ModelState.IsValid)
             {
                 _db.Vendas.Update(obj);

@@ -4,7 +4,6 @@
 }
 
 <style>
-    input,
     .form-control,
     .form-select {
         width: 100%;
@@ -72,7 +71,7 @@
                     <input asp-for="Endereco.Numero" class="form-control" min="1" />
                     <span asp-validation-for="Endereco.Numero" class="text-danger"></span>
                 </div>
-                
+
                 <div class="mb-1">
                     <label asp-for="CargoId"></label>
                     <select asp-for="CargoId" class="form-select">
@@ -88,9 +87,12 @@
                     <span asp-validation-for="CargoId" class="text-danger"></span>
                 </div>
             </div>
-
+            <div class="mb-2 form-check p-0">
+                <input type="checkbox" asp-for="Gerente">
+                <label asp-for="Gerente"></label>
+            </div>
             <div class="col-2">
-                <input type="submit" value="Registrar" class="btn btn-primary btn-sm float-end" />
+                <input type="submit" value="Registrar" class="btn btn-primary btn-sm" />
             </div>
             @* <div class="mb-1">
             <label asp-for="Senha"></label>

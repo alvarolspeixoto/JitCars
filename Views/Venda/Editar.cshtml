@@ -1,4 +1,6 @@
-﻿@model Venda
+﻿@using JitCars.Enums
+@using System.ComponentModel.DataAnnotations
+@model Venda
 
 <form method="post">
 	<div class="border p-3 mt-4">
@@ -23,14 +25,28 @@
 			</select>
 			<span asp-validation-for="ClienteId" class="text-danger"></span>
 		</div>
-		@* <div class="mb-3">
-			<label asp-for="FormaPagamento"></label>
-			<input asp-for="FormaPagamento" class="form-control" />
-			<span asp-validation-for="FormaPagamento" class="text-danger"></span>
-		</div> *@
 		<div class="mb-3">
-			<label asp-for="NotaFiscal"></label>
-			<input asp-for="NotaFiscal" class="form-control" />
+			<label asp-for="FormaPagamento"></label>
+			<select asp-for="FormaPagamento" class="form-select">
+				<option value="" selected disabled>Selecione uma forma de pagamento</option>
+				@foreach (var pagamento in ViewBag.pagamentos)
+				{
+					<option value="@pagamento">@GetEnumDisplayName((FormaPagamento)pagamento)</option>
+				}
+			</select>
+			<span asp-validation-for="FormaPagamento" class="text-danger"></span>
+		</div> 
+		<div class="mb-3">
+			<label asp-for="FuncionarioId"></label>
+			<select asp-for="FuncionarioId" class="form-select">
+				<option value="" selected disabled>Selecione um funcionário</option>
+				@foreach (var funcionario in ViewBag.funcionarios)
+				{
+					var nomeFuncionario = funcionario.PrimeiroNome + " " + funcionario.Sobrenome;
+					<option value="@funcionario.Id">@nomeFuncionario</option>
+				}
+			</select>
+			<span asp-validation-for="FuncionarioId" class="text-danger"></span>
 		</div>
 		<button type="submit" class="btn btn-primary" style="width:150px">Atualizar</button>
 		<a asp-controller="Venda" asp-action="Index" class="btn btn-secondary" style="width:150px">
@@ -39,3 +55,15 @@
 	</div>
 
 </form>
+
+
+@functions {
+	public static string GetEnumDisplayName(FormaPagamento forma)
+	{
+		var display = typeof(FormaPagamento).GetField(forma.ToString())
+		.GetCustomAttributes(typeof(DisplayAttribute), false).SingleOrDefault() as DisplayAttribute;
+
+
+		return display != null ? display.Name : forma.ToString();
+	}
+}
