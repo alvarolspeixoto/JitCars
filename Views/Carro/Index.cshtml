@@ -16,7 +16,7 @@
         <h1>@ViewData["Title"]</h1>
 
         <p>Veja aqui o estoque da concessionária</p>
-        <a class="btn btn-primary mb-3" asp-controller="Carro" asp-action="Create">
+        <a class="btn btn-primary mb-3" asp-controller="Carro" asp-action="Cadastrar">
             <i class="bi bi-plus"></i>&nbsp;Adicionar carro ao estoque
         </a>
         @if (Model.Count() == 0)
@@ -53,7 +53,7 @@
                                 </ul>
                                 @* <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
                                     card's content.</p> *@
-                                <a asp-action="Edit" asp-controller="Carro" asp-route-id="@carro.Id" class="btn btn-primary"><i class="bi bi-info-circle"></i>&nbsp; Mais informações</a>
+                                <a asp-action="Editar" asp-controller="Carro" asp-route-id="@carro.Id" class="btn btn-primary"><i class="bi bi-info-circle"></i>&nbsp; Mais informações</a>
                             </div>
                         </div>
                     </li>

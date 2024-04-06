@@ -8,7 +8,7 @@
 
 <div class="p-4 pt-2">
     <h3 class="text-danger">Tem certeza de que deseja excluir esse carro do estoque?</h3>
-    <form asp-action="Delete">
+    <form asp-action="Deletar">
         <div class="border p-3 mt-4">
             <div class="pb-2 d-flex justify-content-between">
                 <h2>Dados</h2>
@@ -40,7 +40,7 @@
             </div>
             <div class="d-flex flex-row gap-2">
                 <input type="submit" class="btn btn-danger" value="Excluir">
-                <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@Model.Id">Voltar</a>
+                <a class="btn btn-secondary" asp-action="Editar" asp-route-id="@Model.Id">Voltar</a>
             </div>
         </div>
     </form>

@@ -27,7 +27,7 @@ namespace JitCars.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Cadastrar()
         {
 
             var modelos = _context.Modelos.ToList();
@@ -40,7 +40,7 @@ namespace JitCars.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Carro carro)
+        public async Task<IActionResult> Cadastrar(Carro carro)
         {
 
             var modelo = await _context.Modelos.FindAsync(carro.ModeloId);
@@ -63,7 +63,7 @@ namespace JitCars.Controllers
             return View(carro);
         }
 
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Editar(int? id)
         {
 
             if (id == 0 || id == null)
@@ -91,7 +91,7 @@ namespace JitCars.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Carro carro)
+        public async Task<IActionResult> Editar(Carro carro)
         {
             var modelo = await _context.Modelos.FindAsync(carro.ModeloId);
 
@@ -113,7 +113,7 @@ namespace JitCars.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Deletar(int? id)
         {
             if (id == 0 || id == null)
             {
@@ -132,9 +132,9 @@ namespace JitCars.Controllers
             return View(carro);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("Deletar")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeletePOST(int? id)
+        public async Task<IActionResult> DeletarPOST(int? id)
         {
             if (id == 0 || id == null)
             {
