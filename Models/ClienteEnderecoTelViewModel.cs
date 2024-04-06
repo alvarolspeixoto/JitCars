@@ -1,9 +1,8 @@
 ﻿namespace JitCars.Models
 {
-    public class ClienteEnderecoTelViewModel
+    public class ClienteEnderecoViewModel
     {
-        public Cliente? Cliente { get; set; }
-        public Endereco? Endereco { get; set; }
-        public string? Telefone { get; set; }
+        public Cliente Cliente { get; set; }
+        public Endereco Endereco { get; set; }
     }
 }

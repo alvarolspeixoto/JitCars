@@ -12,12 +12,13 @@
     </div>
 
 
-    <table id="Clientes" class="table table-dark table-hover mt-5" style="width:75%">
+    <table id="Clientes" class="table table-dark table-hover mt-5" style="width:100%">
         <thead>
             <tr>
                 <th></th>
                 <th scope="col">Nome</th>
                 <th scope="col">Sobrenome</th>
+                <th scope="col">CPF</th>
                 <th scope="col">E-mail</th>
                 <th></th>
             </tr>
@@ -35,6 +36,7 @@
                     <td></td>
                     <td>@cliente.PrimeiroNome</td>
                     <td>@cliente.Sobrenome</td>
+                    <td>@MaskCpf(cliente.Cpf)</td>
                     <td>@cliente.Email</td>
                     <td>
                         <a class="btn btn-warning mx-2" asp-controller="Cliente" asp-action="Editar" asp-route-id="@cliente.Id"><i class="bi bi-pencil-square"></i> Editar</a>
@@ -43,10 +45,22 @@
             }
             
         }
-        
 
 
 
+
+            @functions {
+                public string MaskCpf(string cpf)
+                {
+                    if (cpf.Length != 11)
+                    {
+                        return cpf; // Retorna o CPF sem alterações se não tiver 11 dígitos
+                    }
+
+                    // Mantém os três primeiros dígitos do CPF visíveis e substitui os restantes por asteriscos
+                    return $"{cpf.Substring(0, 3)}.***.***-{cpf.Substring(9)}";
+                }
+            }
 
 
 

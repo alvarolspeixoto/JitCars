@@ -1,4 +1,4 @@
-﻿@model ClienteEnderecoTelViewModel
+﻿@model ClienteEnderecoViewModel
 
 
 @{
@@ -42,11 +42,11 @@
         </div>
 
         
-        @* <div class="mb-3 text-white">
+        <div class="mb-3 text-white">
             <label for="telefone" class="form-label">Telefone</label>
-            <input type="tel" class="form-control" asp-for="Telefone.Numero" id="telefoneInput" autocomplete="off">
-            <span class="text-danger" asp-validation-for="Telefone.Numero"></span>
-        </div> *@
+            <input type="tel" class="form-control" asp-for="Cliente.Telefone" id="telefoneInput" autocomplete="off">
+            <span class="text-danger" asp-validation-for="Cliente.Telefone"></span>
+        </div>
 
 
         <div class="mb-3 text-white">
