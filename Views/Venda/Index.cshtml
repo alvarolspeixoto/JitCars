@@ -4,7 +4,7 @@
 
 @{
     ViewData["Title"] = "Index";
-
+    var carros = ViewBag.carros as List<Carro>;
 }
 
 <div class="container">
@@ -25,6 +25,7 @@
                 <th scope="col">Forma de Pagamento</th>
                 <th scope="col">Funcionário</th>
                 <th scope="col">Status</th>
+                <th scope="col">Carros</th>
                 <th></th>
             </tr>
         </thead>
@@ -40,6 +41,32 @@
             <td>@GetEnumDisplayName((FormaPagamento)venda.FormaPagamento)</td>
             <td>@venda.Funcionario.PrimeiroNome @venda.Funcionario.Sobrenome</td>
             <td>@venda.Status</td>
+            <td>
+                        @{
+
+                            var chassis = new List<int>();
+                            foreach(Carro c in carros)
+                            {
+                                if (c.VendaId == venda.Id)
+                                {
+                                    chassis.Add(c.NumeroChassi);
+                                }
+                            } 
+                            var index = 0;
+                            var count = chassis.Count;
+                            foreach(int c in chassis)
+                            {
+                                @c
+                                ;
+                                @if(++index < count)
+                                {
+                                    @(", ")
+                                }
+
+                        }
+                        }
+                  
+            </td>
             <td>
                     <div class="w-10 btn-group" role="group">
                         <a asp-controller="Venda" asp-action="Editar" asp-route-id="@venda.Id" class="btn btn-warning mx-2">

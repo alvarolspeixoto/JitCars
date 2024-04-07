@@ -21,6 +21,11 @@ namespace JitCars.Controllers
 		{
             var vendas = await _db.Vendas.Include(e => e.Cliente)
                                          .Include(e => e.Funcionario).ToListAsync();
+
+            var carrosVendidos = _db.Carros.Where(e => e.VendaId != null).ToList();
+            ViewBag.carros = carrosVendidos;
+            
+
 			return View(vendas);
 		}
 
