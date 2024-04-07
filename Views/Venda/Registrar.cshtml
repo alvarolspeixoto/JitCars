@@ -12,7 +12,7 @@
 		<div class="mb-3">
 			<label asp-for="ClienteId"></label>
 			<input onkeyup="exibeClientes()" id="input-cliente" type="text" class="form-control mb-2"
-				style="width: 30%;" />
+				   style="width: 30%;" autocomplete="off" />
 			<select asp-for="ClienteId" class="form-select">
 				<option value="" selected disabled>Selecione um cliente</option>
 				@foreach (var cliente in ViewBag.clientes)
