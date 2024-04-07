@@ -39,6 +39,8 @@
             </header>
             <thead>
                 <tr>
+                @if (ViewBag.Carros.Count > 0)
+                {
                     <th scope="col">#</th>
                     <th scope="col">Carro</th>
                     <th scope="col">Marca</th>
@@ -52,16 +54,32 @@
 
                           
                     </th>
+                }
+                else
+                {
+                    <th class="d-flex align-items-center justify-content-center border" style="height:100px">
+                        <h2 class="text-danger">Nenhuma venda foi realizada.</h2>
+                    </th>
+                    <th scope="col">
+                        @using (Html.BeginForm("Index", "Financeiro", FormMethod.Get))
+                        {
+                            @Html.DropDownList("dataSelecionada", ViewData["data"] as SelectList, "Selecione uma data", new { @class = "form-control", onchange = "this.form.submit();" })
+                        }
+
+
+                    </th>
+                }
+
                 </tr>
-            </thead>
+        </thead>
         <tbody>
             @{
                 var i = 0;
-                if (ViewBag.Carros != null)
+                if (ViewBag.Carros.Count > 0)
                 {
                     @foreach(var obj in ViewBag.Carros){
-                             @if (obj.VendaId != null){
-                        i++;
+                        @if (obj.VendaId != null){
+                          i++;
 
                              var nomeCliente = obj.Venda.Cliente.PrimeiroNome + " " + obj.Venda.Cliente.Sobrenome ;                                             
                             <tr>
@@ -72,18 +90,11 @@
                                       <td style="color:lawngreen">R$@obj.PrecoVenda</td>
                                       <td>@obj.Venda.Data</td>
                             </tr>
-                      
-                                  }                          
-                    }
-                }
-                else
-                {
-                    <td style="width:100%">Nenhum carro foi vendido</td>
-                }
 
+                        }
                     }
-                  
-            
+                }
+            }
             </tbody>            
         </table>
 
@@ -94,11 +105,21 @@
             </header>
             <thead>
                 <tr>
+                @if(ViewBag.Carros.Count > 0)
+                {
                     <th scope="col">#</th>
                     <th scope="col">Custo</th>
                     <th scope="col">Valor da Venda</th>
                     <th scope="col">Lucro</th>
                     <th scope="col">Data</th>
+                }
+                else
+                {
+                    <div class="d-flex align-items-center justify-content-center border" style="height:100px">
+                        <h2 class="text-danger">Nenhuma venda foi realizada.</h2>
+                    </div>
+                }
+
 
                 </tr>
             </thead>
@@ -106,9 +127,9 @@
             @{
                 i = 0;
                 decimal lucro_total = 0;
-                if (ViewBag.Carros != null)
-                {
-                    @foreach (var carro in ViewBag.Carros)
+                if (ViewBag.Carros.Count > 0)
+                {                   
+                    foreach (var carro in ViewBag.Carros)
                     {
                         @if (carro.VendaId != null)
                         {
@@ -134,11 +155,7 @@
                         <td style="color:lawngreen">R$@lucro_total</td>
                     </tr>
                 }
-                else
-                {
-                    <tr>Nenhum carro foi vendido</tr>
-                }
-
+              
             }
 
         </tbody>
@@ -176,12 +193,15 @@
                             funcionario.Add("0");
                             var nomeCompleto = func.PrimeiroNome + " " + func.Sobrenome;
                             funcionario[0] = nomeCompleto;
-                            
+
                             foreach (var venda in ViewBag.Vendas)
                             {
                                 if (venda.FuncionarioId == func.Id)
                                 {
-                                    funcionario[1] = (Convert.ToInt32(funcionario[1]) + 1).ToString();
+                                    if (ViewBag.Carros.Count > 0)
+                                    {
+                                      funcionario[1] = (Convert.ToInt32(funcionario[1]) + 1).ToString();  
+                                    }                                    
                                     decimal total_faturado = 0;
                                     if (ViewBag.Carros != null)
                                     {
@@ -197,7 +217,7 @@
                                     funcionario[2] = (Convert.ToDecimal(funcionario[2]) + total_faturado).ToString();
                                 }
                                 
-                            }
+                            }                            
                             listaFuncionarios.Add(funcionario);
                         }
                     }
