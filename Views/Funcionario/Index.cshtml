@@ -31,7 +31,7 @@
                 <tr>
                     <td>@funcionario.PrimeiroNome</td>
                     <td>@funcionario.Sobrenome</td>
-                    <td>@funcionario.Cpf</td>
+                    <td>@MaskCpf(funcionario.Cpf)</td>
                     <td>@funcionario.Cargo.Titulo</td>
                     <td>@funcionario.Endereco.Rua, @funcionario.Endereco.Numero - @funcionario.Endereco.Cidade, @funcionario.Endereco.Estado</td>
                     <td>
@@ -43,3 +43,16 @@
         </tbody>
     </table>
 </div>
+
+@functions {
+    public string MaskCpf(string cpf)
+    {
+        if (cpf.Length != 11)
+        {
+            return cpf; // Retorna o CPF sem alterações se não tiver 11 dígitos
+        }
+
+        // Mantém os três primeiros dígitos do CPF visíveis e substitui os restantes por asteriscos
+        return $"{cpf.Substring(0, 3)}.***.***-{cpf.Substring(9)}";
+    }
+            }
