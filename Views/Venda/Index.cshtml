@@ -69,18 +69,23 @@
             </td>
             <td>
                     <div class="w-10 btn-group" role="group">
-                        <a asp-controller="Venda" asp-action="Editar" asp-route-id="@venda.Id" class="btn btn-warning mx-2">
-                                <i class="bi bi-pencil-square"> Editar</i>
-                        </a>
+                        
+                        
                         @{
                         if(venda.Status==Status.Efetuado){
+                            <a asp-controller="Venda" asp-action="Editar" asp-route-id="@venda.Id" class="btn btn-warning mx-2">
+                                <i class="bi bi-pencil-square"></i> Editar
+                            </a>
                             <a asp-controller="Venda" asp-action="Deletar" asp-route-id="@venda.Id" class="btn btn-danger mx-2">
-                                        <i class="bi bi-x-octagon"> Cancelar</i>
+                                        <i class="bi bi-x-octagon"></i> Cancelar
                             </a>
                         }
                         else{
+                            <a asp-controller="Venda" asp-action="Editar" asp-route-id="@venda.Id" class="disabled btn btn-secondary mx-2 text-shadow">
+                                <i class="bi bi-pencil-square"></i> Editar
+                            </a>
                             <a asp-controller="Venda" asp-action="Deletar" asp-route-id="@venda.Id" class="disabled btn btn-secondary mx-2 text-shadow">
-                                        <i class="bi bi-x-octagon"> Cancelar</i>
+                                        <i class="bi bi-x-octagon"></i> Cancelar
                             </a>
                         }
                         }
