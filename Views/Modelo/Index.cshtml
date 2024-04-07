@@ -1,0 +1,53 @@
+@model IEnumerable<Modelo>
+@using JitCars.Enums
+
+@{
+    ViewData["Title"] = "Modelos";
+}
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <h1>@ViewData["Title"]</h1>
+        <a class="btn btn-success mx-2" asp-controller="Modelo" asp-action="Cadastrar">
+            <i class="bi bi-plus"></i>&nbsp;Cadastrar novo modelo
+        </a>
+    </div>
+    @if (Model == null)
+    {
+        <div class="d-flex align-items-center justify-content-center border" style="height:200px">
+            <h2 class="text-danger">Não há modelos cadastrados.</h2>
+        </div>
+    }
+    else
+    {
+
+        <table id="Clientes" class="table table-dark table-hover mt-5" style="width:100%">
+            <thead>
+                <tr>
+                    <th scope="col">Marca</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Ano de Fabricação</th>
+                    <th scope="col">Carroceria</th>
+                    <th style="width: 25%;">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var modelo in Model)
+                {
+                    <tr>
+                        <td>@modelo.Marca</td>
+                        <td>@modelo.Nome</td>
+                        <td>@modelo.AnoFabricacao</td>
+                        <td>@Enum.GetName(typeof(Carroceria), @modelo.Carroceria)</td>
+                        <td>
+                            <a class="btn btn-warning mx-2" asp-controller="Modelo" asp-action="Editar"
+                                asp-route-id="@modelo.Id"><i class="bi bi-pencil-square"></i> Editar</a>
+                            <a class="btn btn-danger mx-2" asp-controller="Modelo" asp-action="Deletar"
+                                asp-route-id="@modelo.Id"><i class="bi bi-trash3-fill"></i> Deletar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

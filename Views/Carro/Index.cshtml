@@ -1,4 +1,6 @@
 @model IEnumerable<Carro>
+@using JitCars.Enums
+
 @{
     ViewData["Title"] = "Carros - Estoque";
 }
@@ -18,6 +20,9 @@
         <p>Veja aqui o estoque da concessionária</p>
         <a class="btn btn-primary mb-3" asp-controller="Carro" asp-action="Cadastrar">
             <i class="bi bi-plus"></i>&nbsp;Adicionar carro ao estoque
+        </a>
+        <a class="btn btn-secondary mb-3" asp-controller="Modelo" asp-action="Index">
+            <i class="bi bi-eye"></i>&nbsp;Ver modelos cadastrados
         </a>
         @if (Model.Count() == 0)
         {
@@ -46,13 +51,11 @@
                             <div class="card-body justify-content-left">
                                 <h5 class="card-title">@nomeVeiculo</h5>
                                 <ul class="mb-2">
-                                    <li><strong>Cor: </strong>@Enum.GetName(typeof(JitCars.Enums.Cor), @carro.Cor)</li>
-                                    <li><strong>Carroceria:</strong> @carro.Modelo.Carroceria</li>
+                                    <li><strong>Cor: </strong>@Enum.GetName(typeof(Cor), @carro.Cor)</li>
+                                    <li><strong>Carroceria:</strong> @Enum.GetName(typeof(Carroceria), @carro.Modelo.Carroceria)</li>
                                     <span style="color: green; font-size: 2em"><strong> @carro.PrecoVenda.ToString("C")</strong></span>
 
                                 </ul>
-                                @* <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                                    card's content.</p> *@
                                 <a asp-action="Editar" asp-controller="Carro" asp-route-id="@carro.Id" class="btn btn-primary"><i class="bi bi-info-circle"></i>&nbsp; Mais informações</a>
                             </div>
                         </div>

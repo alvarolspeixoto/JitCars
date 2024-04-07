@@ -48,7 +48,6 @@
 
                 <div class="form-group mb-2">
                     <label asp-for="Cor" class="control-label"></label>
-                    @* <input asp-for="Cor" class="form-control mt-1"/> *@
                     <select asp-for="Cor" class="form-select">
                         <option value="" selected disabled>Selecione uma cor</option>
                         @foreach (var cor in ViewBag.cores)
