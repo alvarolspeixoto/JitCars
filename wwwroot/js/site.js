@@ -1,4 +1,23 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿
+$(document).ready(function () {
+    // Função para filtrar carros
+    function filtrarCarros() {
+        var filtroTexto = $("#filtro").val().toLowerCase(); // Seleciona o valor da caixa de texto com ID "filtro"
+        var carros = $(".card"); // Seleciona todos os elementos com a classe "card"
 
-// Write your JavaScript code.
+        // Itera sobre os carros
+        carros.each(function () {
+            var modeloCarro = $(this).data("modelo").toLowerCase(); // Obtém o valor do atributo "data-modelo" em minúsculas
+
+            // Verifica se o modelo do carro inclui o texto do filtro
+            if (modeloCarro.includes(filtroTexto)) {
+                $(this).show(); // Exibe o carro
+            } else {
+                $(this).hide(); // Oculta o carro
+            }
+        });
+    }
+
+    // Chama a função de filtragem quando o valor do campo de filtro é alterado
+    $("#filtro").on("input", filtrarCarros);
+});

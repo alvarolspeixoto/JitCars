@@ -1,12 +1,120 @@
-﻿@{
-    ViewData["Title"] = "Jit Cars - Home Page";
-}
+﻿@model IEnumerable<Venda>
+@using JitCars.Enums
+
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendas Totais</title>
+    <style>
+        /* Estilos CSS para os blocos de apresentação */
+        .bloco {
+            background-color: #FFF8DC; /* cor de fundo */
+            border: 2px solid #000; /* borda */
+            border-radius: 10px; /* arredondamento dos cantos */
+            text-align: center; /* alinhamento do texto */
+            position: absolute; /* posicionamento absoluto */
+        }
+
+        /* Estilos CSS para o painel de fundo */
+        .painel-fundo {
+            position: relative; /* posicionamento relativo */
+            width: 90%; /* largura total da página */
+            height: 80vh; /* altura total da página */
+            display: flex; /* para usar o flexbox */
+            justify-content: center; /* alinhamento central horizontal */
+            align-items: center; /* alinhamento central vertical */
+            margin-top: 25px;
+            margin-bottom: 50px;
+            margin-left: 50px;
+            margin-right: 50px;
+        }
 
 
+        /* Estilos para os quadrados individuais */
+        #vendas {
+            width: 300px; /* largura */
+            height: 160px; /* altura */
+            top: 60px;
+            left: 150px;
+        }
 
+        #faturamento {
+            width: 300px; /* largura */
+            height: 160px; /* altura */
+            top: 60px;
+            right: 200px;
+        }
 
+        #maisvendidos {
+            width: 300px; /* largura */
+            height: 250px; /* altura */
+            bottom: 80px;
+            left: 150px;
+        }
 
+        #vendedores {
+            width: 300px; /* largura */
+            height: 250px; /* altura */
+            bottom: 80px;
+            right: 200px;
+        }
 
+        .titulo {
+            position: absolute; /* Posiciona o texto de título absolutamente */
+            top: 10px; /* Define a distância do topo conforme necessário */
+            left: 10px; /* Define a distância da esquerda conforme necessário */
+        }
 
+        .conteudo {
+            position: absolute; /* Posiciona o texto de quantidade absolutamente */
+            top: 50%; /* Define a posição verticalmente ao meio */
+            left: 50%; /* Define a posição horizontalmente ao meio */
+            transform: translate(-50%, -50%); /* Move o texto para o centro do bloco */
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-dark painel-fundo">
+        <!-- Quadrados posicionados na página -->
+        <div class="bloco" id="vendas">
+            <div class="titulo">Vendas Totais</div>
+            <div class="conteudo">
+                @if (ViewBag.Vendas != null)
+                {
+                    var quantidade = ViewBag.Vendas.Count();
+                    <text>@quantidade</text>
+                }
+                else{<text>0</text>}
+            </div>
+
+            <a class="btn btn-primary position-absolute bottom-0 start-0 m-2 p-1">Gerar Relatório de Vendas</a>
+        </div>
+
+        <div class="bloco" id="faturamento">
+            <div class="titulo">Valor Faturado</div>
+            <div class="conteudo">
+            
+            </div>
+            <a class="btn btn-primary position-absolute bottom-0 start-0 m-2 p-1">Gerar Relatório de Faturamento</a>
+        </div>
+
+        <div class="bloco" id="maisvendidos">
+            <div class="titulo">Modelos Mais Vendidos</div>
+            <div class="conteudo"></div>
+            <a class="btn btn-primary position-absolute bottom-0 start-0 m-2 p-1" asp-controller="Carro" asp-action="Index">Ver todos</a>
+        </div>
+
+        <div class="bloco" id="vendedores">
+            <div class="titulo">Top 5 - Vendedores (Vendas totais)</div>
+            <div class="conteudo"></div>
+            <a class="btn btn-primary position-absolute bottom-0 start-0 m-2 p-1" asp-controller="Funcionario" asp-action="Index">Ver todos</a>
+        </div>
+
+    </div>
+</body>
+</html>
 
 
