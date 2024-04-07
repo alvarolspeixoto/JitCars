@@ -1,0 +1,73 @@
+﻿@model JitCars.Models.Carro
+@using JitCars.Enums
+
+@{
+    ViewData["title"] = "Filtrar Veículos";
+}
+
+<div class="p-4">
+    <h1>Selecione o Filtro</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Filter">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group mb-2">
+                    <label asp-for="NumeroChassi" class="control-label"></label>
+                    <input asp-for="NumeroChassi" class="form-control mt-1" min="0" />
+                    <span asp-validation-for="NumeroChassi" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-2">
+                    <label asp-for="ModeloId" class="control-label"></label>
+                    <div class="d-flex flex-column gap-1">
+                        <select asp-for="ModeloId" class="form-select">
+                            <option value="" selected disabled>Selecione um modelo</option>
+                            @if (ViewBag.modelos != null)
+                            {
+                                @foreach (var modelo in ViewBag.modelos)
+                                {
+                                    var nomeVeiculo = modelo.Marca + " " + modelo.Nome;
+                                    <option value="@modelo.Id">@nomeVeiculo</option>
+                                }
+                            }
+                        </select>
+                        <span asp-validation-for="ModeloId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group mb-2">
+                    <label asp-for="Cor" class="control-label"></label>
+                    @* <input asp-for="Cor" class="form-control mt-1"/> *@
+                    <select asp-for="Cor" class="form-select">
+                        <option value="" selected disabled>Selecione uma cor</option>
+                        @foreach (var cor in ViewBag.cores)
+                        {
+                            <option value="@cor">@Enum.GetName(typeof(Cor), cor)</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Cor" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-2">
+                    <label asp-for="VendaId" class="control-label">Situação de Venda</label>
+                    <select asp-for="VendaId" class="form-select">
+                        <option value="" selected disabled>Selecione uma opção</option>
+                            <option value="false">Não vendido</option>
+                            <option value="true">Vendido</option>
+                    </select>
+                    <span asp-validation-for="VendaId" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex form-group gap-2">
+                    <input type="submit" value="Filtrar" class="btn btn-primary" />
+                    <div>
+                        <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -21,6 +21,7 @@ namespace JitCars.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+
             var carros = await _context.Carros.Include(e => e.Modelo).ToListAsync();
 
             return View(carros);
@@ -152,6 +153,18 @@ namespace JitCars.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Filter()
+        {
+
+            var modelos = _context.Modelos.ToList();
+
+            ViewBag.modelos = modelos;
+            ViewBag.cores = Enum.GetValues(typeof(Cor));
+
+            return View();
         }
 
     }
