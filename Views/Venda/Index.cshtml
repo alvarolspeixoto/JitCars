@@ -3,14 +3,14 @@
 @model IEnumerable<Venda>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Vendas";
     var carros = ViewBag.carros as List<Carro>;
 }
 
 <div class="container">
 
-
-    <div class= ="d-flex justify-content-between align-items-center mb-5">
+    
+    <div class= "d-flex justify-content-between align-items-center mt-5 mb-5">
         <h1>Vendas</h1>
         <a class="btn btn-success mx-2" asp-controller="Venda" asp-action="Registrar">Registrar nova venda</a>   
     </div>
@@ -31,7 +31,7 @@
         </thead>
         <tbody>
 
-<
+
         @foreach (var venda in Model)
         {
             <tr>

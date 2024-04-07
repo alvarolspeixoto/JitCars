@@ -25,6 +25,7 @@ namespace JitCars.Models
         public int EnderecoId { get; set; }
         public virtual Endereco? Endereco { get; set; }
 
+        [Required(ErrorMessage = "Informe o telefone")]
         public string? Telefone { get; set; }
 
     }

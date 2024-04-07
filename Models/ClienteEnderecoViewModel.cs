@@ -2,7 +2,7 @@
 {
     public class ClienteEnderecoViewModel
     {
-        public Cliente Cliente { get; set; }
-        public Endereco Endereco { get; set; }
+        public Cliente? Cliente { get; set; }
+        public Endereco? Endereco { get; set; }
     }
 }
