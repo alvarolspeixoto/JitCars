@@ -147,7 +147,7 @@
 
     <table class="table table-dark table-hover pb-5" style="width:75%">
         <header class="titulo_tabela">
-            <span>Venda Funcionários</span>
+            <span>Relatório dos Funcionários</span>
             <hr />
         </header>
         <thead>
@@ -161,58 +161,74 @@
         <tbody>
             @{
                 var listaFuncionarios = new List<List<string>>();
-                
+
                 i = 1;
                 var j = 0;
-                if (ViewBag.Vendas != null){
-
-                @foreach (var venda in ViewBag.Vendas)
+                if (ViewBag.Funcionarios != null)
                 {
-                    var funcionario = new List<string>();
-                        for (var k = 0; k < 3; k++)
-                        {
-                            funcionario.Add("");
-                        }
-                    listaFuncionarios.Add(funcionario);
-                    var nomeCompleto = venda.Funcionario.PrimeiroNome + " " + venda.Funcionario.Sobrenome;
-                    decimal total_faturado = 0;
-                    funcionario[0] = nomeCompleto;
-                    funcionario[1] = (funcionario[1] + 1).ToString();
-                        foreach(var carro in ViewBag.Carros)
-                        {
-                            if(carro.VendaId == venda.Id)
-                            {
-                                total_faturado = total_faturado + (carro.PrecoVenda - carro.PrecoCusto);
-                            }
-                        }
-                    funcionario[2] = (funcionario[2] + total_faturado).ToString();
-                    listaFuncionarios[venda.FuncionarioId-1] = funcionario;
-                    
-                    
-                    }
-                    @foreach(var funcionario in listaFuncionarios)
+                    if (ViewBag.Vendas != null)
                     {
-                        i++;
-                        <tr>
-                            <th scope="row">@i</th>
-                            <td>@funcionario[0]</td>
-                            <td>@funcionario[1]</td>
-                            <td style ="color:lawngreen">R$@funcionario[2]</td>
-                        </tr>
-                        j++;
+                        foreach (var func in ViewBag.Funcionarios)
+                        {
+                            var funcionario = new List<string>();
+                            funcionario.Add("");
+                            funcionario.Add("0");
+                            funcionario.Add("0");
+                            var nomeCompleto = func.PrimeiroNome + " " + func.Sobrenome;
+                            funcionario[0] = nomeCompleto;
+                            
+                            foreach (var venda in ViewBag.Vendas)
+                            {
+                                if (venda.FuncionarioId == func.Id)
+                                {
+                                    funcionario[1] = (Convert.ToInt32(funcionario[1]) + 1).ToString();
+                                    decimal total_faturado = 0;
+                                    if (ViewBag.Carros != null)
+                                    {
+                                        foreach (var carro in ViewBag.Carros)
+                                        {
+                                            if (carro.VendaId == venda.Id)
+                                            {
+                                                total_faturado = total_faturado + (carro.PrecoVenda - carro.PrecoCusto);
+                                            }
+
+                                        }
+                                    }
+                                    funcionario[2] = (Convert.ToDecimal(funcionario[2]) + total_faturado).ToString();
+                                }
+                                
+                            }
+                            listaFuncionarios.Add(funcionario);
+                        }
                     }
+                     else
+                     {
+                         <div class="d-flex align-items-center justify-content-center border" style="height:200px">
+                             <h2 class="text-danger">Nenhuma venda foi realizada.</h2>
+                         </div>
+                     }
                 }
                 else
                 {
-                    <tr>Nenhuma venda foi realizada</tr>
+                    <h3>Nenhum funcionário cadastrado</h3>
                 }
-            }
-            
+                    @foreach(var funcionario in listaFuncionarios)
+                        {
+                            i++;
+                            <tr>
+                                <th scope="row">@i</th>
+                                <td>@funcionario[0]</td>
+                                <td>@funcionario[1]</td>
+                                <td style ="color:lawngreen">R$@funcionario[2]</td>
+                            </tr>
+                            j++;
+                        }
+                    }
+                    
+                
+ 
             </tbody>
-
         </table>
-
-
 </div>
 
 
