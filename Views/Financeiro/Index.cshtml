@@ -77,9 +77,11 @@
                 var i = 0;
                 if (ViewBag.Carros.Count > 0)
                 {
-                    @foreach(var obj in ViewBag.Carros){
-                        @if (obj.VendaId != null){
-                          i++;
+                    foreach(var obj in ViewBag.Carros){
+                        if (obj.VendaId != null){
+                            if (obj.Venda.Status != 0)
+                            {
+                               i++;
 
                              var nomeCliente = obj.Venda.Cliente.PrimeiroNome + " " + obj.Venda.Cliente.Sobrenome ;                                             
                             <tr>
@@ -89,7 +91,9 @@
                                       <td>@nomeCliente</td>                           
                                       <td style="color:lawngreen">R$@obj.PrecoVenda</td>
                                       <td>@obj.Venda.Data</td>
-                            </tr>
+                            </tr> 
+                            }
+                            
 
                         }
                     }
@@ -131,20 +135,23 @@
                 {                   
                     foreach (var carro in ViewBag.Carros)
                     {
-                        @if (carro.VendaId != null)
+                        if (carro.VendaId != null)
                         {
-                      
-                          i++;
-                        var lucro = carro.PrecoVenda - carro.PrecoCusto;
-                        lucro_total = lucro_total + lucro;
+                            if (carro.Venda.Status != 0){
+                                i++;
+                                var lucro = carro.PrecoVenda - carro.PrecoCusto;
+                                lucro_total = lucro_total + lucro;
 
-                            <tr>
-                              <th scope="row">@i</th>
-                                  <td>R$@carro.PrecoCusto</td>
-                                  <td>R$@carro.PrecoVenda</td>
-                                  <td style="color:lawngreen">R$@lucro</td>
-                                  <td>@carro.Venda.Data</td>
-                            </tr>
+                                 <tr>
+                                      <th scope="row">@i</th>
+                                       <td>R$@carro.PrecoCusto</td>
+                                       <td>R$@carro.PrecoVenda</td>
+                                       <td style="color:lawngreen">R$@lucro</td>
+                                       <td>@carro.Venda.Data</td>
+                                 </tr>
+                            }
+                      
+                          
                         
                         }                    
                     }
@@ -198,17 +205,17 @@
                             {
                                 if (venda.FuncionarioId == func.Id)
                                 {
-                                    if (ViewBag.Carros.Count > 0)
+                                    if (ViewBag.Carros.Count > 0 && venda.Status != 0)
                                     {
-                                      funcionario[1] = (Convert.ToInt32(funcionario[1]) + 1).ToString();  
+                                        funcionario[1] = (Convert.ToInt32(funcionario[1]) + 1).ToString();  
                                     }                                    
                                     decimal total_faturado = 0;
                                     if (ViewBag.Carros != null)
                                     {
                                         foreach (var carro in ViewBag.Carros)
                                         {
-                                            if (carro.VendaId == venda.Id)
-                                            {
+                                            if (carro.VendaId == venda.Id && carro.Venda.Status != 0)
+                                                {
                                                 total_faturado = total_faturado + (carro.PrecoVenda - carro.PrecoCusto);
                                             }
 
