@@ -1,0 +1,70 @@
+@model MudarSenhaViewModel;
+@{
+    ViewData["Title"] = "Perfil";
+    var usuario = ViewBag.usuario;
+    var nomeCompleto = usuario.PrimeiroNome + " " + usuario.Sobrenome;
+    var enderecoObj = usuario.Endereco;
+    var endereco = $"Rua {enderecoObj.Rua}, Nº {enderecoObj.Numero}, {enderecoObj.Bairro}, {enderecoObj.Cidade} - {enderecoObj.Estado}";
+}
+
+<style>
+    .span-data {
+        background-color: #494c4e;
+        padding: 5px;
+        border-radius: 5px;
+        color: white;
+    }
+
+</style>
+
+<div class="m-4">
+    <h1>Perfil de @usuario.PrimeiroNome</h1>
+    <div class="border">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><span class="span-data">Nome completo:</span> @nomeCompleto</li>
+            <li class="list-group-item"><span class="span-data">CPF:</span> @FormataCPF(usuario.Cpf)</li>
+            <li class="list-group-item"><span class="span-data">Endereço:</span> @endereco</li>
+            <li class="list-group-item"><span class="span-data">Cargo:</span> @usuario.Cargo.Titulo</li>
+            <li class="list-group-item"><span class="span-data">Salário:</span> @usuario.Cargo.Salario.ToString("C")</li>
+        </ul>
+    </div>
+    <div class="mt-2">
+        <p><strong>Alteração de senha</strong></p>
+        <div class="text-danger" asp-validation-summary="All"></div>
+        @{
+            var mensagemSucesso = TempData["sucesso"] ?? "";
+        }
+        <div class="text-success">@mensagemSucesso</div>
+        <form asp-action="MudarSenha" asp-controller="Funcionario" style="width: 30%;">
+            <div class="mb-1">
+                <label asp-for="SenhaAtual"></label>
+                <input asp-for="SenhaAtual" class="form-control" />
+                <span asp-validation-for="SenhaAtual" class="text-danger"></span>
+            </div>
+            <div class="mb-1">
+                <label asp-for="NovaSenha"></label>
+                <input asp-for="NovaSenha" class="form-control" />
+                <span asp-validation-for="NovaSenha" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="SenhaConfirmacao"></label>
+                <input type="password" asp-for="SenhaConfirmacao" class="form-control" />
+                <span asp-validation-for="SenhaConfirmacao" class="text-danger"></span>
+            </div>
+            <input type="submit" value="Mudar" class="btn btn-primary">
+        </form>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+@functions {
+
+    public string FormataCPF(string cpf) {
+        return cpf.Substring(0,3) + "." + cpf.Substring(3, 3) + "." + cpf.Substring(6, 3) + "-" + cpf.Substring(9, 2);
+    }
+
+}

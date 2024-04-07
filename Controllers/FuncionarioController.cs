@@ -72,7 +72,7 @@ namespace JitCars.Controllers
                 _context.Enderecos.Add(endereco);
                 await _context.SaveChangesAsync();
 
-                Funcionario funcionario = new() 
+                Funcionario funcionario = new()
                 {
                     PrimeiroNome = model.PrimeiroNome,
                     Sobrenome = model.Sobrenome,
@@ -133,7 +133,7 @@ namespace JitCars.Controllers
 
         }
 
-        
+
         public async Task<IActionResult> Deslogar()
         {
             await _signInManager.SignOutAsync();
@@ -190,7 +190,7 @@ namespace JitCars.Controllers
             {
                 var funcionarioDoBanco = await _context.Users.FindAsync(obj.Id);
 
-                
+
                 funcionarioDoBanco.PrimeiroNome = obj.PrimeiroNome;
                 funcionarioDoBanco.Sobrenome = obj.Sobrenome;
                 if (funcionarioDoBanco.Endereco == null)
@@ -218,6 +218,73 @@ namespace JitCars.Controllers
                 ModelState.AddModelError("", "Os dados foram modificados por outro usuário. Por favor, tente novamente.");
                 return View(obj);
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Perfil()
+        {
+
+            if (!_signInManager.IsSignedIn(User))
+            {
+                return NotFound();
+            }
+
+            var id = (await _userManager.GetUserAsync(User))!.Id;
+
+            var usuario = await _context.Users
+                                .Include(u => u.Cargo)
+                                .Include(u => u.Endereco)
+                                .FirstOrDefaultAsync(u => u.Id == id);
+
+            ViewBag.usuario = usuario;
+
+            return View();
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MudarSenha(MudarSenhaViewModel model)
+        {
+
+            if (!_signInManager.IsSignedIn(User))
+            {
+                return NotFound();
+            }
+
+            var id = (await _userManager.GetUserAsync(User))!.Id;
+
+            var usuario = await _context.Users
+                                .Include(u => u.Cargo)
+                                .Include(u => u.Endereco)
+                                .FirstOrDefaultAsync(u => u.Id == id);
+
+            ViewBag.usuario = usuario;
+
+            var resultado = await _userManager.CheckPasswordAsync(usuario!, model.SenhaAtual!);
+
+            if (!resultado)
+            {
+                ModelState.AddModelError("SenhaAtual", "A senha está incorreta");
+            }
+
+            if (!ModelState.IsValid) return View("Perfil", model);
+
+            var resultadoSenha = await _userManager.ChangePasswordAsync(usuario!, model.SenhaAtual!, model.NovaSenha!);
+
+            if (!resultadoSenha.Succeeded)
+            {
+                foreach (var erro in resultadoSenha.Errors) {
+
+                    ModelState.AddModelError("", erro.Description);
+                }
+                return View("Perfil", model);
+            }
+
+            TempData["sucesso"] = "Senha alterada com sucesso!";
+
+            return RedirectToAction("Perfil", "Funcionario");
+
         }
 
 
