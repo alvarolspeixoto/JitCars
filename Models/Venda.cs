@@ -20,6 +20,8 @@ namespace JitCars.Models
         [DisplayName("Forma de pagamento")]
         public FormaPagamento FormaPagamento { get; set; }
 
+        public Status Status { get; set; } = Status.Efetuado;
+
         [Required(ErrorMessage = "Informe o cliente")]
         [DisplayName("Digite o CPF do cliente para filtrar")]
         public int ClienteId { get; set; }
