@@ -193,13 +193,28 @@ namespace JitCars.Controllers
                 
                 funcionarioDoBanco.PrimeiroNome = obj.PrimeiroNome;
                 funcionarioDoBanco.Sobrenome = obj.Sobrenome;
-                
+                if (funcionarioDoBanco.Endereco == null)
+                {
+                    funcionarioDoBanco.Endereco = new Endereco();
+                }
+                funcionarioDoBanco.Endereco.Cep = obj.Endereco.Cep;
+                funcionarioDoBanco.Endereco.Rua = obj.Endereco.Rua;
+                funcionarioDoBanco.Endereco.Numero = obj.Endereco.Numero;
+                funcionarioDoBanco.Endereco.Bairro = obj.Endereco.Bairro;
+                funcionarioDoBanco.Endereco.Cidade = obj.Endereco.Cidade;
+                funcionarioDoBanco.Endereco.Estado = obj.Endereco.Estado;
+                funcionarioDoBanco.CargoId = obj.CargoId;
+
+
+
+
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             catch (DbUpdateConcurrencyException)
             {
-                // Trate a exceção de concorrência aqui
+               
                 ModelState.AddModelError("", "Os dados foram modificados por outro usuário. Por favor, tente novamente.");
                 return View(obj);
             }

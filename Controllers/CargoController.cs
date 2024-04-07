@@ -1,13 +1,15 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using JitCars.Data;
+using JitCars.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using JitCars.Data;
-using JitCars.Models;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace JitCars.Controllers
 {
+    [Authorize]
     public class CargoController : Controller
     {
         private readonly AppDbContext _db;
@@ -17,7 +19,6 @@ namespace JitCars.Controllers
             _db = db;
         }
 
-        
         public async Task<IActionResult> Index()
         {
             var cargos = await _db.Cargos.ToListAsync();
@@ -33,80 +34,50 @@ namespace JitCars.Controllers
         // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Cadastrar([Bind("Id,Titulo,Date,Salario")] Cargo cargo)
+        public async Task<IActionResult> Cadastrar(Cargo obj)
         {
             if (ModelState.IsValid)
             {
-                NormalizeDateTime(cargo); //Para não dar erro precisa normalizar a data e hora antes de salvar
-                _db.Add(cargo);
+                obj.Date = DateTime.Now;
+                _db.Cargos.Add(obj);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View();
+            return View(obj);
         }
 
         // GET
         public async Task<IActionResult> Atualizar(int? id)
         {
-            if (id == null)
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
-
-            var cargo = await _db.Cargos.FindAsync(id);
-            if (cargo == null)
+            var cargoFromDb = await _db.Cargos.FindAsync(id);
+            if (cargoFromDb == null)
             {
                 return NotFound();
             }
-            return View(cargo);
+            return View(cargoFromDb);
         }
 
         // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Atualizar(int id, [Bind("Id,Titulo,Date,Salario")] Cargo cargo)
+        public async Task<IActionResult> Atualizar(Cargo obj)
         {
-            if (id != cargo.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    NormalizeDateTime(cargo); //Para não dar erro precisa normalizar a data e hora antes de salvar
-                    _db.Update(cargo);
-                    await _db.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CargoExiste(cargo.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                obj.Date = DateTime.Now;
+                _db.Cargos.Update(obj);
+                await _db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View();
+            return View(obj);
         }
 
-        private bool CargoExiste(int id)
-        {
-            return _db.Cargos.Any(e => e.Id == id);
-        }
+        
 
-        private void NormalizeDateTime(Cargo cargo)
-        {
-            // Verificar se a data e hora não estão no formato UTC , se não  convertê-las para UTC
-            if (cargo.Date.Kind != DateTimeKind.Utc)
-            {
-                cargo.Date = cargo.Date.ToUniversalTime();
-            }
-        }
+        
     }
 }
