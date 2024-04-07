@@ -1,8 +1,9 @@
-@model IEnumerable<Carro>
+﻿@model IEnumerable<Carro>
 @using JitCars.Enums
 
 @{
-    ViewData["Title"] = "Carros - Estoque";
+    ViewData["Title"] = "Selecione os carros";
+    List<Carro> selecionados = new List<Carro>();
 }
 
 <style>
@@ -19,16 +20,17 @@
 
         <p>Veja aqui o estoque da concessionária</p>
         <div class="d-flex justify-content-between">
-            <a class="btn btn-primary mb-3 mr-auto" asp-controller="Carro" asp-action="Cadastrar">
+            @*<a class="btn btn-primary mb-3 mr-auto" asp-controller="Carro" asp-action="Create">
                 <i class="bi bi-plus"></i>&nbsp;Adicionar carro ao estoque
             </a>
-            <a class="btn btn-link text-dark mb-3 mx-2 ml-auto" asp-controller="Carro" asp-action="Filter">
-                Filtrar Carros
+            *@
+            <a class="btn btn-primary mb-3 mx-2 ml-auto">
+                Confirmar
             </a>
         </div>
-        <a class="btn btn-secondary mb-3" asp-controller="Modelo" asp-action="Index">
+        @*<a class="btn btn-secondary mb-3" asp-controller="Modelo" asp-action="Index">
             <i class="bi bi-eye"></i>&nbsp;Ver modelos cadastrados
-        </a>
+        </a>*@
         @if (Model.Count() == 0)
         {
             <div class="d-flex align-items-center justify-content-center border" style="height:200px">
@@ -48,12 +50,13 @@
                                 var alt = temFoto ? "Imagem do " + nomeVeiculo : "";
                             }
                             <img style="height: 180px; object-fit: cover;" class="card-img-top" src="@carro.Modelo.ImagemUrl" alt="@alt">
-                            @if (!temFoto) {
+                            @if (!temFoto)
+                            {
                                 <p class="text-danger text-center">
                                     Esse modelo não possui imagem salva
                                 </p>
                             }
-                            <div class="card-body justify-content-left">
+                            <div class="card-body justify-content-left" id="card">
                                 <h5 class="card-title">@nomeVeiculo</h5>
                                 <ul class="mb-2">
                                     <li><strong>Cor: </strong>@Enum.GetName(typeof(Cor), @carro.Cor)</li>
@@ -61,7 +64,8 @@
                                     <span style="color: green; font-size: 2em"><strong> @carro.PrecoVenda.ToString("C")</strong></span>
 
                                 </ul>
-                                <a asp-action="Editar" asp-controller="Carro" asp-route-id="@carro.Id" class="btn btn-primary"><i class="bi bi-info-circle"></i>&nbsp; Mais informações</a>
+                                <a class="btn btn-primary" onclick="selecione()"><i class="bi bi-plus-circle"></i>&nbsp; Selecionar</a>
+                                @*<a asp-action="" asp-controller="" asp-route-id="@carro.Id" class="btn btn-primary"><i class="bi bi-plus-circle"></i>&nbsp; Selecionar</a>*@
                             </div>
                         </div>
                     </li>
@@ -72,3 +76,26 @@
     </div>
 
 </div>
+
+<style>
+    
+    .sombra-verde {
+        box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    }
+</style>
+
+<script>
+
+    function Carro(marca,modelo,cor) {
+        this.marca = marca;
+        this.modelo = modelo;
+        this.cor = cor;
+    }
+
+
+    function selecione() {
+        var cardSelecionado = document.getElementById('card');
+        cardSelecionado.classList.add('sombra-verde');
+    }
+</script>
+
