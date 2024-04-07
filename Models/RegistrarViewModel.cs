@@ -30,9 +30,5 @@ namespace JitCars.Models {
         [Display(Name = "Cargo")]
         public int CargoId { get; set; }
 
-        [Required(ErrorMessage = "Informe se é um funcionário comum ou um gerente")]
-        [Display(Name = "É gerente?")]
-        public bool Gerente { get; set; }
-
     }
 }

@@ -13,7 +13,6 @@ namespace JitCars.Controllers
         private readonly SignInManager<Funcionario> _signInManager;
         private readonly UserManager<Funcionario> _userManager;
 
-
         public FuncionarioController(
             AppDbContext context,
             SignInManager<Funcionario> signInManager,
@@ -23,6 +22,7 @@ namespace JitCars.Controllers
             _signInManager = signInManager;
             _userManager = userManager;
         }
+        [Authorize(Roles = "Gerente")]
         public async Task<IActionResult> Index()
         {
             var funcionarios = await _context.Set<Funcionario>()
@@ -33,7 +33,7 @@ namespace JitCars.Controllers
             return View(funcionarios);
         }
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Roles = "Gerente")]
         public async Task<IActionResult> Registrar()
         {
 
@@ -44,6 +44,7 @@ namespace JitCars.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Gerente")]
         public async Task<IActionResult> Registrar(RegistrarViewModel model)
         {
 
@@ -84,8 +85,9 @@ namespace JitCars.Controllers
 
                 var senhaPadrao = "Senha@" + funcionario.Cpf;
                 var resultado = await _userManager.CreateAsync(funcionario, senhaPadrao);
-
-                if (model.Gerente) await _userManager.AddToRoleAsync(funcionario, "Gerente");
+                var cargo = await _context.Cargos.FindAsync(model.CargoId);
+            
+                if (cargo!.Titulo == "Gerente") await _userManager.AddToRoleAsync(funcionario, "Gerente");
 
                 if (resultado.Succeeded)
                 {
@@ -112,6 +114,7 @@ namespace JitCars.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -133,7 +136,7 @@ namespace JitCars.Controllers
 
         }
 
-
+        [AllowAnonymous]
         public async Task<IActionResult> Deslogar()
         {
             await _signInManager.SignOutAsync();
@@ -149,6 +152,7 @@ namespace JitCars.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Gerente")]
         public IActionResult Cadastrar(Funcionario obj)
         {
             if (ModelState.IsValid)
@@ -184,6 +188,7 @@ namespace JitCars.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Gerente")]
         public async Task<IActionResult> Atualizar(Funcionario obj)
         {
             try
