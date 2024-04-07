@@ -19,7 +19,7 @@ namespace JitCars.Controllers
         }
         public async Task<IActionResult> Index(string dataSelecionada)
         {
-            var data = new SelectList(new List<String> { "03/2024", "02/2024", "01/2024" }); ;
+            var data = new SelectList(new List<String> {"04/2024","03/2024", "02/2024", "01/2024" }); ;
             ViewData["data"] = data;
             if (!string.IsNullOrEmpty(dataSelecionada))
             {
