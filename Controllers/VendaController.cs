@@ -33,12 +33,14 @@ namespace JitCars.Controllers
         public async Task<IActionResult> Registrar()
         {
             var clientes = _db.Clientes.ToList();
-            var funcionarios = await _db.Set<Funcionario>().ToListAsync();    
+            var funcionarios = await _db.Set<Funcionario>().ToListAsync();
+            var carros = _db.Carros.ToList();
 
             ViewBag.clientes = clientes;
             ViewBag.funcionarios = funcionarios;
             ViewBag.pagamentos = Enum.GetValues(typeof(FormaPagamento));
-            
+            ViewBag.carros = carros;
+
             return View();
         }
 
