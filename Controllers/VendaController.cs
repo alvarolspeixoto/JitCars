@@ -122,7 +122,9 @@ namespace JitCars.Controllers
             {
                 return NotFound();
             }
-            var vendaFromDb = _db.Vendas.Find(id);
+            var vendaFromDb = _db.Vendas.Include(e => e.Cliente)
+                                        .Include(e => e.Funcionario)
+                                        .FirstOrDefault(e => e.Id == id);
 
             if (vendaFromDb == null)
             {
@@ -137,13 +139,13 @@ namespace JitCars.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeletarPOST(int? id)
         {
-           var objToDelete = _db.Vendas.Find(id);
-           if(objToDelete == null)
+           var vendaCancelada = _db.Vendas.Find(id);
+           if(vendaCancelada == null)
            {
                 return NotFound();
            }
 
-           _db.Vendas.Remove(objToDelete);
+           vendaCancelada.Status = Status.Cancelado;
            _db.SaveChanges();
            return RedirectToAction("Index");         
         }

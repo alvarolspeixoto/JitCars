@@ -1,4 +1,10 @@
-﻿@model Venda
+﻿@using JitCars.Enums
+@model Venda
+
+@{
+	var clienteCPF = Model.Cliente.Cpf;
+	var nomeFuncionario = Model.Funcionario.PrimeiroNome + " " + Model.Funcionario.Sobrenome;
+}
 
 <form method="post" asp-action="DeletarPOST">
 	<input asp-for="Id" hidden/>
@@ -9,17 +15,17 @@
 		</div>
 		<div class="mb-3">
 			<label asp-for="ClienteId"></label>
-			<input asp-for="ClienteId" disabled class="form-control" />
+			<input value="@clienteCPF" disabled class="form-control" />
 		</div>
-		@* <div class="mb-3">
-			<label asp-for="FormaPagamento"></label>
-			<input asp-for="FormaPagamento" disabled class="form-control" />
-		</div> *@
 		<div class="mb-3">
-			<label asp-for="NotaFiscal"></label>
-			<input asp-for="NotaFiscal" disabled class="form-control" />
+			<label asp-for="FormaPagamento"></label>
+			<input value="@Enum.GetName(typeof(FormaPagamento),Model.FormaPagamento)" disabled class="form-control" />
+		</div> 
+		<div class="mb-3">
+			<label asp-for="FuncionarioId"></label>
+			<input value="@nomeFuncionario" disabled class="form-control" />
 		</div>
-		<button type="submit" class="btn btn-danger" style="width:150px">Deletar</button>
+		<button type="submit" class="btn btn-danger" style="width:150px">Cancelar</button>
 		<a asp-controller="Venda" asp-action="Index" class="btn btn-secondary" style="width:150px">
 			Voltar
 		</a>
