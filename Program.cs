@@ -2,7 +2,7 @@ using JitCars.Data;
 using JitCars.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
+using JitCars.Services.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +25,8 @@ builder.Services.AddIdentity<Funcionario, IdentityRole>(
     })
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
-    .AddDefaultTokenProviders();
+    .AddDefaultTokenProviders()
+    .AddErrorDescriber<ErrosCustomizados>();
 
 builder.Services.ConfigureApplicationCookie(options =>
 {

@@ -9,8 +9,7 @@
             <i class="bi bi-person-fill"></i>&nbsp;<span>@User.Identity!.Name</span>
         </button>
         <div class="dropdown-menu" aria-labelledby="triggerId">
-            <button class="dropdown-item" href="#">Opções</button>
-            <button class="dropdown-item" href="#">Perfil</button>
+            <a class="dropdown-item" asp-action="Perfil" asp-controller="Funcionario">Perfil</a>
             <a class="dropdown-item" asp-action="Deslogar" asp-controller="Funcionario">Sair</a>
         </div>
     }
