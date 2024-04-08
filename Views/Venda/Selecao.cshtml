@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Carro>
+@using JitCars.Enums
+
+@{
+    ViewData["Title"] = "Selecione os carros";
+    List<Carro> selecionados = new List<Carro>();
+}
+
+<h2>Selecione o carro</h2>
+
+<form id="carForm" action="@Url.Action("Selecao", "Venda")" method="post">
+    <table>
+        @foreach (var car in Model)
+        {
+            <tr>
+                <td>
+                    <input type="checkbox" name="selectedCars" value="@car.Id" /> @Html.DisplayFor(modelItem => car.Modelo.Marca) @Html.DisplayFor(modelItem => car.Modelo.Nome)
+                </td>
+            </tr>
+        }
+    </table>
+
+    <input type="submit" value="Submit" />
+</form>
+
+<script>
+    document.getElementById('carForm').addEventListener('submit', function (event) {
+        var selectedCars = [];
+        var checkboxes = document.querySelectorAll('input[name="selectedCars"]:checked');
+        checkboxes.forEach(function (checkbox) {
+            selectedCars.push(checkbox.value);
+        });
+
+        var hiddenInput = document.createElement('input');
+        hiddenInput.setAttribute('type', 'hidden');
+        hiddenInput.setAttribute('name', 'selectedCars');
+        hiddenInput.setAttribute('value', selectedCars.join(','));
+        document.getElementById('carForm').appendChild(hiddenInput);
+    });
+</script>

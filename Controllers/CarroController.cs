@@ -27,14 +27,6 @@ namespace JitCars.Controllers
             return View(carros);
         }
 
-
-        public async Task<IActionResult> Selecao()
-        {
-            var carros = await _context.Carros.Include(e => e.Modelo)
-                                              .Where(e => e.VendaId == null).ToListAsync();
-            return View(carros);
-        }
-
         [HttpGet]
         public IActionResult Cadastrar()
         {
