@@ -146,7 +146,7 @@
                                        <th scope="row">@i</th>
                                        <td>@carro.PrecoCusto.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR"))</td>
                                        <td>@carro.PrecoVenda.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR"))</td>
-                                       <td style="color:lawngreen">@lucro.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR"))</td>
+                                    <td style="color:lawngreen">@lucro.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR"))</td>
                                        <td>@carro.Venda.Data</td>
                                  </tr>
                             }
@@ -186,7 +186,7 @@
             @{
                 var listaFuncionarios = new List<List<string>>();
 
-                i = 1;
+                i = 0;
                 var j = 0;
                 if (ViewBag.Funcionarios != null)
                 {
