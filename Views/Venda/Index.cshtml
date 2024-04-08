@@ -41,6 +41,14 @@
 
         @foreach (var venda in Model)
         {
+
+            var chassis = carros.Where(c => c.VendaId == venda.Id).Select(c => c.NumeroChassi).ToList();
+
+                if (chassis.Any())
+                {
+                    
+                
+
             <tr>
             <td></td>
             <td>@MaskCpf(venda.Cliente.Cpf)</td>
@@ -49,30 +57,7 @@
             <td>@venda.Funcionario.PrimeiroNome @venda.Funcionario.Sobrenome</td>
             <td>@venda.Status</td>
             <td>
-                        @{
-
-                            var chassis = new List<int>();
-                            foreach(Carro c in carros)
-                            {
-                                if (c.VendaId == venda.Id)
-                                {
-                                    chassis.Add(c.NumeroChassi);
-                                }
-                            } 
-                            var index = 0;
-                            var count = chassis.Count;
-                            foreach(int c in chassis)
-                            {
-                                @c
-                                ;
-                                @if(++index < count)
-                                {
-                                    @(", ")
-                                }
-
-                        }
-                        }
-                  
+                @string.Join(", ", chassis) 
             </td>
             @if (gerente)
             {
@@ -102,6 +87,7 @@
                 </td>
             }
             </tr>
+             }
         }
     </tbody>
 </table>

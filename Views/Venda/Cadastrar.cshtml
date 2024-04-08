@@ -11,8 +11,11 @@
 		<div class="text-danger" asp-validation-summary="All"></div>
 		<div class="mb-3">
 			<label asp-for="ClienteId"></label>
-			<input onkeyup="exibeClientes()" id="input-cliente" type="text" class="form-control mb-2"
+			<div class="d-flex gap-2">
+				<input onkeyup="exibeClientes()" id="input-cliente" type="text" class="form-control mb-2"
 				   style="width: 30%;" autocomplete="off" />
+				<i style="font-size: 1.5em; color: #777777" class="bi bi-funnel"></i>
+			</div>
 			<select asp-for="ClienteId" class="form-select">
 				<option value="" selected disabled>Selecione um cliente</option>
 				@foreach (var cliente in ViewBag.clientes)

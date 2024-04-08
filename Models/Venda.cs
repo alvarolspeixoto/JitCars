@@ -10,7 +10,7 @@ namespace JitCars.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Insira a data da venda")]
-        public DateTime Data { get; set; } = DateTime.UtcNow;
+        public DateTime Data { get; set; } = DateTime.UtcNow.AddHours(-3);
 
         [StringLength(44)]
         [DisplayName("Nota Fiscal")]
