@@ -35,12 +35,21 @@ public class HomeController : Controller
 
 
 		
-		
+		var topVendedores = _db.Vendas.Include(v => v.Funcionario).GroupBy(v => v.Funcionario)
+									  .Select(g => new
+									  {
+                                          Nome = g.Key.PrimeiroNome + " " + g.Key.Sobrenome, // Obtém o nome completo do funcionário
+                                          QuantidadeVendas = g.Count()
+                                      })
+                                      .OrderByDescending(f => f.QuantidadeVendas) 
+                                      .Take(5) 
+                                      .ToList();
 
+        
 
-
-		ViewBag.carros = carros;
+        ViewBag.carros = carros;
 		ViewBag.modelos = modelosMaisVendidos;
+        ViewBag.funcionarios = topVendedores;
 
 
         return View();
