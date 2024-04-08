@@ -88,8 +88,8 @@
                                       <th scope="row" >@i</th>                         
                                       <td>@obj.Modelo.Nome</td>
                                       <td>@obj.Modelo.Marca</td>
-                                      <td>@nomeCliente</td>                           
-                                      <td style="color:lawngreen">R$@obj.PrecoVenda</td>
+                                      <td>@nomeCliente</td>
+                                    <td style="color:lawngreen">@obj.PrecoVenda.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR"))</td>
                                       <td>@obj.Venda.Data</td>
                             </tr> 
                             }
@@ -143,10 +143,10 @@
                                 lucro_total = lucro_total + lucro;
 
                                  <tr>
-                                      <th scope="row">@i</th>
-                                       <td>R$@carro.PrecoCusto</td>
-                                       <td>R$@carro.PrecoVenda</td>
-                                       <td style="color:lawngreen">R$@lucro</td>
+                                       <th scope="row">@i</th>
+                                       <td>@carro.PrecoCusto.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR"))</td>
+                                       <td>@carro.PrecoVenda.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR"))</td>
+                                       <td style="color:lawngreen">@lucro.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR"))</td>
                                        <td>@carro.Venda.Data</td>
                                  </tr>
                             }
@@ -159,7 +159,7 @@
                         <th scope="col" style="text-align: center"> Lucro Total</th> 
                     </tr>
                     <tr style="text-align:center">
-                        <td style="color:lawngreen">R$@lucro_total</td>
+                        <td style="color:lawngreen">@lucro_total.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR"))</td>
                     </tr>
                 }
               
@@ -215,7 +215,7 @@
                                         foreach (var carro in ViewBag.Carros)
                                         {
                                             if (carro.VendaId == venda.Id && carro.Venda.Status != 0)
-                                                {
+                                            {
                                                 total_faturado = total_faturado + (carro.PrecoVenda - carro.PrecoCusto);
                                             }
 
@@ -223,8 +223,8 @@
                                     }
                                     funcionario[2] = (Convert.ToDecimal(funcionario[2]) + total_faturado).ToString();
                                 }
-                                
-                            }                            
+
+                            }
                             listaFuncionarios.Add(funcionario);
                         }
                     }
@@ -246,7 +246,7 @@
                                 <th scope="row">@i</th>
                                 <td>@funcionario[0]</td>
                                 <td>@funcionario[1]</td>
-                                <td style ="color:lawngreen">R$@funcionario[2]</td>
+                                <td style="color:lawngreen">@Convert.ToDecimal(funcionario[2]).ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR"))</td>
                             </tr>
                             j++;
                         }

@@ -49,7 +49,23 @@
 			</select>
 		</div>
 		<div class="mb-3">
-			<a asp-controller="Carro" asp-action="Selecao" class="btn btn-primary">Escolher carro</a> 
+				Selecione o(s) carro(s)
+				<table>
+					@foreach (var car in ViewBag.carros)
+					{
+						<tr>
+							<td>
+								<input type="checkbox" name="carrosSelecionados" value="@car.Id" /> Modelo: @car.Modelo.Marca @car.Modelo.Nome - Cor: @car.Cor - Ano de fabricação: @car.Modelo.AnoFabricacao
+							</td>
+						</tr>
+					}
+				</table>
+			
+
+			@*<a asp-controller="Venda" asp-action="Selecao" class="btn btn-primary">Escolher carro</a> *@
+
+
+
 		</div>
 		<button type="submit" class="btn btn-primary" style="width:150px">Confirmar</button>
 		<a asp-controller="Venda" asp-action="Index" class="btn btn-secondary" style="width:150px">

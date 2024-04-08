@@ -20,9 +20,15 @@ namespace JitCars.Controllers
         public async Task<IActionResult> Index()
 		{
             var vendas = await _db.Vendas.Include(e => e.Cliente)
-                                         .Include(e => e.Funcionario).ToListAsync();
+                                         .Include(e => e.Funcionario)
+                                         .ToListAsync();
+
+            
 
             var carrosVendidos = _db.Carros.Where(e => e.VendaId != null).ToList();
+
+            
+
             ViewBag.carros = carrosVendidos;
             
 
@@ -30,11 +36,14 @@ namespace JitCars.Controllers
 		}
 
         //GET
-        public async Task<IActionResult> Registrar()
+        public async Task<IActionResult> Cadastrar()
         {
             var clientes = _db.Clientes.ToList();
             var funcionarios = await _db.Set<Funcionario>().ToListAsync();
-            var carros = _db.Carros.ToList();
+            var carros = await _db.Carros.Include(e => e.Modelo).Include(e => e.Venda)
+                                         .Where(e => e.VendaId == null || e.Venda.Status == Status.Cancelado).ToListAsync();
+
+
 
             ViewBag.clientes = clientes;
             ViewBag.funcionarios = funcionarios;
@@ -47,10 +56,14 @@ namespace JitCars.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Registrar(Venda obj)
+        public async Task<IActionResult> Cadastrar(Venda obj, List<int> carrosSelecionados)
         {
 
 			var cliente = await _db.Clientes.FindAsync(obj.ClienteId);
+
+            
+
+			
 
 			if (ModelState.IsValid)
 			{
@@ -60,9 +73,22 @@ namespace JitCars.Controllers
 				}
 				else
 				{
-					obj.ClienteId = cliente.Id;
-					_db.Vendas.Add(obj);
-					await _db.SaveChangesAsync();
+
+					
+					if (carrosSelecionados != null && carrosSelecionados.Any())
+					{
+						obj.ClienteId = cliente.Id;
+						_db.Vendas.Add(obj);
+						await _db.SaveChangesAsync();
+						foreach (var carroId in carrosSelecionados)
+						{
+                            var carro = await _db.Carros.FindAsync(carroId);
+                            carro.VendaId = obj.Id;
+                            _db.Update(carro);
+						}
+					}
+
+                    await _db.SaveChangesAsync();
 					return RedirectToAction("Index");
 				}
 
@@ -71,16 +97,10 @@ namespace JitCars.Controllers
 			return View();
         }
 
-		/*public JsonResult Autocomplete(string prefix)
-		{
-			List<String> clientes = _db.Clientes.Where(c => c.Cpf.StartsWith(prefix)).Select(x => x.Cpf).ToList();
-			return Json(clientes);
 
-		}
-        */
 
-		//GET
-		public IActionResult Editar(int? id)
+        //GET
+        public IActionResult Editar(int? id)
         {
             if(id==null || id == 0)
             {

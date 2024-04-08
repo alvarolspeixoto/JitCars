@@ -22,16 +22,11 @@ namespace JitCars.Controllers
         public async Task<IActionResult> Index()
         {
 
-            var carros = await _context.Carros.Include(e => e.Modelo).ToListAsync();
-
-            return View(carros);
-        }
-
-
-        public async Task<IActionResult> Selecao()
-        {
             var carros = await _context.Carros.Include(e => e.Modelo)
-                                              .Where(e => e.VendaId == null).ToListAsync();
+                                              .Include(e => e.Venda)
+                                              .Where(e => e.Venda == null || e.Venda.Status == Status.Cancelado)
+                                              .ToListAsync();
+
             return View(carros);
         }
 

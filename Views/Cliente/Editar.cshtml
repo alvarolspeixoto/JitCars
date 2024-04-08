@@ -12,7 +12,10 @@
 
 
     <form method="post" asp-controller="Cliente" asp-action="Editar">
-
+        <div class="text-danger" asp-validation-summary="All"></div>
+        <input type="hidden" asp-for="Cliente.Id">
+        <input type="hidden" asp-for="Cliente.EnderecoId">
+        <input type="hidden" asp-for="Endereco.Id">
         <div class="mb-3 text-white">
             <label for="nome" class="form-label">Nome</label>
             <input type="text" class="form-control" asp-for="Cliente.PrimeiroNome" id="nomeInput" autocomplete="off">
