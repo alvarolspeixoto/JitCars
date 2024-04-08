@@ -7,13 +7,14 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace JitCars.Controllers
 {
     [Authorize]
     public class CargoController : Controller
     {
         private readonly AppDbContext _db;
-
+        
         public CargoController(AppDbContext db)
         {
             _db = db;
@@ -38,7 +39,9 @@ namespace JitCars.Controllers
         {
             if (ModelState.IsValid)
             {
-                obj.Date = DateTime.Now;
+                DateTime horaAtualUtc = DateTime.UtcNow;
+                DateTime horaAtualBrasil = horaAtualUtc.AddHours(-3);
+                obj.Date = horaAtualBrasil;
                 _db.Cargos.Add(obj);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -47,7 +50,7 @@ namespace JitCars.Controllers
         }
 
         // GET
-        public async Task<IActionResult> Atualizar(int? id)
+        public async Task<IActionResult> Editar(int? id)
         {
             if (id == null || id == 0)
             {
@@ -64,20 +67,30 @@ namespace JitCars.Controllers
         // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Atualizar(Cargo obj)
+        public async Task<IActionResult> Editar(Cargo obj)
         {
             if (ModelState.IsValid)
             {
-                obj.Date = DateTime.Now;
-                _db.Cargos.Update(obj);
+                
+                var cargoOriginal = await _db.Cargos.FindAsync(obj.Id);
+                if (cargoOriginal == null)
+                {
+                    return NotFound(); 
+                }
+
+               
+                var horaAtualBrasil = DateTime.UtcNow.AddHours(-3);
+                obj.Date = horaAtualBrasil;
+
+                _db.Entry(cargoOriginal).CurrentValues.SetValues(obj);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(obj);
         }
 
-        
 
-        
+
+
     }
 }

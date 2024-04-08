@@ -146,7 +146,7 @@ namespace JitCars.Controllers
        
 
         //GET
-        public async Task<IActionResult> Atualizar(string id)
+        public async Task<IActionResult> Editar(string id)
         {
             if (id == null)
             {
@@ -170,7 +170,7 @@ namespace JitCars.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Gerente")]
-        public async Task<IActionResult> Atualizar(Funcionario obj)
+        public async Task<IActionResult> Editar(Funcionario obj)
         {
             try
             {

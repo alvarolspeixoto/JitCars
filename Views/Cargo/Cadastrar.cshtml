@@ -1,4 +1,5 @@
 ﻿@model JitCars.Models.Cargo
+
 @{
     ViewData["Title"] = "Cadastrar Cargo";
 }
@@ -13,12 +14,6 @@
             <label for="Titulo" class="form-label">Título</label>
             <input type="text" class="form-control" asp-for="Titulo" id="tituloInput" autocomplete="off" placeholder="Título do cargo">
             <span class="text-danger" asp-validation-for="Titulo"></span>
-        </div>
-
-        <div class="mb-3 text-white">
-            <label for="Date" class="form-label">Data de Contratação</label>
-            <input type="date" class="form-control" asp-for="Date" id="dateInput" autocomplete="off" disabled>
-            <span class="text-danger" asp-validation-for="Date"></span>
         </div>
 
         <div class="mb-3 text-white">
