@@ -1,10 +1,14 @@
 ﻿@using JitCars.Enums
+@using Microsoft.AspNetCore.Identity;
 @using System.ComponentModel.DataAnnotations
 @model IEnumerable<Venda>
+@inject UserManager<Funcionario> userManager;
 
 @{
     ViewData["Title"] = "Vendas";
     var carros = ViewBag.carros as List<Carro>;
+    var usuarioLogado = await userManager.GetUserAsync(User);
+	var gerente = await userManager.IsInRoleAsync(usuarioLogado, "Gerente");
 }
 
 <div class="container">
@@ -26,7 +30,10 @@
                 <th scope="col">Funcionário</th>
                 <th scope="col">Status</th>
                 <th scope="col">Carros</th>
-                <th></th>
+                @if (gerente)
+                {
+                    <th></th>
+                }
             </tr>
         </thead>
         <tbody>
@@ -67,30 +74,33 @@
                         }
                   
             </td>
-            <td>
-                    <div class="w-10 btn-group" role="group">
-                        
-                        
-                        @{
-                        if(venda.Status==Status.Efetuado){
-                            <a asp-controller="Venda" asp-action="Editar" asp-route-id="@venda.Id" class="btn btn-warning mx-2">
-                                <i class="bi bi-pencil-square"></i> Editar
-                            </a>
-                            <a asp-controller="Venda" asp-action="Deletar" asp-route-id="@venda.Id" class="btn btn-danger mx-2">
-                                        <i class="bi bi-x-octagon"></i> Cancelar
-                            </a>
-                        }
-                        else{
-                            <a asp-controller="Venda" asp-action="Editar" asp-route-id="@venda.Id" class="disabled btn btn-secondary mx-2 text-shadow">
-                                <i class="bi bi-pencil-square"></i> Editar
-                            </a>
-                            <a asp-controller="Venda" asp-action="Deletar" asp-route-id="@venda.Id" class="disabled btn btn-secondary mx-2 text-shadow">
-                                        <i class="bi bi-x-octagon"></i> Cancelar
-                            </a>
-                        }
-                        }
-                    </div>
-            </td>
+            @if (gerente)
+            {
+                <td>
+                        <div class="w-10 btn-group" role="group">
+                            
+                            
+                            @{
+                            if(venda.Status==Status.Efetuado){
+                                <a asp-controller="Venda" asp-action="Editar" asp-route-id="@venda.Id" class="btn btn-warning mx-2">
+                                    <i class="bi bi-pencil-square"></i> Editar
+                                </a>
+                                <a asp-controller="Venda" asp-action="Deletar" asp-route-id="@venda.Id" class="btn btn-danger mx-2">
+                                            <i class="bi bi-x-octagon"></i> Cancelar
+                                </a>
+                            }
+                            else{
+                                <a asp-controller="Venda" asp-action="Editar" asp-route-id="@venda.Id" class="disabled btn btn-secondary mx-2 text-shadow">
+                                    <i class="bi bi-pencil-square"></i> Editar
+                                </a>
+                                <a asp-controller="Venda" asp-action="Deletar" asp-route-id="@venda.Id" class="disabled btn btn-secondary mx-2 text-shadow">
+                                            <i class="bi bi-x-octagon"></i> Cancelar
+                                </a>
+                            }
+                            }
+                        </div>
+                </td>
+            }
             </tr>
         }
     </tbody>

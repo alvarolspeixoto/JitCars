@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace JitCars.Models {
-    public class RegistrarViewModel
+    public class CadastrarViewModel
     {
         [Required(ErrorMessage = "Informe o primeiro nome")]
         [Display(Name = "Primeiro nome")]

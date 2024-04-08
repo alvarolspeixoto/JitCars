@@ -34,7 +34,7 @@ namespace JitCars.Controllers
         }
         [HttpGet]
         [Authorize(Roles = "Gerente")]
-        public async Task<IActionResult> Registrar()
+        public async Task<IActionResult> Cadastrar()
         {
 
             ViewBag.cargos = await _context.Cargos.ToListAsync();
@@ -45,7 +45,7 @@ namespace JitCars.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Gerente")]
-        public async Task<IActionResult> Registrar(RegistrarViewModel model)
+        public async Task<IActionResult> Cadastrar(CadastrarViewModel model)
         {
 
             var usuarioCpfExistente = await _context.Users
@@ -143,26 +143,7 @@ namespace JitCars.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //GET
-        public IActionResult Cadastrar()
-        {
-            return View();
-        }
-
-        //POST
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Gerente")]
-        public IActionResult Cadastrar(Funcionario obj)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Set<Funcionario>().Add(obj);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
+       
 
         //GET
         public async Task<IActionResult> Atualizar(string id)

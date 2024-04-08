@@ -1,4 +1,4 @@
-@model RegistrarViewModel;
+@model CadastrarViewModel;
 @{
     ViewData["Title"] = "Cadastrar Funcionário";
 }
@@ -7,7 +7,7 @@
     <div class="mb-5 text-center">
         <h1 class="text-light">@ViewData["Title"]</h1>
     </div>
-    <form asp-action="Registrar" method="post">
+    <form asp-action="Cadastrar" method="post">
 
         <div class="mb-3 text-white">
             <label asp-for="PrimeiroNome"></label>
