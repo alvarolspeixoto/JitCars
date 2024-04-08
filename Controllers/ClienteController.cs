@@ -118,44 +118,32 @@ namespace JitCars.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Editar(ClienteEnderecoViewModel viewModel)
         {
-            try
+            var clienteCpfExistente = await _db.Clientes.FirstOrDefaultAsync(e => e.Cpf == viewModel.Cliente.Cpf && e.Id != viewModel.Cliente.Id);
+
+            if (clienteCpfExistente != null)
             {
-                Cliente cliente = viewModel.Cliente;
-                var clienteDoBanco = await _db.Clientes.Include(c => c.Endereco).FirstOrDefaultAsync(c => c.Id == cliente.Id);
+                ModelState.AddModelError("Cliente.Cpf", "Este CPF já está em uso");
+            }
 
-                if (clienteDoBanco == null)
-                {
-                    return NotFound();
-                }
+            viewModel.Cliente.Endereco = viewModel.Endereco;
+            viewModel.Cliente.EnderecoId = viewModel.Endereco.Id;
+            
+            if (ModelState.IsValid) 
+            {
+                Cliente cliente = viewModel.Cliente!;
+                Endereco endereco = viewModel.Endereco!;
 
-                clienteDoBanco.PrimeiroNome = cliente.PrimeiroNome;
-                clienteDoBanco.Sobrenome = cliente.Sobrenome;
-                clienteDoBanco.Email = cliente.Email;
-                clienteDoBanco.Telefone = cliente.Telefone;
-                if (clienteDoBanco.Endereco == null)
-                {
-                    clienteDoBanco.Endereco = new Endereco(); 
-                }
-                clienteDoBanco.Endereco.Cep = cliente.Endereco.Cep;
-                clienteDoBanco.Endereco.Rua = cliente.Endereco.Rua;
-                clienteDoBanco.Endereco.Numero = cliente.Endereco.Numero;
-                clienteDoBanco.Endereco.Bairro = cliente.Endereco.Bairro;
-                clienteDoBanco.Endereco.Cidade = cliente.Endereco.Cidade;
-                clienteDoBanco.Endereco.Estado = cliente.Endereco.Estado;
-
+                _db.Enderecos.Update(endereco);
                 await _db.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                cliente.EnderecoId = endereco.Id;
+                _db.Clientes.Update(cliente);
+                await _db.SaveChangesAsync();
+
+                return RedirectToAction("Index", "Cliente");
             }
-            catch (DbUpdateConcurrencyException)
-            {
 
-                ModelState.AddModelError("", "Os dados foram modificados por outro usuário. Por favor, tente novamente.");
-                return View(viewModel);
-            }
-
-
-
-
+            return View(viewModel);
         }
     }
 }
