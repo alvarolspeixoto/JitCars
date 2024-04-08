@@ -56,10 +56,10 @@ namespace JitCars.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Cadastrar(Venda obj, List<int> carrosSelecionados)
+        public async Task<IActionResult> Cadastrar(Venda venda, List<int> carrosSelecionados)
         {
 
-			var cliente = await _db.Clientes.FindAsync(obj.ClienteId);
+			var cliente = await _db.Clientes.FindAsync(venda.ClienteId);
 
             
 
@@ -77,13 +77,13 @@ namespace JitCars.Controllers
 					
 					if (carrosSelecionados != null && carrosSelecionados.Any())
 					{
-						obj.ClienteId = cliente.Id;
-						_db.Vendas.Add(obj);
+						venda.ClienteId = cliente.Id;
+						_db.Vendas.Add(venda);
 						await _db.SaveChangesAsync();
 						foreach (var carroId in carrosSelecionados)
 						{
                             var carro = await _db.Carros.FindAsync(carroId);
-                            carro.VendaId = obj.Id;
+                            carro.VendaId = venda.Id;
                             _db.Update(carro);
 						}
 					}
@@ -129,10 +129,10 @@ namespace JitCars.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Editar(Venda obj, List<int> carrosSelecionados)
+        public async Task<IActionResult> Editar(Venda venda, List<int> carrosSelecionados)
         {
-            var cliente = await _db.Clientes.FindAsync(obj.ClienteId);
-            var carroAntigo = _db.Carros.Where(c => c.VendaId == obj.Id).ToList();
+            var cliente = await _db.Clientes.FindAsync(venda.ClienteId);
+            var carroAntigo = _db.Carros.Where(c => c.VendaId == venda.Id).ToList();
 
             foreach(var c in carroAntigo)
             {
@@ -153,14 +153,14 @@ namespace JitCars.Controllers
 					{
 						var carro = await _db.Carros.FindAsync(carroId);
                         
-						carro.VendaId = obj.Id;
+						carro.VendaId = venda.Id;
                         
 						_db.Update(carro);
 					}
 				}
 
-				obj.ClienteId = cliente.Id;
-				_db.Vendas.Update(obj);
+				venda.ClienteId = cliente.Id;
+				_db.Vendas.Update(venda);
 				await _db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
