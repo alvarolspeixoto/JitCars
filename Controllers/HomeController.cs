@@ -19,7 +19,8 @@ public class HomeController : Controller
 	public IActionResult Index()
     {
         var carros = _db.Carros.Include(c => c.Venda)
-                               .Include(c => c.Modelo).ToList();
+                               .Include(c => c.Modelo)
+							   .Where(c => c.VendaId != null).ToList();
 
 		var modelosMaisVendidos = _db.Carros.Where(c => c.VendaId != null)
 											.GroupBy(c => c.Modelo) 
@@ -34,12 +35,12 @@ public class HomeController : Controller
 
 
 		
-
+		
 
 
 
 		ViewBag.carros = carros;
-        ViewBag.modelos = modelosMaisVendidos;
+		ViewBag.modelos = modelosMaisVendidos;
 
 
         return View();
