@@ -163,18 +163,6 @@ namespace JitCars.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        public IActionResult Filter()
-        {
-
-            var modelos = _context.Modelos.ToList();
-
-            ViewBag.modelos = modelos;
-            ViewBag.cores = Enum.GetValues(typeof(Cor));
-
-            return View();
-        }
-
     }
 
 

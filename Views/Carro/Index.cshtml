@@ -18,17 +18,17 @@
         <h1>@ViewData["Title"]</h1>
 
         <p>Veja aqui o estoque da concessionária</p>
-        <div class="d-flex justify-content-between">
-            <a class="btn btn-primary mb-3 mr-auto" asp-controller="Carro" asp-action="Cadastrar">
-                <i class="bi bi-plus"></i>&nbsp;Adicionar carro ao estoque
-            </a>
-            <a class="btn btn-link text-dark mb-3 mx-2 ml-auto" asp-controller="Carro" asp-action="Filter">
-                Filtrar Carros
-            </a>
-        </div>
+        <a class="btn btn-primary mb-3 mr-auto" asp-controller="Carro" asp-action="Cadastrar">
+            <i class="bi bi-plus"></i>&nbsp;Adicionar carro ao estoque
+        </a>
         <a class="btn btn-secondary mb-3" asp-controller="Modelo" asp-action="Index">
             <i class="bi bi-eye"></i>&nbsp;Ver modelos cadastrados
         </a>
+
+        <label for="filtro">Filtrar por modelo:</label>
+        <input type="text" id="filtro" oninput="filtrarCarros()">
+
+
         @if (Model.Count() == 0)
         {
             <div class="d-flex align-items-center justify-content-center border" style="height:200px">
