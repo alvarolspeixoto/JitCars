@@ -18,6 +18,21 @@
         <h1>@ViewData["Title"]</h1>
 
         <p>Veja aqui o estoque da concessionária</p>
+
+        <!-- Formulário de filtro por cor -->
+        <form asp-controller="Carro" asp-action="Index" method="get">
+            <label for="cor">Escolha uma cor:</label>
+            <select name="cor" id="cor">
+                <option value="">Todas as Cores</option>
+                @foreach (var cor in ViewBag.cores)
+                {
+                    <option value="@cor">@cor</option>
+                }
+            </select>
+            <button type="submit">Filtrar por cor</button>
+        </form>
+
+        <!-- Botões adicionais -->
         <a class="btn btn-primary mb-3 mr-auto" asp-controller="Carro" asp-action="Cadastrar">
             <i class="bi bi-plus"></i>&nbsp;Adicionar carro ao estoque
         </a>
@@ -25,10 +40,7 @@
             <i class="bi bi-eye"></i>&nbsp;Ver modelos cadastrados
         </a>
 
-        <label for="filtro">Filtrar por modelo:</label>
-        <input type="text" id="filtro" oninput="filtrarCarros()">
-
-
+        <!-- Lista de carros -->
         @if (Model.Count() == 0)
         {
             <div class="d-flex align-items-center justify-content-center border" style="height:200px">
@@ -48,7 +60,8 @@
                                 var alt = temFoto ? "Imagem do " + nomeVeiculo : "";
                             }
                             <img style="height: 180px; object-fit: cover;" class="card-img-top" src="@carro.Modelo.ImagemUrl" alt="@alt">
-                            @if (!temFoto) {
+                            @if (!temFoto)
+                            {
                                 <p class="text-danger text-center">
                                     Esse modelo não possui imagem salva
                                 </p>
@@ -61,14 +74,12 @@
                                     <span style="color: green; font-size: 2em"><strong> @carro.PrecoVenda.ToString("C")</strong></span>
 
                                 </ul>
-                                <a asp-action="Editar" asp-controller="Carro" asp-route-id="@carro.Id" class="btn btn-primary"><i class="bi bi-info-circle"></i>&nbsp; Mais informações</a>
+                                <a asp-action="Atualizar" asp-controller="Carro" asp-route-id="@carro.Id" class="btn btn-primary"><i class="bi bi-info-circle"></i>&nbsp; Mais informações</a>
                             </div>
                         </div>
                     </li>
                 }
-
             </ul>
         }
     </div>
-
 </div>

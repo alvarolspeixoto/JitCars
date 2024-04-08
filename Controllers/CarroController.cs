@@ -19,16 +19,24 @@ namespace JitCars.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(Cor? cor)
         {
-
-            var carros = await _context.Carros.Include(e => e.Modelo)
+            var carrosQuery = _context.Carros.Include(e => e.Modelo)
                                               .Include(e => e.Venda)
-                                              .Where(e => e.Venda == null || e.Venda.Status == Status.Cancelado)
-                                              .ToListAsync();
+                                              .Where(e => e.Venda == null || e.Venda.Status == Status.Cancelado);
+
+            if (cor.HasValue)
+            {
+                carrosQuery = carrosQuery.Where(e => e.Cor == cor.Value);
+            }
+
+            ViewBag.cores = Enum.GetValues(typeof(Cor));
+
+            var carros = await carrosQuery.ToListAsync();
 
             return View(carros);
         }
+
 
         [HttpGet]
         public IActionResult Cadastrar()
