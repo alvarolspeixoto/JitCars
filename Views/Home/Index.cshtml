@@ -85,7 +85,7 @@
                     var quantidade = 0;
                     if (ViewBag.carros != null)   /*Verifica a quantidade de vendas*/
                     {
-                    quantidade = ViewBag.carros.Count();
+                    quantidade = ViewBag.carros.Count;
                     <text>@quantidade</text>
                 }
                 else{<text>@quantidade</text>}
@@ -118,7 +118,10 @@
         <div class="bloco" id="maisvendidos">
             <div class="titulo">Modelos Mais Vendidos</div>
             <div class="conteudo">
-
+                @foreach(var m in ViewBag.modelos)
+                {
+                    @m.Modelo @m.QuantidadeVendas
+                }
             </div>
             <a class="btn btn-primary position-absolute bottom-0 start-0 m-2 p-1" asp-controller="Carro" asp-action="Index">Ver todos os carros</a>
         </div>
