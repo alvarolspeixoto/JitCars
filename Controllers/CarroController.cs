@@ -19,7 +19,7 @@ namespace JitCars.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(Cor? cor, Carroceria? carroceria)
+        public async Task<IActionResult> Index(Cor? cor, Carroceria? carroceria, int? ano)
         {
             var carrosQuery = _context.Carros.Include(e => e.Modelo)
                                               .Include(e => e.Venda)
@@ -35,8 +35,15 @@ namespace JitCars.Controllers
                 carrosQuery = carrosQuery.Where(e => e.Modelo.Carroceria == carroceria.Value);
             }
 
+            if (ano.HasValue)
+            {
+                carrosQuery = carrosQuery.Where(e => e.Modelo != null && e.Modelo.AnoFabricacao == ano.Value);
+            }
+
+
             ViewBag.cores = Enum.GetValues(typeof(Cor));
             ViewBag.carroceria = Enum.GetValues(typeof(Carroceria));
+            ViewBag.anos = _context.Modelos.Select(m => m.AnoFabricacao).Distinct().ToList();
 
             var carros = await carrosQuery.ToListAsync();
 

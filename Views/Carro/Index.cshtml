@@ -45,6 +45,18 @@
             <button type="submit">Filtrar por carroceria</button>
         </form>
 
+        <form asp-controller="Carro" asp-action="Index" method="get">
+            <label class="mb-3" for="ano">Filtrar por ano:</label>
+            <select name="ano" id="ano">
+                <option value="">Todos os Anos</option>
+                @foreach (var ano in ViewBag.anos)
+                {
+                    <option value="@ano">@ano</option>
+                }
+            </select>
+            <button type="submit">Filtrar por ano</button>
+        </form>
+
        
         <a class="btn btn-primary mb-3 mr-auto" asp-controller="Carro" asp-action="Cadastrar">
             <i class="bi bi-plus"></i>&nbsp;Adicionar carro ao estoque
