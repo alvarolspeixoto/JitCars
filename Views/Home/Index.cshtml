@@ -83,7 +83,7 @@
             <div class="conteudo">
                 @{
                     var quantidade = 0;
-                    if (ViewBag.carros != null)   /*Verifica a quantidade de vendas*/
+                    if (ViewBag.carros != null)   
                     {
                     
                     quantidade = ViewBag.carros.Count;
@@ -93,13 +93,13 @@
                 }
             </div>
 
-            <a class="btn btn-primary position-absolute bottom-0 start-0 m-2 p-1">Gerar Relatório de Vendas</a>
+            <a asp-controller="Venda" asp-action="Index" class="btn btn-primary position-absolute bottom-0 start-0 m-2 p-1">Ver todas as vendas</a>
         </div>
         
         <div class="bloco" id="faturamento">
             <div class="titulo">Valor Faturado</div>
             <div class="conteudo">
-                @if (ViewBag.carros != null)    /*Verifica o faturamento total*/
+                @if (ViewBag.carros != null)    
                 {
                     var faturamentoTotal = 0;
                     foreach(var carro in ViewBag.carros)
@@ -113,24 +113,39 @@
                 }
                 else{<text>0</text>}
             </div>
-            <a class="btn btn-primary position-absolute bottom-0 start-0 m-2 p-1">Gerar Relatório de Faturamento</a>
+            
         </div>
 
         <div class="bloco" id="maisvendidos">
             <div class="titulo">Modelos Mais Vendidos</div>
             <div class="conteudo">
-               @foreach(var m in ViewBag.modelos)
-               {
-                    @m.Modelo @m.QuantidadeVendas
-                }
-                
+                @{
+
+                    var rankModelos = 1;
+                    foreach(var m in ViewBag.modelos)
+                    {
+                        <div class="text-left mr-5 pr-5">@($"{rankModelos}. {m.Modelo}")</div>
+                        rankModelos++;
+                    }
+               }
             </div>
             <a class="btn btn-primary position-absolute bottom-0 start-0 m-2 p-1" asp-controller="Carro" asp-action="Index">Ver todos os carros</a>
         </div>
 
         <div class="bloco" id="vendedores">
-            <div class="titulo">Top 5 - Vendedores (Vendas totais)</div>
-            <div class="conteudo"></div>
+            <div class="titulo">Top 5 - Funcionarios (Receita total)</div>
+            <div class="conteudo">
+                @{
+
+                    var rankFuncionarios = 1;
+                    foreach (var f in ViewBag.funcionarios)
+                    {
+                        <div class="text-left mr-5 pr-5">@($"{rankFuncionarios}. {f.Nome}")</div>
+                        rankFuncionarios++;
+                    }
+                }
+
+            </div>
             <a class="btn btn-primary position-absolute bottom-0 start-0 m-2 p-1" asp-controller="Funcionario" asp-action="Index">Ver todos os vendedores</a>
         </div>
 
